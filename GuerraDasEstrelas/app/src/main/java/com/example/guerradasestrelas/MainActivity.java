@@ -5,6 +5,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.example.guerradasestrelas.fragments.GalleryFragment;
+import com.example.guerradasestrelas.fragments.MainMenuFragment;
+import com.example.guerradasestrelas.fragments.PlayFragment;
+
 public class MainActivity extends AppCompatActivity implements MainMenuFragment.OnMainMenuFragmentInteractionListener, PlayFragment.OnPlayFragmentInteractionListener, GalleryFragment.OnGalleryFragmentInteractionListener{
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.guerradasestrelas;
+package com.example.guerradasestrelas.fragments;
 
 
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.guerradasestrelas.R;
 
 /**
  * A simple {@link Fragment} subclass.
