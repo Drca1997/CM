@@ -12,6 +12,9 @@ public class CardSlot {
         slot.setImageResource(R.drawable.blank);
     }
 
+    public ImageButton getSlot(){
+        return slot;
+    }
 
     public Carta getCarta() {
         return carta;

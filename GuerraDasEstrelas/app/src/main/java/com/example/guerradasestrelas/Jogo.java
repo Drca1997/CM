@@ -73,6 +73,13 @@ public class Jogo {
         }
     }
 
+    public int getTurno(){
+        return turno;
+    }
+
+    public Jogador [] getJogadores(){
+        return jogadores;
+    }
     //loop:
     //jogadores[turno] joga carta:
     // - remover carta da mao
