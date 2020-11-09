@@ -1,23 +1,27 @@
 package com.example.guerradasestrelas;
 
-import android.media.Image;
-
-import java.util.function.Function;
+import android.widget.ImageButton;
 
 public class Carta {
 
     private String nome;
     private int poder;
-    private Image mini;
-    private Image max;
+    private int id_mini;
+    private int id_max;
     private int fila; //fila 0 - Portugal; fila 1 - Mundo - mais tarde meter estas variaveis como constantes num singleton
 
-    public Carta(String nome, int poder, Image mini, Image max, int fila){
+    public Carta(String nome, int poder, int mini, int max, int fila){
         this.nome = nome;
         this.poder = poder;
-        this.mini = mini;
-        this.max = max;
+        this.id_mini = mini;
+        this.id_max = max;
         this.fila = fila;
+    }
+
+    public void Play(){
+
+
+
     }
 
     /*
@@ -42,15 +46,16 @@ public class Carta {
         this.poder = poder;
     }
 
-    public Image getMini() {
-        return mini;
-    }
-
-    public Image getMax() {
-        return max;
-    }
-
     public int getFila() {
         return fila;
     }
+
+    public int getId_mini() {
+        return id_mini;
+    }
+
+    public int getId_max() {
+        return id_max;
+    }
+
 }

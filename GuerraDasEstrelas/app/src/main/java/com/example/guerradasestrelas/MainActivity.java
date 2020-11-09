@@ -3,6 +3,7 @@ package com.example.guerradasestrelas;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.guerradasestrelas.fragments.GalleryFragment;
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements MainMenuFragment.
 
     public void onLocalMPInteraction() {
         // chamar atividade de local MP
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
     }
 
     public void onVSPCInteraction() {

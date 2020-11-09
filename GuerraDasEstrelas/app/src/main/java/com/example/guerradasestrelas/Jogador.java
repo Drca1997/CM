@@ -1,22 +1,32 @@
 package com.example.guerradasestrelas;
 
+import android.content.Context;
+import android.media.Image;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Jogador {
 
-    private Carta [] mao;
+    private int id;
+    private CardSlot [] mao;
     private Carta [] baralho;
     private List<Carta> descartes;
-    private Carta [][] campo;
+    private Carta [][] campo; //mudar tb para card slot
     private int rondasGanhas;
     private int [] poder;
+    private View view;
 
-    public Jogador(Carta[] baralho){
+    public Jogador(Carta[] baralho, int id){
+        this.id = id;
         this.baralho = baralho;
         this.descartes = new ArrayList<Carta>();
-        this.mao = new Carta [10];
+        this.mao = new CardSlot [Singleton.LIM_MAO];
+        BuildPlayerCardSlots(Singleton.view);
         this.rondasGanhas = 0;
         this.campo = new Carta [Singleton.NUM_FILAS] [Singleton.TAMANHO_FILAS]; //2 filas, cada uma com 5 cartas;
         this.poder = new int[] {0, 0,0};
@@ -30,28 +40,29 @@ public class Jogador {
         return this.campo[1];
     }
 
-    public void baralhaBaralho() {
-        Random rand = new Random();
-        for (int i = 0; i < baralho.length; i++) {
-            int randomIndexToSwap = rand.nextInt(baralho.length);
-            Carta temp = baralho[randomIndexToSwap];
-            baralho[randomIndexToSwap] = baralho[i];
-            baralho[i] = temp;
-        }
-    }
-
     public void InicializaMao(){
         for (int i = 0; i < Singleton.NUM_CARTAS_INICIAIS; i++){
-            mao[i] = baralho[i];
+            mao[i].setCarta(baralho[i]);
             baralho[i] = null;
         }
+
+    }
+
+    private void BuildPlayerCardSlots(View view){
+        mao[0] = new CardSlot((ImageButton) view.findViewById(R.id.handslot1));
+        mao[1] = new CardSlot((ImageButton) view.findViewById(R.id.handslot2));
+        mao[2] = new CardSlot((ImageButton) view.findViewById(R.id.handslot3));
+        mao[3] = new CardSlot((ImageButton) view.findViewById(R.id.handslot4));
+        mao[4] = new CardSlot((ImageButton) view.findViewById(R.id.handslot5));
     }
 
     public void JogaCarta(Carta carta){ //nao tira carta da mao aqui. será no onclicklistener da carta
-        int freeSlot = getNextFreeSlot(campo[carta.getFila()]);
+        int freeSlot = Singleton.getNextFreeSlot(campo[carta.getFila()]);
         if (freeSlot >= 0){
             campo[carta.getFila()][freeSlot] = carta;
             //meter carta visualmente no campo
+            //playSlot = Singleton.getNextFreeSlot(cardSlots)
+            //carta.Play(playSlot);
         }
         else{
             //Nao faz nada a nao ser dar Som de Erro
@@ -59,15 +70,7 @@ public class Jogador {
         }
     }
 
-    private int getNextFreeSlot(Carta [] array){
-        int nextFreeSlot = -1;
-        int i = 0;
-        while (array[i] != null){
-            nextFreeSlot = i;
-            i++;
-        }
-        return nextFreeSlot;
-    }
+
 
     public void LimpaCampo(){
         for(int fila=0; fila < Singleton.NUM_FILAS; fila++){
@@ -94,12 +97,8 @@ public class Jogador {
         return baralho;
     }
 
-    public Carta[] getMao() {
+    public CardSlot[] getMao() {
         return mao;
-    }
-
-    public void setMao(Carta[] mao) {
-        this.mao = mao;
     }
 
     public Carta[][] getCampo() {
@@ -113,4 +112,6 @@ public class Jogador {
     public int[] getPoder() {
         return poder;
     }
+
+
 }
