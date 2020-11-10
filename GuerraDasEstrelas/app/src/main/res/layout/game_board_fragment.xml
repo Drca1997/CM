@@ -7,57 +7,231 @@
     android:layout_height="match_parent"
     tools:context=".ui.gameboard.GameBoardFragment">
 
-    <TextView
-        android:id="@+id/message"
+    <LinearLayout
+        android:id="@+id/Tabuleiro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mão do Jogador"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
-        android:layout_width="393dp"
-        android:layout_height="491dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message">
-
-        <ImageButton
-            android:id="@+id/handslot1"
+        <TextView
+            android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/blank" />
+            android:text="Mão do Jogador" />
 
-        <ImageButton
-            android:id="@+id/handslot2"
+        <LinearLayout
+            android:id="@+id/MaoJogador"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/blank" />
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/handslot3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/blank" />
+            <ImageButton
+                android:id="@+id/handslot1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
 
-        <ImageButton
-            android:id="@+id/handslot4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/blank" />
+            <ImageButton
+                android:id="@+id/handslot2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
 
-        <ImageButton
-            android:id="@+id/handslot5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/blank" />
+            <ImageButton
+                android:id="@+id/handslot3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/handslot4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/handslot5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/p1_Portugal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/p1_PortugalSlot1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p1_PortugalSlot2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p1_PortugalSlot3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p1_PortugalSlot4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p1_PortugalSlot5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/p1_Mundo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/p1_MundoSlot1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p1_MundoSlot2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p1_MundoSlot3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p1_MundoSlot4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p1_MundoSlot5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/p2_Portugal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/p2_PortugalSlot1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p2_PortugalSlot2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p2_PortugalSlot3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p2_PortugalSlot4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p2_PortugalSlot5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/p2_Mundo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/p2_MundoSlot1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p2_MundoSlot2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p2_MundoSlot3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p2_MundoSlot4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+
+            <ImageButton
+                android:id="@+id/p2_MundoSlot5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/blank" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

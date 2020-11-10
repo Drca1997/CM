@@ -68,14 +68,34 @@ public class Singleton  {
         }
     }
 
-    public static <T> int getNextFreeSlot(T[] array){
-        int nextFreeSlot = -1;
-        int i = 0;
-        while (array[i] != null){
-            nextFreeSlot = i;
-            i++;
+    //retorna -1 se nao ha slot livre
+    public static int getNextFreeSlot(CardSlot [] array){
+        int nextFreeSlot = 0;
+        while (nextFreeSlot < array.length && array[nextFreeSlot].getCarta() != null){
+            nextFreeSlot++;
+        }
+        if (nextFreeSlot >= array.length){
+            return -1;
         }
         return nextFreeSlot;
+    }
+
+    public static Carta [] getCardsArray(CardSlot [] array){
+        Carta [] cartas = new Carta [contaNotNullSlots(array)];
+        for(int i=0; i < cartas.length; i++){
+            cartas[i] = array[i].getCarta();
+        }
+        return cartas;
+    }
+
+    public static int contaNotNullSlots(CardSlot [] array){
+        int res = 0;
+        for (CardSlot slot: array){
+            if (slot.getCarta() != null){
+                res++;
+            }
+        }
+        return res;
     }
 
 }

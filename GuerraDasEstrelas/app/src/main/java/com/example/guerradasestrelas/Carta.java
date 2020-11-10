@@ -18,17 +18,11 @@ public class Carta {
         this.fila = fila;
     }
 
-    public void Play(){
 
-
-
-    }
-
-    /*
-    public void ExecutaHabilidade(Function  function){
+    public void ExecutaHabilidade(){
 
     }
-    */
+
 
     public void AddModifier(int modificador){
         setPoder(getPoder() + modificador);

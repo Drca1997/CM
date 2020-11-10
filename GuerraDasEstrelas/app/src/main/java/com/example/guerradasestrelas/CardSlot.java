@@ -22,6 +22,11 @@ public class CardSlot {
 
     public void setCarta(Carta carta) {
         this.carta = carta;
-        slot.setImageResource(carta.getId_mini());
+        if (carta != null){
+            slot.setImageResource(carta.getId_mini());
+        }
+        else{
+            slot.setImageResource(R.drawable.blank);
+        }
     }
 }

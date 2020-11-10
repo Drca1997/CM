@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.guerradasestrelas.CardSlot;
+import com.example.guerradasestrelas.Carta;
 import com.example.guerradasestrelas.Jogo;
 import com.example.guerradasestrelas.R;
 
@@ -30,13 +31,21 @@ public class GameBoardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.game_board_fragment, container, false);
-        Jogo jogo = new Jogo(getActivity(), view);
-        CardSlot [] player1hand = jogo.getJogadores()[0].getMao();
-        for (final CardSlot slot : player1hand){
+        final Jogo jogo = new Jogo(getActivity(), view);
+        CardSlot [] playerhand = jogo.getJogadores()[jogo.getTurno()].getMao();
+        for (final CardSlot slot : playerhand){
             slot.getSlot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println(slot.getCarta().getNome());
+                    Carta temp = slot.getCarta();
+                    if (temp != null){
+                        slot.setCarta(null); //remove carta da mão do jogador
+                        jogo.getJogadores()[jogo.getTurno()].JogaCarta(temp);
+                    }
+
+
+
+
                 }
             });
         }

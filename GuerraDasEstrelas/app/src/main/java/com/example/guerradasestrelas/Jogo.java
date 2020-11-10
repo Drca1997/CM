@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Jogo {
 
     private Jogador [] jogadores;
-    private CardSlot[] cardSlots;
+    //private CardSlot[] cardSlots;
 
     private int turno; //0 - vez do jogador 1, 1- vez do jogador 2. Ou seja, posição dos jogadores no array "jogadores"
 
@@ -40,23 +40,14 @@ public class Jogo {
 
     }
 
-    //so usado depois quando houver slots de tabuleiro
-    private void BuildCardSlots(View view){
-        cardSlots[0] = new CardSlot((ImageButton) view.findViewById(R.id.handslot1));
-        cardSlots[1] = new CardSlot((ImageButton) view.findViewById(R.id.handslot2));
-        cardSlots[2] = new CardSlot((ImageButton) view.findViewById(R.id.handslot3));
-        cardSlots[3] = new CardSlot((ImageButton) view.findViewById(R.id.handslot4));
-        cardSlots[4] = new CardSlot((ImageButton) view.findViewById(R.id.handslot5));
-    }
-
     public void UpdatePoder(){
         for (Jogador jogador : jogadores){
             for (int fila = 0; fila < Singleton.NUM_FILAS; fila++){
                 int soma = 0;
-                int carta = 0;
-                while (jogador.getCampo()[fila][carta] != null){
-                    soma += jogador.getCampo()[fila][carta].getPoder();
-                    carta++;
+                int slot = 0;
+                while (jogador.getCampo()[fila][slot].getCarta() != null){
+                    soma += jogador.getCampo()[fila][slot].getCarta().getPoder();
+                    slot++;
                 }
                 jogador.getPoder()[fila] = soma;
             }
@@ -64,7 +55,7 @@ public class Jogo {
         }
     }
 
-    public void UpdateTurno(){
+    public void UpdateTurno(){ //evocada quando jogador passar a ronda. (onclick listener do botao de passar jogada)
         if (turno == Singleton.NUM_JOGADORES - 1){
             turno = 0;
         }
@@ -80,12 +71,13 @@ public class Jogo {
     public Jogador [] getJogadores(){
         return jogadores;
     }
+
     //loop:
     //jogadores[turno] joga carta:
     // - remover carta da mao
     // - jogadores[turno].JogaCarta(carta)
     // - carta.ExecutaHabilidade();
-    // - cartas.addModificador.
+    // -- cartas.addModificador.
     // - UpdatePoder()
     // - update turno
 
