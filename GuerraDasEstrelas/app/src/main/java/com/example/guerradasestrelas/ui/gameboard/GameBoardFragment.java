@@ -31,6 +31,7 @@ public class GameBoardFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.game_board_fragment, container, false);
+
         final Jogo jogo = new Jogo(getActivity(), view);
         CardSlot [] playerhand = jogo.getJogadores()[jogo.getTurno()].getMao();
         for (final CardSlot slot : playerhand){
@@ -42,10 +43,6 @@ public class GameBoardFragment extends Fragment {
                         slot.setCarta(null); //remove carta da mão do jogador
                         jogo.getJogadores()[jogo.getTurno()].JogaCarta(temp);
                     }
-
-
-
-
                 }
             });
         }
@@ -57,6 +54,7 @@ public class GameBoardFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //mViewModel = ViewModelProviders.of(this).get(GameBoardViewModel.class);
+
 
     }
 
