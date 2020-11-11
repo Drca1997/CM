@@ -1,6 +1,7 @@
 package com.example.guerradasestrelas;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.view.View;
 
 import java.util.Random;
@@ -13,6 +14,7 @@ public class Singleton  {
     public static final int NUM_JOGADORES = 2;
     public static final int NUM_CARTAS = 14;
     public static final int LIM_MAO = 5;
+
 
     private static Singleton INSTANCE = null;
     public static Context context;
@@ -28,6 +30,7 @@ public class Singleton  {
         return(INSTANCE);
     }
 
+    /*
     //driver code
     public static Carta [] GetAllCards(){
         Carta [] allCards = new Carta[NUM_CARTAS];
@@ -48,54 +51,7 @@ public class Singleton  {
 
         return allCards;
     }
+    */
 
-    public static void baralhaBaralho(Carta [] baralho) {
-        Random rand = new Random();
-        for (int i = 0; i < baralho.length; i++) {
-            int randomIndexToSwap = rand.nextInt(baralho.length);
-            Carta temp = baralho[randomIndexToSwap];
-            baralho[randomIndexToSwap] = baralho[i];
-            baralho[i] = temp;
-        }
-    }
-
-    public static void PrintBaralho(Carta [] baralho){
-        for(Carta carta: baralho){
-            if (carta != null){
-                System.out.println(carta.getNome());
-            }
-
-        }
-    }
-
-    //retorna -1 se nao ha slot livre
-    public static int getNextFreeSlot(CardSlot [] array){
-        int nextFreeSlot = 0;
-        while (nextFreeSlot < array.length && array[nextFreeSlot].getCarta() != null){
-            nextFreeSlot++;
-        }
-        if (nextFreeSlot >= array.length){
-            return -1;
-        }
-        return nextFreeSlot;
-    }
-
-    public static Carta [] getCardsArray(CardSlot [] array){
-        Carta [] cartas = new Carta [contaNotNullSlots(array)];
-        for(int i=0; i < cartas.length; i++){
-            cartas[i] = array[i].getCarta();
-        }
-        return cartas;
-    }
-
-    public static int contaNotNullSlots(CardSlot [] array){
-        int res = 0;
-        for (CardSlot slot: array){
-            if (slot.getCarta() != null){
-                res++;
-            }
-        }
-        return res;
-    }
 
 }

@@ -2,6 +2,7 @@ package com.example.guerradasestrelas;
 
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -11,18 +12,23 @@ public class Jogo {
 
     private Jogador [] jogadores;
     //private CardSlot[] cardSlots;
-
     private int turno; //0 - vez do jogador 1, 1- vez do jogador 2. Ou seja, posição dos jogadores no array "jogadores"
 
     public Jogo(Context context, View view){
+
         Singleton.getInstance();
         Singleton.context = context;
         Singleton.view = view;
-        //cardSlots = new CardSlot[Singleton.TAMANHO_FILAS];
+
+        //cardSlots = new CardSlot[Singleton.TAMANHO_FILAS]; se calhar nao vai ser necessario, pois cada jgoaddor tem cardslots do seu campo respetivo
         //BuildCardSlots(view);
 
-        Carta [] allCards = Singleton.GetAllCards();
-        Singleton.baralhaBaralho(allCards);
+        BaseDados bd = new BaseDados(context);
+        Carta [] allCards= bd.GetAllCards();
+
+        Utils.baralhaBaralho(allCards);
+        Utils.PrintBaralho(allCards);
+
         Carta[] baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS/ 2);
         Carta[] baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS/2, allCards.length);
         jogadores = new Jogador [Singleton.NUM_JOGADORES];
@@ -31,10 +37,10 @@ public class Jogo {
         jogadores[0] = jogador1;
         jogadores[1] = jogador2;
         this.turno = 0;
-        Singleton.baralhaBaralho(jogador1.getBaralho());
-        Singleton.baralhaBaralho(jogador2.getBaralho());
+        Utils.baralhaBaralho(jogador1.getBaralho());
+        Utils.baralhaBaralho(jogador2.getBaralho());
         System.out.println("Baralho");
-        Singleton.PrintBaralho(jogador1.getBaralho());
+        Utils.PrintBaralho(jogador1.getBaralho());
         jogador1.InicializaMao();
         //jogador2.InicializaMao();
 

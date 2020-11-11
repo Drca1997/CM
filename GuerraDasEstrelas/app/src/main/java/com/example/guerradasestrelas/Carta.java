@@ -4,13 +4,15 @@ import android.widget.ImageButton;
 
 public class Carta {
 
+    private int id;
     private String nome;
     private int poder;
     private int id_mini;
     private int id_max;
     private int fila; //fila 0 - Portugal; fila 1 - Mundo - mais tarde meter estas variaveis como constantes num singleton
 
-    public Carta(String nome, int poder, int mini, int max, int fila){
+    public Carta(int id, String nome, int poder, int mini, int max, int fila){
+        this.id = id;
         this.nome = nome;
         this.poder = poder;
         this.id_mini = mini;
@@ -52,4 +54,7 @@ public class Carta {
         return id_max;
     }
 
+    public int getId() {
+        return id;
+    }
 }

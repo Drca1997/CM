@@ -84,7 +84,7 @@ public class Jogador {
 
     public void JogaCarta(Carta carta){ //nao tira carta da mao aqui. será no onclicklistener da carta
         //Carta [] cartasNaFila = Singleton.getCardsArray(campo[carta.getFila()]);
-        int freeSlot = Singleton.getNextFreeSlot(campo[carta.getFila()]);
+        int freeSlot = Utils.getNextFreeSlot(campo[carta.getFila()]);
         if (freeSlot >= 0){
             campo[carta.getFila()][freeSlot].setCarta(carta); //coloca carta no campo
             carta.ExecutaHabilidade();
