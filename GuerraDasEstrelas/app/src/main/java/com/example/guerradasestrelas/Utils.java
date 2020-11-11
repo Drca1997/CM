@@ -14,7 +14,8 @@ public class Utils {
         }
     }
 
-    public static void PrintBaralho(Carta [] baralho){
+    public static void PrintBaralho(Carta [] baralho, String mensagem){
+        if (mensagem != null){System.out.println(mensagem);}
         for(Carta carta: baralho){
             if (carta != null){
                 System.out.println(carta.getNome());
@@ -27,6 +28,17 @@ public class Utils {
     public static int getNextFreeSlot(CardSlot [] array){
         int nextFreeSlot = 0;
         while (nextFreeSlot < array.length && array[nextFreeSlot].getCarta() != null){
+            nextFreeSlot++;
+        }
+        if (nextFreeSlot >= array.length){
+            return -1;
+        }
+        return nextFreeSlot;
+    }
+
+    public static int getNextFreeSlot(Carta [] array){
+        int nextFreeSlot = 0;
+        while (nextFreeSlot < array.length && array[nextFreeSlot] != null){
             nextFreeSlot++;
         }
         if (nextFreeSlot >= array.length){

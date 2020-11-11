@@ -29,4 +29,5 @@ public class CardSlot {
             slot.setImageResource(R.drawable.blank);
         }
     }
+
 }
