@@ -24,30 +24,16 @@ public class Jogo {
 
         handSlots = new CardSlot[Singleton.LIM_MAO];
         BuildHandSlots();
-
         playerLabel = view.findViewById(R.id.message);
+
         BaseDados bd = new BaseDados(context);
         Carta [] allCards= bd.GetAllCards();
 
-        Utils.baralhaBaralho(allCards);
-        Utils.PrintBaralho(allCards, "Cartas Recolhidas da Base de Dados");
+        criaJogadores();
 
-        Carta[] baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS/ 2);
-        Carta[] baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS/2, allCards.length);
-        jogadores = new Jogador [Singleton.NUM_JOGADORES];
-        Jogador jogador1 = new Jogador(baralho1, 1);
-        Jogador jogador2 = new Jogador(baralho2, 2);
-        jogadores[0] = jogador1;
-        jogadores[1] = jogador2;
-        this.turno = 0;
-        Utils.baralhaBaralho(jogador1.getBaralho());
-        Utils.baralhaBaralho(jogador2.getBaralho());
-        Utils.PrintBaralho(jogador1.getBaralho(), "Baralho do Jogador 1");
-        Utils.PrintBaralho(jogador2.getBaralho(), "Baralho do Jogador 2");
-        jogador1.InicializaMao();
-        jogador2.InicializaMao();
-        updatePlayerLabel();
-        jogador1.MostraMao(handSlots);
+        bd.getCardsSkills(allCards);
+
+        setupGame(allCards);
     }
 
     private void BuildHandSlots(){
@@ -56,6 +42,42 @@ public class Jogo {
         handSlots[2] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.handslot3));
         handSlots[3] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.handslot4));
         handSlots[4] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.handslot5));
+    }
+
+    private void criaJogadores(){
+        jogadores = new Jogador [Singleton.NUM_JOGADORES];
+        Jogador jogador1 = new Jogador(1);
+        Jogador jogador2 = new Jogador(2);
+        jogadores[0] = jogador1;
+        jogadores[1] = jogador2;
+    }
+
+    private void setupGame(Carta [] allCards){
+        buildBaralhosJogadores(allCards);
+        //Inicia indicador de turno: vez do jogador 1
+        this.turno = 0;
+        updatePlayerLabel();
+        //baralha baralhos
+        Utils.baralhaBaralho(jogadores[0].getBaralho());
+        Utils.baralhaBaralho(jogadores[1].getBaralho());
+        //debug print dos baralhos
+        Utils.PrintBaralho(jogadores[0].getBaralho(), "Baralho do Jogador 1");
+        Utils.PrintBaralho(jogadores[1].getBaralho(), "Baralho do Jogador 2");
+        //Atribui mao inicial aos jogadores
+        jogadores[0].InicializaMao();
+        jogadores[1].InicializaMao();
+        //mostra mao do jogador 1, pronto para comecar o jogo
+        jogadores[0].MostraMao(handSlots);
+    }
+
+    private void buildBaralhosJogadores(Carta [] allCards){
+        //Atribui baralhos aos jogadores
+        Utils.baralhaBaralho(allCards);
+        Utils.PrintBaralho(allCards, "Cartas Recolhidas da Base de Dados");
+        Carta[] baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS/ 2);
+        Carta[] baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS/2, allCards.length);
+        jogadores[0].setBaralho(baralho1);
+        jogadores[1].setBaralho(baralho2);
     }
 
     public void updatePlayerLabel(){

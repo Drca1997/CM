@@ -18,9 +18,9 @@ public class Jogador {
     private int [] poder;
     private boolean skipped;
 
-    public Jogador(Carta[] baralho, int id){
+    public Jogador(int id){
         this.id = id;
-        this.baralho = baralho;
+        this.baralho = null;
         this.descartes = new ArrayList<Carta>();
         this.mao = new Carta [Singleton.LIM_MAO];
         this.rondasGanhas = 0;
@@ -94,17 +94,29 @@ public class Jogador {
         }
     }
 
-    public void jogaCarta(Carta carta, int freeSlot){
+    public void jogaCarta(Carta carta, int freeSlot, int turno, CardSlot[][] campo1, CardSlot[][] campo2){
         if (freeSlot >= 0){
             removeCartadaMao(carta);
             campo[carta.getFila()][freeSlot].setCarta(carta); //coloca carta no campo
-            carta.ExecutaHabilidade();
+            if (carta.getHabilidade() != null){
+                carta.getHabilidade().Execute(turno, campo1, campo2);
+            }
             tiraCartaDoBaralho();
         }
         else{
             //Nao faz nada a nao ser dar Som de Erro
             //Será aqui o sitio ideal para detetar habilidade de Madonna e Ronaldo?
-
+            if (carta.getHabilidade() != null){
+                if (carta.getHabilidade().getNome().equals("MultiFila")){
+                    int outrafila = Utils.getOutraFila(carta.getFila());
+                    int slotOutraFila = Utils.getNextFreeSlot(campo[outrafila]);
+                    if (slotOutraFila >= 0){
+                        removeCartadaMao(carta);
+                        campo[outrafila][slotOutraFila].setCarta(carta);
+                        tiraCartaDoBaralho();
+                    }
+                }
+            }
         }
     }
 
@@ -150,6 +162,10 @@ public class Jogador {
 
     public Carta[] getBaralho() {
         return baralho;
+    }
+
+    public void setBaralho(Carta [] baralho){
+        this.baralho = baralho;
     }
 
     public Carta[] getMao() {

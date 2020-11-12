@@ -31,9 +31,21 @@ public class BaseDados extends SQLiteOpenHelper {
                                                     FILA_COLUMN + INTEGER + FILA_CONSTRAINTS  +
                                                     IMG_MAX_COLUMN + INTEGER + NOT_NULL_CONSTRAINT + ", " +
                                                     IMG_MINI_COLUMN + INTEGER + NOT_NULL_CONSTRAINT +");";
-    private static final String SKILL_TABLE_CREATE = "";
     public static final String SKILL_TABLE_NAME = "habilidades";
+    private static final String SKILL_ID_CONSTRAINTS = " FOREIGN KEY(" + ID_COLUMN + ") REFERENCES " + CARD_TABLE_NAME + "(" + ID_COLUMN + ")";
     private static final String SKILL_COLUMN = "Habilidade";
+    private static final String SKILL_COLUMN_CONSTRAINTS = " PRIMARY KEY";
+    private static final String MODIFIER_COLUMN = "Modificador";
+    private static final String FILA1_COLUMN = "Fila1";
+    private static final String FILA2_COLUMN = "Fila2";
+    private static final String SKILL_TABLE_CREATE = "CREATE TABLE " + SKILL_TABLE_NAME + " (" +
+                                                        ID_COLUMN + INTEGER + ", " +
+                                                        SKILL_COLUMN + TEXT_DEFINITION + ", " +
+                                                        MODIFIER_COLUMN + INTEGER  + ", " +
+                                                        FILA1_COLUMN + INTEGER + ", " +
+                                                        FILA2_COLUMN + INTEGER + ", " +
+                                                        SKILL_ID_CONSTRAINTS  +");" ;
+
 
     public BaseDados(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -85,14 +97,26 @@ public class BaseDados extends SQLiteOpenHelper {
     }
 
     public void SetupSkillsDataBase(SQLiteDatabase bd){
-
+        insereSkillNaBD(bd, 3, "AddModifier", 1, 1, null);
+        insereSkillNaBD(bd, 6, "AddModifier", -1, 3, 4);
+        insereSkillNaBD(bd, 13,"AddModifier", 1, 1, 2);
+        insereSkillNaBD(bd, 4, "MultiFila", null, null, null);
     }
 
-    public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade){
+    public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade, Integer mod, Integer f1, Integer f2){
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(ID_COLUMN, id);
         values.put(SKILL_COLUMN, habilidade);
+        if (mod != null){
+            values.put(MODIFIER_COLUMN, (int)mod);
+        }
+        if (f1 != null){
+            values.put(FILA1_COLUMN, (int)f1);
+        }
+        if (f2 != null){
+            values.put(FILA2_COLUMN, (int)f2);
+        }
         // Insert the new row, returning the primary key value of the <new row
         long res = bd.insert(SKILL_TABLE_NAME, null, values);
         return res != -1;
@@ -111,7 +135,7 @@ public class BaseDados extends SQLiteOpenHelper {
                 int fila = cursor.getInt(cursor.getColumnIndex(FILA_COLUMN));
                 int imgMini = cursor.getInt(cursor.getColumnIndex(IMG_MINI_COLUMN));
                 int imgMax = cursor.getInt(cursor.getColumnIndex(IMG_MAX_COLUMN));
-                all_cartas[i] = new Carta(id, nome, poder, imgMini, imgMax, fila ); //criacao de carta
+                all_cartas[i] = new Carta(id, nome, poder, imgMini, imgMax, fila); //criacao de carta
                 i++;
             }while (cursor.moveToNext());
             cursor.close();
@@ -120,6 +144,33 @@ public class BaseDados extends SQLiteOpenHelper {
         return all_cartas;
     }
 
+    public void getCardsSkills(Carta[] cartas){
+        SQLiteDatabase bd = this.getReadableDatabase();
+        for (Carta c : cartas){
+            //get from skill table, carta.getId()
+            Cursor cursor = bd.rawQuery("SELECT * FROM " + SKILL_TABLE_NAME +
+                                        " WHERE " + ID_COLUMN + " == " + c.getId(), null);
+            if (cursor.moveToFirst()){
+                String skillName = cursor.getString(cursor.getColumnIndex(SKILL_COLUMN));
+                System.out.println(skillName);
+                switch(skillName){
+                    case "AddModifier":
+                        int mod = cursor.getInt(cursor.getColumnIndex(MODIFIER_COLUMN));
+                        int f1 = cursor.getInt(cursor.getColumnIndex(FILA1_COLUMN));
+                        int f2 = cursor.getInt(cursor.getColumnIndex(FILA2_COLUMN));
+                        AddModififier skill = new AddModififier(skillName, mod, f1, f2);
+                        c.assignSkill(skill);
+                        break;
+                    case "AddCardToHand":
+                        break;
+                    default:
+                        OutraHabilidade outra = new OutraHabilidade(skillName);
+                        c.assignSkill(outra);
+                        break;
+                }
+            }
+        }
+    }
     /*
     public void ApagaBD(SQLiteDatabase db){
         db.execSQL(DELETE_DATABASE);

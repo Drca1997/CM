@@ -46,7 +46,7 @@ public class GameBoardFragment extends Fragment {
                         int freeSlot = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[temp.getFila()]);
                         if (freeSlot >= 0){
                             slot.setCarta(null); //remove carta do handSlot
-                            jogo.getJogadorAtual().jogaCarta(temp, freeSlot);
+                            jogo.getJogadorAtual().jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores()[0].getCampo(), jogo.getJogadores()[1].getCampo());
                             jogo.acabaJogada();
                         }
                     }

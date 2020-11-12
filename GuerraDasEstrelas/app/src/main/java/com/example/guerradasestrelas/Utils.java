@@ -47,6 +47,16 @@ public class Utils {
         return nextFreeSlot;
     }
 
+    public static int getOutraFila(int fila){
+        if (fila == 1){
+            return 0;
+        }
+        else if(fila == 0){
+            return 1;
+        }
+        return -1;
+    }
+
     public static Carta [] getCardsArray(CardSlot [] array){
         Carta [] cartas = new Carta [contaNotNullSlots(array)];
         for(int i=0; i < cartas.length; i++){

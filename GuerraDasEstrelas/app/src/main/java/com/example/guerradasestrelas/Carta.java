@@ -10,6 +10,7 @@ public class Carta {
     private int id_mini;
     private int id_max;
     private int fila; //fila 0 - Portugal; fila 1 - Mundo - mais tarde meter estas variaveis como constantes num singleton
+    private Habilidade habilidade;
 
     public Carta(int id, String nome, int poder, int mini, int max, int fila){
         this.id = id;
@@ -18,11 +19,11 @@ public class Carta {
         this.id_mini = mini;
         this.id_max = max;
         this.fila = fila;
+        this.habilidade = null;
     }
 
-
-    public void ExecutaHabilidade(){
-
+    public void assignSkill(Habilidade habilidade){
+        this.habilidade = habilidade;
     }
 
 
@@ -56,5 +57,9 @@ public class Carta {
 
     public int getId() {
         return id;
+    }
+
+    public Habilidade getHabilidade(){
+        return habilidade;
     }
 }
