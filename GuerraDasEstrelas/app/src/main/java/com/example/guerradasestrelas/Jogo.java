@@ -93,7 +93,6 @@ public class Jogo {
         updateTurno();
         updatePlayerLabel();
         if (!jogadores[turno].isSkipped()){
-            //jogadores[turno].tiraCartaDoBaralho(); //problema: como evitar que jogador 2 nao tire carta logo ao inicio?
             jogadores[turno].MostraMao(handSlots);
         }
         else{
@@ -106,7 +105,6 @@ public class Jogo {
         updateTurno();
         updatePlayerLabel();
         if (!jogadores[turno].isSkipped()){
-            //jogadores[turno].tiraCartaDoBaralho(); //problema: como evitar que jogador 2 nao tire carta logo ao inicio?
             jogadores[turno].MostraMao(handSlots);
         }
         else{
@@ -119,12 +117,12 @@ public class Jogo {
             jogadores[0].rondaGanha();
             if (checkForWinner(jogadores[0])){
                 //ganhou o jogo
-                System.out.println("Jogador 1 venceu o jogo"); 
+                System.out.println("Jogador 1 venceu o jogo");
             }
             else{
                 System.out.println("Jogador 1 venceu a ronda. Começando proxima ronda...");
-                jogadores[0].tiraCartaDoBaralho();
-                jogadores[0].MostraMao(handSlots); //para atualizar com a carta tirada do baralho
+                //jogadores[0].tiraCartaDoBaralho();
+                //jogadores[0].MostraMao(handSlots); //para atualizar com a carta tirada do baralho
                 setTurno(0);
                 cleanup();
             }
@@ -137,8 +135,8 @@ public class Jogo {
             }
             else{
                 System.out.println("Jogador 2 venceu a ronda. Começando proxima ronda...");
-                jogadores[1].tiraCartaDoBaralho();
-                jogadores[1].MostraMao(handSlots); //para atualizar com a carta tirada do baralho
+                //jogadores[1].tiraCartaDoBaralho();
+                //jogadores[1].MostraMao(handSlots); //para atualizar com a carta tirada do baralho
                 setTurno(1);
                 cleanup();
             }

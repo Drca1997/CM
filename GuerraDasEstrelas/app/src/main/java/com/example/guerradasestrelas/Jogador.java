@@ -99,7 +99,7 @@ public class Jogador {
             removeCartadaMao(carta);
             campo[carta.getFila()][freeSlot].setCarta(carta); //coloca carta no campo
             carta.ExecutaHabilidade();
-
+            tiraCartaDoBaralho();
         }
         else{
             //Nao faz nada a nao ser dar Som de Erro
