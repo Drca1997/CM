@@ -152,7 +152,6 @@ public class BaseDados extends SQLiteOpenHelper {
                                         " WHERE " + ID_COLUMN + " == " + c.getId(), null);
             if (cursor.moveToFirst()){
                 String skillName = cursor.getString(cursor.getColumnIndex(SKILL_COLUMN));
-                System.out.println(skillName);
                 switch(skillName){
                     case "AddModifier":
                         int mod = cursor.getInt(cursor.getColumnIndex(MODIFIER_COLUMN));

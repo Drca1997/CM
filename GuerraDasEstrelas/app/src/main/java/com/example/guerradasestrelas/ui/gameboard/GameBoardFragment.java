@@ -49,6 +49,23 @@ public class GameBoardFragment extends Fragment {
                             jogo.getJogadorAtual().jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores()[0].getCampo(), jogo.getJogadores()[1].getCampo());
                             jogo.acabaJogada();
                         }
+                        else{
+                            //Será aqui o sitio ideal para detetar habilidade de Madonna e Ronaldo?
+                            if (temp.getHabilidade() != null){
+                                if (temp.getHabilidade().getNome().equals("MultiFila")){
+                                    int outrafila = Utils.getOutraFila(temp.getFila());
+                                    int slotOutraFila = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[outrafila]);
+                                    if (slotOutraFila >= 0){
+                                        slot.setCarta(null); //remove carta do handSlot
+                                        jogo.getJogadorAtual().removeCartadaMao(temp);
+                                        jogo.getJogadorAtual().getCampo()[outrafila][slotOutraFila].setCarta(temp);
+                                        jogo.getJogadorAtual().tiraCartaDoBaralho();
+                                        jogo.acabaJogada();
+                                    }
+                                }
+                            }
+
+                        }
                     }
                 }
             });

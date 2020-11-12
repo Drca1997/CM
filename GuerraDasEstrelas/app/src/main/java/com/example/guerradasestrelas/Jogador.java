@@ -95,29 +95,12 @@ public class Jogador {
     }
 
     public void jogaCarta(Carta carta, int freeSlot, int turno, CardSlot[][] campo1, CardSlot[][] campo2){
-        if (freeSlot >= 0){
-            removeCartadaMao(carta);
-            campo[carta.getFila()][freeSlot].setCarta(carta); //coloca carta no campo
-            if (carta.getHabilidade() != null){
-                carta.getHabilidade().Execute(turno, campo1, campo2);
-            }
-            tiraCartaDoBaralho();
+        removeCartadaMao(carta);
+        campo[carta.getFila()][freeSlot].setCarta(carta); //coloca carta no campo
+        if (carta.getHabilidade() != null){
+            carta.getHabilidade().Execute(turno, campo1, campo2);
         }
-        else{
-            //Nao faz nada a nao ser dar Som de Erro
-            //Será aqui o sitio ideal para detetar habilidade de Madonna e Ronaldo?
-            if (carta.getHabilidade() != null){
-                if (carta.getHabilidade().getNome().equals("MultiFila")){
-                    int outrafila = Utils.getOutraFila(carta.getFila());
-                    int slotOutraFila = Utils.getNextFreeSlot(campo[outrafila]);
-                    if (slotOutraFila >= 0){
-                        removeCartadaMao(carta);
-                        campo[outrafila][slotOutraFila].setCarta(carta);
-                        tiraCartaDoBaralho();
-                    }
-                }
-            }
-        }
+        tiraCartaDoBaralho();
     }
 
     public void removeCartadaMao(Carta carta){
