@@ -24,6 +24,7 @@ public class Carta {
 
     public void assignSkill(Habilidade habilidade){
         this.habilidade = habilidade;
+        System.out.println("Assigned " + habilidade.getNome() + " to " + nome);
     }
 
 

@@ -2,7 +2,7 @@ package com.example.guerradasestrelas;
 
 public abstract class Habilidade {
 
-    private String nome;
+    protected String nome;
 
     public Habilidade(String nome){
         this.nome = nome;

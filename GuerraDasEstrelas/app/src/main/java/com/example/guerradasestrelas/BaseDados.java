@@ -101,6 +101,8 @@ public class BaseDados extends SQLiteOpenHelper {
         insereSkillNaBD(bd, 6, "AddModifier", -1, 3, 4);
         insereSkillNaBD(bd, 13,"AddModifier", 1, 1, 2);
         insereSkillNaBD(bd, 4, "MultiFila", null, null, null);
+        insereSkillNaBD(bd, 2, "Ligacao", null, null, null);
+        insereSkillNaBD(bd, 14, "Ligacao", null, null, null);
     }
 
     public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade, Integer mod, Integer f1, Integer f2){

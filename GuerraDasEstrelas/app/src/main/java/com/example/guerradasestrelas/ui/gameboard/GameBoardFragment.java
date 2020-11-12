@@ -58,6 +58,7 @@ public class GameBoardFragment extends Fragment {
                                     if (slotOutraFila >= 0){
                                         slot.setCarta(null); //remove carta do handSlot
                                         jogo.getJogadorAtual().removeCartadaMao(temp);
+                                        System.out.println(temp.getNome());
                                         jogo.getJogadorAtual().getCampo()[outrafila][slotOutraFila].setCarta(temp);
                                         jogo.getJogadorAtual().tiraCartaDoBaralho();
                                         jogo.acabaJogada();
