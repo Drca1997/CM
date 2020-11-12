@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.guerradasestrelas.CardSlot;
 import com.example.guerradasestrelas.Carta;
@@ -52,6 +53,14 @@ public class GameBoardFragment extends Fragment {
                 }
             });
         }
+        Button button = view.findViewById(R.id.skipButt);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jogo.getJogadorAtual().setSkipped(true);
+                jogo.skipRound();
+            }
+        });
 
         return view;
     }

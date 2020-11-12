@@ -12,7 +12,7 @@ public class BaseDados extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME="Cartas.db";
     //private static final String DELETE_DATABASE = "DROP DATABASE Cartas;";
-    public static final String TABLE_NAME = "cartas";
+    public static final String CARD_TABLE_NAME = "cartas";
     public static final String ID_COLUMN = "ID";
     private static final String INTEGER = " INTEGER";
     private static final String ID_CONSTRAINTS = " NOT NULL PRIMARY KEY AUTOINCREMENT";
@@ -24,13 +24,16 @@ public class BaseDados extends SQLiteOpenHelper {
     private static final String FILA_CONSTRAINTS = " NOT NULL CHECK(" + FILA_COLUMN + " >=0 AND " + FILA_COLUMN + " < " + Singleton.NUM_FILAS + "), ";
     public static final String IMG_MINI_COLUMN = "Imagem_Miniatura";
     public static final String IMG_MAX_COLUMN = "Imagem_Original";
-    private static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" +
+    private static final String CARD_TABLE_CREATE = "CREATE TABLE " + CARD_TABLE_NAME + " (" +
                                                     ID_COLUMN + INTEGER + ID_CONSTRAINTS + ", " +
                                                     NAME_COLUMN +  TEXT_DEFINITION + NOT_NULL_CONSTRAINT + ", " +
                                                     PODER_COLUMN + INTEGER + NOT_NULL_CONSTRAINT +  ", " +
                                                     FILA_COLUMN + INTEGER + FILA_CONSTRAINTS  +
                                                     IMG_MAX_COLUMN + INTEGER + NOT_NULL_CONSTRAINT + ", " +
                                                     IMG_MINI_COLUMN + INTEGER + NOT_NULL_CONSTRAINT +");";
+    private static final String SKILL_TABLE_CREATE = "";
+    public static final String SKILL_TABLE_NAME = "habilidades";
+    private static final String SKILL_COLUMN = "Habilidade";
 
     public BaseDados(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,8 +41,10 @@ public class BaseDados extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
-        SetupDataBase(db);
+        db.execSQL(CARD_TABLE_CREATE);
+        SetupCardsDataBase(db);
+        db.execSQL(SKILL_TABLE_CREATE);
+        SetupSkillsDataBase(db);
         System.out.println("BASE DE DADOS CRIADA COM SUCESSO");
     }
 
@@ -48,7 +53,7 @@ public class BaseDados extends SQLiteOpenHelper {
 
     }
 
-    public void SetupDataBase(SQLiteDatabase bd){
+    public void SetupCardsDataBase(SQLiteDatabase bd){
         insereCartaNaBD(bd, "D.Afonso Henriques", 9, 0, R.drawable.afonso_henriques,  R.drawable.mini_afonso_henriques);
         insereCartaNaBD(bd, "Bruno Carvalho", 2, 0, R.drawable.bruno_carvalho, R.drawable.mini_bruno_carvalho);
         insereCartaNaBD(bd, "Camões", 3, 0, R.drawable.camoes, R.drawable.mini_camoes);
@@ -75,7 +80,21 @@ public class BaseDados extends SQLiteOpenHelper {
         values.put(IMG_MAX_COLUMN, imgMax);
         values.put(IMG_MINI_COLUMN, imgMini);
         // Insert the new row, returning the primary key value of the <new row
-        long res = bd.insert(TABLE_NAME, null, values);
+        long res = bd.insert(CARD_TABLE_NAME, null, values);
+        return res != -1;
+    }
+
+    public void SetupSkillsDataBase(SQLiteDatabase bd){
+
+    }
+
+    public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade){
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(ID_COLUMN, id);
+        values.put(SKILL_COLUMN, habilidade);
+        // Insert the new row, returning the primary key value of the <new row
+        long res = bd.insert(SKILL_TABLE_NAME, null, values);
         return res != -1;
     }
 
@@ -83,7 +102,7 @@ public class BaseDados extends SQLiteOpenHelper {
         Carta [] all_cartas = new Carta [Singleton.NUM_CARTAS];
         int i= 0;
         SQLiteDatabase bd = this.getReadableDatabase();
-        Cursor cursor = bd.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor = bd.rawQuery("SELECT * FROM " + CARD_TABLE_NAME, null);
         if (cursor.moveToFirst()){
             do {
                 int id = cursor.getInt(cursor.getColumnIndex(ID_COLUMN));

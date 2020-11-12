@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Jogador {
@@ -118,6 +119,7 @@ public class Jogador {
         }
     }
 
+
     public void LimpaCampo(){
         for(int fila=0; fila < Singleton.NUM_FILAS; fila++){
             for (int slot =0; slot < campo[fila].length; slot++){
@@ -140,6 +142,10 @@ public class Jogador {
 
     public List<Carta> getDescartes() {
         return descartes;
+    }
+
+    public void resetPoder(){
+        Arrays.fill(poder, 0);
     }
 
     public Carta[] getBaralho() {

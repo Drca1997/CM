@@ -60,7 +60,7 @@ public class Jogo {
 
     public void updatePlayerLabel(){
         playerLabel.setText("Mão do Jogador " + (turno + 1));
-    }
+}
 
     public void updatePoder(){
         for (Jogador jogador : jogadores){
@@ -75,6 +75,7 @@ public class Jogo {
                 jogador.getPoder()[fila] = soma;
             }
             jogador.getPoder()[2] = jogador.getPoder()[0] + jogador.getPoder()[1]; //soma Poder das Filas
+            System.out.println("Poder Jogador : " + jogador.getPoder()[2]);
         }
     }
 
@@ -92,7 +93,7 @@ public class Jogo {
         updateTurno();
         updatePlayerLabel();
         if (!jogadores[turno].isSkipped()){
-            jogadores[turno].tiraCartaDoBaralho(); //problema: como evitar que jogador 2 nao tire carta logo ao inicio?
+            //jogadores[turno].tiraCartaDoBaralho(); //problema: como evitar que jogador 2 nao tire carta logo ao inicio?
             jogadores[turno].MostraMao(handSlots);
         }
         else{
@@ -101,8 +102,70 @@ public class Jogo {
         }
     }
 
+    public void skipRound(){
+        updateTurno();
+        updatePlayerLabel();
+        if (!jogadores[turno].isSkipped()){
+            //jogadores[turno].tiraCartaDoBaralho(); //problema: como evitar que jogador 2 nao tire carta logo ao inicio?
+            jogadores[turno].MostraMao(handSlots);
+        }
+        else{
+            finishRound();
+        }
+    }
+
+    public void finishRound(){
+        if (jogadores[0].getPoder()[2] > jogadores[1].getPoder()[2]){
+            jogadores[0].rondaGanha();
+            if (checkForWinner(jogadores[0])){
+                //ganhou o jogo
+                System.out.println("Jogador 1 venceu o jogo"); 
+            }
+            else{
+                System.out.println("Jogador 1 venceu a ronda. Começando proxima ronda...");
+                jogadores[0].tiraCartaDoBaralho();
+                jogadores[0].MostraMao(handSlots); //para atualizar com a carta tirada do baralho
+                setTurno(0);
+                cleanup();
+            }
+        }
+        else if (jogadores[0].getPoder()[2] < jogadores[1].getPoder()[2]){
+            jogadores[1].rondaGanha();
+            if(checkForWinner(jogadores[1])){
+                //ganhou o jogo
+                System.out.println("Jogador 2 venceu o jogo");
+            }
+            else{
+                System.out.println("Jogador 2 venceu a ronda. Começando proxima ronda...");
+                jogadores[1].tiraCartaDoBaralho();
+                jogadores[1].MostraMao(handSlots); //para atualizar com a carta tirada do baralho
+                setTurno(1);
+                cleanup();
+            }
+        }
+    }
+
+    public boolean checkForWinner(Jogador jogador){
+        return jogador.getRondasGanhas() == 2;
+    }
+
+    public void cleanup(){
+        for (Jogador jogador : jogadores){
+            jogador.resetPoder();
+            jogador.LimpaCampo();
+            jogador.setSkipped(false);
+        }
+    }
+
     public int getTurno(){
         return turno;
+    }
+
+    private void setTurno(int turno){
+        if (turno >= 0 && turno < jogadores.length){
+            this.turno = turno;
+        }
+        updatePlayerLabel();
     }
 
     public Jogador [] getJogadores(){
