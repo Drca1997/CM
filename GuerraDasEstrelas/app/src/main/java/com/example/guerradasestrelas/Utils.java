@@ -60,7 +60,9 @@ public class Utils {
     public static Carta [] getCardsArray(CardSlot [] array){
         Carta [] cartas = new Carta [contaNotNullSlots(array)];
         for(int i=0; i < cartas.length; i++){
-            cartas[i] = array[i].getCarta();
+            if (array[i].getCarta() != null){
+                cartas[i] = array[i].getCarta();
+            }
         }
         return cartas;
     }
@@ -73,6 +75,13 @@ public class Utils {
             }
         }
         return res;
+    }
+
+    public static Carta [] mergeArrays(Carta [] array1, Carta[] array2){
+        Carta [] resultado = new Carta[array1.length + array2.length];
+        System.arraycopy(array1, 0, resultado,0, array1.length);
+        System.arraycopy(array2, 0, resultado, array1.length, array2.length);
+        return resultado;
     }
 
 }

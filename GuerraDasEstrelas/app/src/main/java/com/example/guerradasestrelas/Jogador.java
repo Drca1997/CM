@@ -94,11 +94,11 @@ public class Jogador {
         }
     }
 
-    public void jogaCarta(Carta carta, int freeSlot, int turno, CardSlot[][] campo1, CardSlot[][] campo2){
+    public void jogaCarta(Carta carta, int freeSlot, int turno, Jogador [] jogadores){
         removeCartadaMao(carta);
         campo[carta.getFila()][freeSlot].setCarta(carta); //coloca carta no campo
         if (carta.getHabilidade() != null){
-            carta.getHabilidade().Execute(turno, campo1, campo2);
+            carta.getHabilidade().Execute(turno, jogadores);
         }
         tiraCartaDoBaralho();
     }
@@ -120,6 +120,19 @@ public class Jogador {
             for (int slot =0; slot < campo[fila].length; slot++){
                 Carta cartaAtual = campo[fila][slot].getCarta();
                 if (cartaAtual != null){
+                    if (cartaAtual.getHabilidade() != null){
+                        if (cartaAtual.getHabilidade().getNome().equals("AddCardToHand")){
+                           AddCardToHand skill = (AddCardToHand)cartaAtual.getHabilidade();
+                           if (skill.getOrigem().equals("self")){  //Diogo Morgado
+                               Carta [] arrayOrigem = {cartaAtual};
+                               System.out.println("JESUS RESSUSCITA");
+                               skill.addCartaToHand(arrayOrigem, mao, false);
+                           }
+                           else if (skill.getOrigem().equals("descartes")){ //Sean Bean
+                               skill.addCartaToHand((Carta[]) descartes.toArray(), mao, true);
+                           }
+                        }
+                    }
                     descartes.add(campo[fila][slot].getCarta());
                 }
                 campo[fila][slot].setCarta(null);

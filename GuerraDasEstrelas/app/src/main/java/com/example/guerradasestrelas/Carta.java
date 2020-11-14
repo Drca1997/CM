@@ -30,6 +30,7 @@ public class Carta {
 
     public void AddModifier(int modificador){
         setPoder(getPoder() + modificador);
+        System.out.println("Adicionando modificador de " + modificador + " a " + nome);
     }
 
     public String getNome() {

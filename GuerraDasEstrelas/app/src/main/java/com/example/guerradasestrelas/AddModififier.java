@@ -55,9 +55,9 @@ public class AddModififier extends Habilidade {
         return filas;
     }
 
-    @Override
-    public void Execute(int turno, CardSlot[][] campo1, CardSlot[][] campo2) {
-        CardSlot [][] filasAfetadas = getfilasAfetadas(turno, campo1, campo2);
+    @Override //EXTREMAMENTE IMPORTANTE: NAO É SUPOSTO SER ASSIM. MODIFICADOR TEM DE FICAR EM VIGOR ATE AO FIM DA RONDA
+    public void Execute(int turno, Jogador [] jogadores) {
+        CardSlot [][] filasAfetadas = getfilasAfetadas(turno, jogadores[0].getCampo(), jogadores[1].getCampo());
         for(int i=0; i < filasAfetadas.length; i++){
             for (int j=0; j < Singleton.TAMANHO_FILAS; j++){
                 if (filasAfetadas[i] != null){

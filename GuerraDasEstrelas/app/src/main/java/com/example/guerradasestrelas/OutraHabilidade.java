@@ -11,15 +11,9 @@ public class OutraHabilidade extends Habilidade {
     }
 
     @Override
-    public void Execute(int turno, CardSlot[][] campo1, CardSlot[][] campo2) {
+    public void Execute(int turno, Jogador [] jogadores) {
         if (nome.equals("Ligacao")){
-            if (turno == 0){
-                ligacaoSkill(campo1[0]);
-            }
-            else if (turno == 1){
-                ligacaoSkill(campo2[0]);
-            }
-
+            ligacaoSkill(jogadores[turno].getCampo()[0]);
         }
     }
 

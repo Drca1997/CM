@@ -143,8 +143,6 @@ public class Jogo {
             }
             else{
                 System.out.println("Jogador 1 venceu a ronda. Começando proxima ronda...");
-                //jogadores[0].tiraCartaDoBaralho();
-                //jogadores[0].MostraMao(handSlots); //para atualizar com a carta tirada do baralho
                 setTurno(0);
                 cleanup();
             }
@@ -157,12 +155,11 @@ public class Jogo {
             }
             else{
                 System.out.println("Jogador 2 venceu a ronda. Começando proxima ronda...");
-                //jogadores[1].tiraCartaDoBaralho();
-                //jogadores[1].MostraMao(handSlots); //para atualizar com a carta tirada do baralho
                 setTurno(1);
                 cleanup();
             }
         }
+        jogadores[turno].MostraMao(handSlots); //para atualizar com novas cartas que vieram para a mão
     }
 
     public boolean checkForWinner(Jogador jogador){
@@ -186,6 +183,7 @@ public class Jogo {
             this.turno = turno;
         }
         updatePlayerLabel();
+        //jogadores[turno].MostraMao(handSlots);
     }
 
     public Jogador [] getJogadores(){
