@@ -4,6 +4,10 @@ import java.util.Random;
 
 public class Utils {
 
+    public static boolean isImune(Carta carta){
+        return carta.getHabilidade() == null || carta.getHabilidade().getNome().equals("Imune");
+    }
+
     public static void baralhaBaralho(Carta [] baralho) {
         Random rand = new Random();
         for (int i = 0; i < baralho.length; i++) {
@@ -83,5 +87,6 @@ public class Utils {
         System.arraycopy(array2, 0, resultado, array1.length, array2.length);
         return resultado;
     }
+
 
 }

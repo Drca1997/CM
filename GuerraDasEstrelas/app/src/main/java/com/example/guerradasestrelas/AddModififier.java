@@ -62,8 +62,7 @@ public class AddModififier extends Habilidade {
             for (int j=0; j < Singleton.TAMANHO_FILAS; j++){
                 if (filasAfetadas[i] != null){
                     if (filasAfetadas[i][j].getCarta() != null){
-                        if (filasAfetadas[i][j].getCarta().getHabilidade() == null ||
-                                !filasAfetadas[i][j].getCarta().getHabilidade().getNome().equals("Imune")){ //Arnold Imune a modificadores
+                        if (!Utils.isImune(filasAfetadas[i][j].getCarta())){ //Arnold Imune a modificadores
                             filasAfetadas[i][j].getCarta().AddModifier(modificador);
                         }
 
