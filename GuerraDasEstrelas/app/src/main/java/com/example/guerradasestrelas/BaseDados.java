@@ -74,6 +74,7 @@ public class BaseDados extends SQLiteOpenHelper {
     }
 
     public void SetupCardsDataBase(SQLiteDatabase bd){
+        // Cartas de Portugal
         insereCartaNaBD(bd, "D.Afonso Henriques", 9, 0, R.drawable.afonso_henriques,  R.drawable.mini_afonso_henriques);
         insereCartaNaBD(bd, "Bruno Carvalho", 2, 0, R.drawable.bruno_carvalho, R.drawable.mini_bruno_carvalho);
         insereCartaNaBD(bd, "Camões", 3, 0, R.drawable.camoes, R.drawable.mini_camoes);
@@ -88,8 +89,33 @@ public class BaseDados extends SQLiteOpenHelper {
         insereCartaNaBD(bd, "José Castelo Branco", 4, 0, R.drawable.jose_castelo_branco, R.drawable.mini_jose_castelo_branco);
         insereCartaNaBD(bd, "Luciana Abreu", 2, 0, R.drawable.luciana_abreu, R.drawable.mini_luciana_abreu);
         insereCartaNaBD(bd, "Luís Filipe VIeira", 2, 0, R.drawable.luis_filipe_vieira, R.drawable.mini_luis_filipe_vieira);
-        //primeiro acabar de meter cartas de Portugal por ordem alfabetica
-        //depois meter cartas do mundo, tb por ordem alfabetica
+        insereCartaNaBD(bd, "Marcelo Rebelo de Sousa", 6, 0, R.drawable.marcelo_rebelo_sousa, R.drawable.mini_marcelo_rebelo_sousa);
+        insereCartaNaBD(bd, "Maya", 1, 0, R.drawable.maya, R.drawable.mini_maya);
+        insereCartaNaBD(bd, "O Emplastro", 0, 0, R.drawable.o_emplastro, R.drawable.mini_o_emplastro);
+        insereCartaNaBD(bd, "Pinto da Costa", 2, 0, R.drawable.pinto_da_costa, R.drawable.mini_pinto_da_costa);
+        insereCartaNaBD(bd, "António Oliveira Salazar", 7, 0, R.drawable.salazar, R.drawable.mini_salazar);
+        insereCartaNaBD(bd, "Tony Carreira", 0, 0, R.drawable.tony_carreira, R.drawable.mini_tony_carreira);
+        // Cartas do Mundo
+        insereCartaNaBD(bd, "Arnold Schwarzenegger", 7, 1, R.drawable.arnold, R.drawable.mini_arnold);
+        insereCartaNaBD(bd, "Comunidade Filósofa Grega", 3, 1, R.drawable.cfg, R.drawable.mini_cfg);
+        insereCartaNaBD(bd, "Leonardo da Vinci", 6, 1, R.drawable.da_vinci, R.drawable.mini_da_vinci);
+        insereCartaNaBD(bd, "Donald Trump", 8, 1, R.drawable.donald_trump, R.drawable.mini_donald_trump);
+        insereCartaNaBD(bd, "Albert Einstein", 7, 1, R.drawable.einstein, R.drawable.mini_einstein);
+        insereCartaNaBD(bd, "Mahatma Gandhi", 0, 1, R.drawable.gandhi, R.drawable.mini_gandhi);
+        insereCartaNaBD(bd, "Adolf Hitler", 10, 1, R.drawable.hitler, R.drawable.mini_hitler);
+        insereCartaNaBD(bd, "ISIS", 8, 1, R.drawable.isis, R.drawable.mini_isis);
+        insereCartaNaBD(bd, "Jackie Chan", 8, 1, R.drawable.jackie_chan, R.drawable.mini_jackie_chan);
+        insereCartaNaBD(bd, "John Cena", 2, 1, R.drawable.john_cena, R.drawable.mini_john_cena);
+        insereCartaNaBD(bd, "Johnny Depp", 2, 1, R.drawable.johnny_depp, R.drawable.mini_johnny_depp);
+        insereCartaNaBD(bd, "Kamikaze", 9, 1, R.drawable.kamikaze, R.drawable.mini_kamikaze);
+        insereCartaNaBD(bd, "Madonna", 6, 1, R.drawable.madonna, R.drawable.mini_madonna);
+        insereCartaNaBD(bd, "Martin Luther King", 4, 1, R.drawable.martin_luther_king, R.drawable.mini_martin_luther_king);
+        insereCartaNaBD(bd, "Mr. Bean", 1, 1, R.drawable.mr_bean, R.drawable.mini_mr_bean);
+        insereCartaNaBD(bd, "Sean Bean", 3, 1, R.drawable.sean_bean, R.drawable.mini_sean_bean);
+        insereCartaNaBD(bd, "Tony Soprano", 5, 1, R.drawable.soprano, R.drawable.mini_soprano);
+        insereCartaNaBD(bd, "The Rock", 5, 1, R.drawable.the_rock, R.drawable.mini_the_rock);
+        insereCartaNaBD(bd, "Tyrion Lannister", 3, 1, R.drawable.tyrion, R.drawable.mini_tyrion);
+        insereCartaNaBD(bd, "Mark Zuckerberg", 4, 1, R.drawable.zuckerberg, R.drawable.mini_zuckerberg);
         System.out.println("CARTAS INSERIDAS NA BASE DADOS COM SUCESSO");
     }
 
