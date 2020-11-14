@@ -106,13 +106,20 @@ public class BaseDados extends SQLiteOpenHelper {
     }
 
     public void SetupSkillsDataBase(SQLiteDatabase bd){
+        //terão de ser 21 no fim - atualmente: 7
         insereSkillNaBD(bd, 3, "AddModifier", 1, 1, null, null, null, null);
         insereSkillNaBD(bd, 6, "AddModifier", -1, 3, 4, null, null, null);
         insereSkillNaBD(bd, 13,"AddModifier", 1, 1, 2, null, null, null);
         insereSkillNaBD(bd, 4, "MultiFila", null, null, null, null, null, null);
         insereSkillNaBD(bd, 2, "Ligacao", null, null, null, null, null, null);
         insereSkillNaBD(bd, 14, "Ligacao", null, null, null, null, null, null);
+        //insereSkillNaBD(bd, ??, "Ligacao", null, null, null, null, null, null); //pinto da costa
         insereSkillNaBD(bd, 7, "AddCardToHand", null, null, null, "self", 0, 0);
+        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "descartes", 1, 0); //sean bean
+        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "baralho", 0, 1); // maya
+        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "baralho", 0, 1); //cfg
+        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "maoAdversario", 1, 1); //tony soprano
+        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "campo", 1, 1);  //tony carreira
     }
 
     public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade, Integer mod, Integer f1, Integer f2, String origem, Integer aleatorio, Integer onPlay){
