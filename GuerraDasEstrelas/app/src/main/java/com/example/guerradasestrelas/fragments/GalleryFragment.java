@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.guerradasestrelas.BaseDados;
+import com.example.guerradasestrelas.Carta;
 import com.example.guerradasestrelas.R;
 
 /**
@@ -61,19 +63,21 @@ public class GalleryFragment extends Fragment {
 
         LinearLayout galLayout = view.findViewById(R.id.galleryLayout);
 
-        int num = 20; // placeholder, depois meter para as cartas
-        for (int i = 0; i<num; i++){
+        BaseDados bd = new BaseDados(getActivity());
+        final Carta cartas[] = bd.GetAllCards();
+        for (int i = 0; i<cartas.length; i++){
             View view_card = inflater.inflate(R.layout.card_item,galLayout,false);
 
             // Depois adaptar para depender da carta
             final ImageView card_image = view_card.findViewById(R.id.CardView);
-            card_image.setImageResource(R.drawable.fernando_mendes);
+            card_image.setImageResource(cartas[i].getId_mini());
+            final int ind = i;
 
             card_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //click na carta -> ENLARGE
-                    zoomImage(card_image, R.drawable.fernando_mendes);
+                    zoomImage(card_image, cartas[ind].getId_max());
 
                     // Retrieve and cache the system's default "short" animation time.
                     shortAnimationDuration = getResources().getInteger(
