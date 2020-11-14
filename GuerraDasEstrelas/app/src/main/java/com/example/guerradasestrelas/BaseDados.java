@@ -87,6 +87,8 @@ public class BaseDados extends SQLiteOpenHelper {
         insereCartaNaBD(bd, "José Castelo Branco", 4, 0, R.drawable.jose_castelo_branco, R.drawable.mini_jose_castelo_branco);
         insereCartaNaBD(bd, "Luciana Abreu", 2, 0, R.drawable.luciana_abreu, R.drawable.mini_luciana_abreu);
         insereCartaNaBD(bd, "Luís Filipe VIeira", 2, 0, R.drawable.luis_filipe_vieira, R.drawable.mini_luis_filipe_vieira);
+        //primeiro acabar de meter cartas de Portugal por ordem alfabetica
+        //depois meter cartas do mundo, tb por ordem alfabetica
         System.out.println("CARTAS INSERIDAS NA BASE DADOS COM SUCESSO");
     }
 
