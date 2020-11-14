@@ -40,8 +40,8 @@ public class BaseDados extends SQLiteOpenHelper {
     private static final String FILA2_COLUMN = "Fila2";
     private static final String ORIGEM_COLUMN = "Origem";
     private static final String AlEATORIO_COLUMN = "Aleatorio";
-    private static  final String ONPLAY_COLUMN = "OnPlay";
-
+    private static final String ONPLAY_COLUMN = "OnPlay";
+    private static final String DESTRUIR_COLUMN = "DestruirOrigem";
     private static final String SKILL_TABLE_CREATE = "CREATE TABLE " + SKILL_TABLE_NAME + " (" +
                                                         ID_COLUMN + INTEGER + ", " +
                                                         SKILL_COLUMN + TEXT_DEFINITION + ", " +
@@ -51,6 +51,7 @@ public class BaseDados extends SQLiteOpenHelper {
                                                         ORIGEM_COLUMN + TEXT_DEFINITION + ", " +
                                                         AlEATORIO_COLUMN + INTEGER + ", " +
                                                         ONPLAY_COLUMN + INTEGER + ", " +
+                                                        DESTRUIR_COLUMN + TEXT_DEFINITION + ", " +
                                                         SKILL_ID_CONSTRAINTS  + ");" ;
 
 
@@ -107,14 +108,14 @@ public class BaseDados extends SQLiteOpenHelper {
 
     public void SetupSkillsDataBase(SQLiteDatabase bd){
         //terão de ser 21 no fim - atualmente: 7
-        insereSkillNaBD(bd, 3, "AddModifier", 1, 1, null, null, null, null);
-        insereSkillNaBD(bd, 6, "AddModifier", -1, 3, 4, null, null, null);
-        insereSkillNaBD(bd, 13,"AddModifier", 1, 1, 2, null, null, null);
-        insereSkillNaBD(bd, 4, "MultiFila", null, null, null, null, null, null);
-        insereSkillNaBD(bd, 2, "Ligacao", null, null, null, null, null, null);
-        insereSkillNaBD(bd, 14, "Ligacao", null, null, null, null, null, null);
+        insereSkillNaBD(bd, 3, "AddModifier", 1, 1, null, null, null, null, null);
+        insereSkillNaBD(bd, 6, "AddModifier", -1, 3, 4, null, null, null, null);
+        insereSkillNaBD(bd, 13,"AddModifier", 1, 1, 2, null, null, null, null);
+        insereSkillNaBD(bd, 4, "MultiFila", null, null, null, null, null, null, null);
+        insereSkillNaBD(bd, 2, "Ligacao", null, null, null, null, null, null, null);
+        insereSkillNaBD(bd, 14, "Ligacao", null, null, null, null, null, null, null);
         //insereSkillNaBD(bd, ??, "Ligacao", null, null, null, null, null, null); //pinto da costa
-        insereSkillNaBD(bd, 7, "AddCardToHand", null, null, null, "self", 0, 0);
+        insereSkillNaBD(bd, 7, "AddCardToHand", null, null, null, "self", 0, 0, null);
         //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "descartes", 1, 0); //sean bean
         //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "baralho", 0, 1); // maya
         //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "baralho", 0, 1); //cfg
@@ -122,7 +123,10 @@ public class BaseDados extends SQLiteOpenHelper {
         //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "campo", 1, 1);  //tony carreira
     }
 
-    public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade, Integer mod, Integer f1, Integer f2, String origem, Integer aleatorio, Integer onPlay){
+    public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade,
+                                   Integer mod, Integer f1, Integer f2,
+                                   String origem, Integer aleatorio, Integer onPlay,
+                                   String destruir){
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(ID_COLUMN, id);
@@ -144,6 +148,9 @@ public class BaseDados extends SQLiteOpenHelper {
         }
         if (onPlay != null){
             values.put(ONPLAY_COLUMN, onPlay);
+        }
+        if (destruir != null){
+            values.put(DESTRUIR_COLUMN, destruir);
         }
         // Insert the new row, returning the primary key value of the <new row
         long res = bd.insert(SKILL_TABLE_NAME, null, values);
@@ -194,6 +201,11 @@ public class BaseDados extends SQLiteOpenHelper {
                         boolean aleatorio = cursor.getInt(cursor.getColumnIndex(AlEATORIO_COLUMN)) == 1;
                         AddCardToHand addCardSkill = new AddCardToHand(skillName, origem, onPlay, aleatorio);
                         c.assignSkill(addCardSkill);
+                        break;
+                    case "DestroyCard":
+                        String modoDestruir = cursor.getString(cursor.getColumnIndex(DESTRUIR_COLUMN));
+                        DestroyCard destroySkill = new DestroyCard(skillName, modoDestruir);
+                        c.assignSkill(destroySkill);
                         break;
                     default:
                         OutraHabilidade outra = new OutraHabilidade(skillName);

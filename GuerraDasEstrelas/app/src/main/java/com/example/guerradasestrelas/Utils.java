@@ -1,5 +1,9 @@
 package com.example.guerradasestrelas;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 
 public class Utils {
@@ -88,5 +92,32 @@ public class Utils {
         return resultado;
     }
 
+    /*
+    public static Comparator<Carta> comparator = new Comparator<Carta>() {
+        @Override
+        public int compare(Carta carta1, Carta carta2) {
+            return Integer.compare(carta1.getPoder(), carta2.getPoder());
+        }
+    };*/
 
+    public static Carta [] getCartasMaisPoderosas(Carta [] origem){
+        int maxPoder = getMaxValueOfObjectAttributeInArray(origem);
+        List<Carta> res = new ArrayList<>();
+        for (Carta carta : origem){
+            if (carta.getPoder() == maxPoder){
+                res.add(carta);
+            }
+        }
+        return (Carta[]) res.toArray();
+    }
+
+    public static int getMaxValueOfObjectAttributeInArray(Carta [] origem){
+        int maxValue = 0;
+        for (Carta carta : origem){
+            if (carta.getPoder() > maxValue){
+                maxValue = carta.getPoder();
+            }
+        }
+        return maxValue;
+    }
 }
