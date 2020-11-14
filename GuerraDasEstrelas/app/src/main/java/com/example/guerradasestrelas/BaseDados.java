@@ -111,7 +111,11 @@ public class BaseDados extends SQLiteOpenHelper {
         insereSkillNaBD(bd, 3, "AddModifier", 1, 1, null, null, null, null, null);
         insereSkillNaBD(bd, 6, "AddModifier", -1, 3, 4, null, null, null, null);
         insereSkillNaBD(bd, 13,"AddModifier", 1, 1, 2, null, null, null, null);
+        //insereSkillNaBd(bd, ??, "AddModifier", -1, 3, null, null, null, null, null); //trump
+        //insereSkillNaBd(bd, ??, "AddModifier", -1, 4, null, null, null, null, null); //ISIS
+        //insereSkillNaBd(bd, ??, "AddModifier", 1, 2, null, null, null, null, null); //Marthin luther king
         insereSkillNaBD(bd, 4, "MultiFila", null, null, null, null, null, null, null);
+        //insereSkillNaBd(bd, ??, "MultiFila", null, null, null, null, null, null, null); //Madonna
         insereSkillNaBD(bd, 2, "Ligacao", null, null, null, null, null, null, null);
         insereSkillNaBD(bd, 14, "Ligacao", null, null, null, null, null, null, null);
         //insereSkillNaBD(bd, ??, "Ligacao", null, null, null, null, null, null); //pinto da costa
@@ -121,6 +125,10 @@ public class BaseDados extends SQLiteOpenHelper {
         //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "baralho", 0, 1); //cfg
         //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "maoAdversario", 1, 1); //tony soprano
         //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "campo", 1, 1);  //tony carreira
+        //insereSkillNaBd(bd, ??, "DestroyCard", null, null, null, null, null, null, "tyrion"); //Tyrion
+        //insereSkillNaBd(bd, ??, "DestroyCard", null, null, null, null, null, null, "gandhi"); //Gandhi
+        //insereSkillNaBd(bd, ??, "Imune", null, null, null, null, null, null, null); //Arnold
+        //insereSkillNaBd(bd, ??, "Kamikaze", null, null, null, null, null, null, null); //Kamikaze
     }
 
     public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade,
