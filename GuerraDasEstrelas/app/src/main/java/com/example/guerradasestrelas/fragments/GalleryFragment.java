@@ -68,7 +68,6 @@ public class GalleryFragment extends Fragment {
         for (int i = 0; i<cartas.length; i++){
             View view_card = inflater.inflate(R.layout.card_item,galLayout,false);
 
-            // Depois adaptar para depender da carta
             final ImageView card_image = view_card.findViewById(R.id.CardView);
             card_image.setImageResource(cartas[i].getId_mini());
             final int ind = i;
@@ -76,7 +75,7 @@ public class GalleryFragment extends Fragment {
             card_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //click na carta -> ENLARGE
+                    //click na carta -> ENHANCE
                     zoomImage(card_image, cartas[ind].getId_max());
 
                     // Retrieve and cache the system's default "short" animation time.

@@ -24,7 +24,7 @@ public class Jogo {
 
         handSlots = new CardSlot[Singleton.LIM_MAO];
         BuildHandSlots();
-        playerLabel = view.findViewById(R.id.message);
+        playerLabel = view.findViewById(R.id.mao_jog_text);
 
         BaseDados bd = new BaseDados(context);
         Carta [] allCards= bd.GetAllCards();
@@ -37,11 +37,16 @@ public class Jogo {
     }
 
     private void BuildHandSlots(){
-        handSlots[0] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.handslot1));
-        handSlots[1] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.handslot2));
-        handSlots[2] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.handslot3));
-        handSlots[3] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.handslot4));
-        handSlots[4] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.handslot5));
+        handSlots[0] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card0));
+        handSlots[1] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card1));
+        handSlots[2] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card2));
+        handSlots[3] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card3));
+        handSlots[4] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card4));
+        handSlots[5] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card5));
+        handSlots[6] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card6));
+        handSlots[7] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card7));
+        handSlots[8] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card8));
+        handSlots[9] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card9));
     }
 
     private void criaJogadores(){

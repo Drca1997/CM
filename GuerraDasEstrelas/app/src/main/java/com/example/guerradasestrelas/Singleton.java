@@ -13,7 +13,7 @@ public class Singleton  {
     public static final int NUM_CARTAS_INICIAIS = 5;
     public static final int NUM_JOGADORES = 2;
     public static final int NUM_CARTAS = 40;
-    public static final int LIM_MAO = 5;
+    public static final int LIM_MAO = 10;
 
 
     private static Singleton INSTANCE = null;
