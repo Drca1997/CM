@@ -84,21 +84,7 @@ public class GameBoardFragment extends Fragment {
 
             // Cartas na mao
             for (final CardSlot slot : playerhandDisplayed) {
-                final ImageButton card_image = slot.getSlot();
-                slot.getSlot().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Carta temp = slot.getCarta();
-                        if (temp != null) {
-                            // Zoom Card
-                            zoomCard(card_image, temp.getId_max(), jogo, slot, true);
-
-                            // Retrieve and cache the system's default "short" animation time.
-                            shortAnimationDuration = getResources().getInteger(
-                                    android.R.integer.config_shortAnimTime);
-                        }
-                    }
-                });
+                set_button(jogo,slot);
             }
 
             Button button = view.findViewById(R.id.skip_butt);
