@@ -1,5 +1,6 @@
 package com.example.guerradasestrelas.ui.gameboard;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.animation.Animator;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.guerradasestrelas.CardSlot;
 import com.example.guerradasestrelas.Carta;
@@ -30,6 +32,9 @@ import com.example.guerradasestrelas.Jogador;
 import com.example.guerradasestrelas.Jogo;
 import com.example.guerradasestrelas.R;
 import com.example.guerradasestrelas.Utils;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class GameBoardFragment extends Fragment {
     // Hold a reference to the current animator,
@@ -45,6 +50,8 @@ public class GameBoardFragment extends Fragment {
 
     private GameBoardFragment.OnGameBoardFragmentInteractionListener mListener;
 
+    private String old_hand;
+
     public static GameBoardFragment newInstance() {
         return new GameBoardFragment();
     }
@@ -57,15 +64,30 @@ public class GameBoardFragment extends Fragment {
 
         final Jogo jogo = new Jogo(getActivity(), view);
 
+        old_hand = "";
+
+        // Para efeitos de teste
+        //final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);
+        //next_round.setVisibility(View.GONE);
+        /**
+        final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);
+        Button ready = (Button) view.findViewById(R.id.ready_butt);
+        next_round.setVisibility(View.VISIBLE);
+        next_round.bringToFront();
+        ready.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                next_round.setVisibility(View.INVISIBLE);
+            }
+        });
+         */
+
         toggle_click(true,jogo);
 
         return view;
     }
 
     private void toggle_click(boolean value, final Jogo jogo){
-        Jogador jog1 = jogo.getJogadores()[0];
-        Jogador jog2 = jogo.getJogadores()[1];
-
         CardSlot[] playerhandDisplayed = jogo.getHandSlots();
 
         if(value) {
@@ -73,13 +95,14 @@ public class GameBoardFragment extends Fragment {
             for (Jogador jog : jogo.getJogadores())
                 for (final CardSlot[] slot_list : jog.getCampo())
                     for(final CardSlot slot: slot_list){
-                        set_button(jogo,slot);
+                        set_button(jogo,slot,false);
                     }
 
             // Cartas na mao
             for (final CardSlot slot : playerhandDisplayed) {
-                set_button(jogo,slot);
+                set_button(jogo,slot,true);
             }
+            playerTransition();
 
             Button button = view.findViewById(R.id.skip_butt);
             button.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +113,7 @@ public class GameBoardFragment extends Fragment {
                     if(jogo.getWinner() != ""){
                         mListener.onGameWonInteraction(jogo.getWinner());
                     }
+                    playerTransition();
                 }
             });
         }else{
@@ -110,7 +134,7 @@ public class GameBoardFragment extends Fragment {
         }
     }
 
-    private void set_button(final Jogo jogo, final CardSlot slot){
+    private void set_button(final Jogo jogo, final CardSlot slot, final boolean playable){
         final ImageButton card_image = slot.getSlot();
         slot.getSlot().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +142,7 @@ public class GameBoardFragment extends Fragment {
                 Carta temp = slot.getCarta();
                 if (temp != null) {
                     // Zoom Card
-                    zoomCard(card_image, temp.getId_max(), jogo, slot, false);
+                    zoomCard(card_image, temp.getId_max(), jogo, slot, playable);
 
                     // Retrieve and cache the system's default "short" animation time.
                     shortAnimationDuration = getResources().getInteger(
@@ -344,6 +368,29 @@ public class GameBoardFragment extends Fragment {
         });
         set.start();
         currentAnimator = set;
+    }
+
+    private void playerTransition(){
+        // Detetar aqui se houve ou nao mudança de mao. Se sim, mostrar ecra de transiçao.
+        String jog_at = ((TextView) view.findViewById(R.id.mao_jog_text)).getText().toString();
+        System.out.println(jog_at);
+        System.out.println(old_hand);
+        if(!jog_at.equals(old_hand)){
+            // fazer ecra aparecer
+            final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);
+            Button ready = (Button) view.findViewById(R.id.ready_butt);
+            next_round.setVisibility(View.VISIBLE);
+            next_round.bringToFront();
+            ready.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    next_round.setVisibility(View.INVISIBLE);
+                }
+            });
+
+            // atualizar jogador
+            old_hand = jog_at;
+        }
     }
 
     @Override

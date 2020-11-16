@@ -89,6 +89,7 @@ public class Jogo {
     }
 
     public void updatePlayerLabel(){
+        System.out.println("Updating");
         playerLabel.setText("Mão do Jogador " + (turno + 1));
 }
 
@@ -128,6 +129,7 @@ public class Jogo {
         else{
             updateTurno();
             updatePlayerLabel();
+            jogadores[turno].MostraMao(handSlots);
         }
     }
 
@@ -139,6 +141,7 @@ public class Jogo {
         }
         else{
             finishRound();
+            updatePlayerLabel();
         }
     }
 
