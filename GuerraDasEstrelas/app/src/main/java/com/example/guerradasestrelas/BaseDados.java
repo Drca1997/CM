@@ -133,28 +133,27 @@ public class BaseDados extends SQLiteOpenHelper {
     }
 
     public void SetupSkillsDataBase(SQLiteDatabase bd){
-        //terão de ser 21 no fim - atualmente: 7
         insereSkillNaBD(bd, 3, "AddModifier", 1, 1, null, null, null, null, null);
         insereSkillNaBD(bd, 6, "AddModifier", -1, 3, 4, null, null, null, null);
         insereSkillNaBD(bd, 13,"AddModifier", 1, 1, 2, null, null, null, null);
-        //insereSkillNaBd(bd, ??, "AddModifier", -1, 3, null, null, null, null, null); //trump
-        //insereSkillNaBd(bd, ??, "AddModifier", -1, 4, null, null, null, null, null); //ISIS
-        //insereSkillNaBd(bd, ??, "AddModifier", 1, 2, null, null, null, null, null); //Marthin luther king
+        insereSkillNaBD(bd, 24, "AddModifier", -1, 3, null, null, null, null, null); //trump
+        insereSkillNaBD(bd, 28, "AddModifier", -1, 4, null, null, null, null, null); //ISIS
+        insereSkillNaBD(bd, 34, "AddModifier", 1, 2, null, null, null, null, null); //Marthin luther king
         insereSkillNaBD(bd, 4, "MultiFila", null, null, null, null, null, null, null);
-        //insereSkillNaBd(bd, ??, "MultiFila", null, null, null, null, null, null, null); //Madonna
+        insereSkillNaBD(bd, 33, "MultiFila", null, null, null, null, null, null, null); //Madonna
         insereSkillNaBD(bd, 2, "Ligacao", null, null, null, null, null, null, null);
         insereSkillNaBD(bd, 14, "Ligacao", null, null, null, null, null, null, null);
-        //insereSkillNaBD(bd, ??, "Ligacao", null, null, null, null, null, null); //pinto da costa
+        insereSkillNaBD(bd, 18, "Ligacao", null, null, null, null, null, null, null); //pinto da costa
         insereSkillNaBD(bd, 7, "AddCardToHand", null, null, null, "self", 0, 0, null);
-        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "descartes", 1, 0); //sean bean
-        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "baralho", 0, 1); // maya
-        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "baralho", 0, 1); //cfg
-        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "maoAdversario", 1, 1); //tony soprano
-        //insereSkillNaBD(bd, ??, "AddCardToHand", null, null, null, "campo", 1, 1);  //tony carreira
-        //insereSkillNaBd(bd, ??, "DestroyCard", null, null, null, null, null, null, "tyrion"); //Tyrion
-        //insereSkillNaBd(bd, ??, "DestroyCard", null, null, null, null, null, null, "gandhi"); //Gandhi
-        //insereSkillNaBd(bd, ??, "Imune", null, null, null, null, null, null, null); //Arnold
-        //insereSkillNaBd(bd, ??, "Kamikaze", null, null, null, null, null, null, null); //Kamikaze
+        //insereSkillNaBD(bd, 36, "AddCardToHand", null, null, null, "descartes", 1, 0, null); //sean bean
+        //insereSkillNaBD(bd, 16, "AddCardToHand", null, null, null, "baralho", 0, 1, null); // maya
+        //insereSkillNaBD(bd, 22, "AddCardToHand", null, null, null, "baralho", 0, 1, null); //cfg
+        //insereSkillNaBD(bd, 37, "AddCardToHand", null, null, null, "maoAdversario", 1, 1, null); //tony soprano
+        //insereSkillNaBD(bd, 20, "AddCardToHand", null, null, null, "campo", 1, 1, null);  //tony carreira
+        //insereSkillNaBD(bd, 39, "DestroyCard", null, null, null, null, null, null, "tyrion"); //Tyrion
+        //insereSkillNaBD(bd, 26, "DestroyCard", null, null, null, null, null, null, "gandhi"); //Gandhi
+        //insereSkillNaBD(bd, 21, "Imune", null, null, null, null, null, null, null); //Arnold
+        //insereSkillNaBD(bd, 32, "Kamikaze", null, null, null, null, null, null, null); //Kamikaze
     }
 
     public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade,
