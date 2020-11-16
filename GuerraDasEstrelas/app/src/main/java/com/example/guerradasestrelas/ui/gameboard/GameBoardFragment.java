@@ -43,6 +43,8 @@ public class GameBoardFragment extends Fragment {
 
     private View view;
 
+    private GameBoardFragment.OnGameBoardFragmentInteractionListener mListener;
+
     public static GameBoardFragment newInstance() {
         return new GameBoardFragment();
     }
@@ -64,90 +66,23 @@ public class GameBoardFragment extends Fragment {
         Jogador jog1 = jogo.getJogadores()[0];
         Jogador jog2 = jogo.getJogadores()[1];
 
-        CardSlot [] portugaljog1 = jog1.getFilaPortugal();
-        CardSlot [] mundojog1 = jog1.getFilaMundo();
-        CardSlot [] portugaljog2 = jog2.getFilaPortugal();
-        CardSlot [] mundojog2 = jog2.getFilaMundo();
+        CardSlot [][] campojog1 = jog1.getCampo();
+        CardSlot [][] campojog2 = jog2.getCampo();
+        CardSlot[] playerhandDisplayed = jogo.getHandSlots();
 
         if(value) {
-            // Cartas Jog 1 Fila Portugal
-            for (final CardSlot slot : portugaljog1) {
-                final ImageButton card_image = slot.getSlot();
-                slot.getSlot().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Carta temp = slot.getCarta();
-                        if (temp != null) {
-                            // Zoom Card
-                            zoomCard(card_image, temp.getId_max(), jogo, slot, false);
 
-                            // Retrieve and cache the system's default "short" animation time.
-                            shortAnimationDuration = getResources().getInteger(
-                                    android.R.integer.config_shortAnimTime);
-                        }
-                    }
-                });
-            }
+            for (final CardSlot[] slot_list : campojog1)
+                for(final CardSlot slot: slot_list){
+                    set_button(jogo,slot);
+                }
 
-            // Cartas Jog 1 Fila Mundo
-            for (final CardSlot slot : mundojog1) {
-                final ImageButton card_image = slot.getSlot();
-                slot.getSlot().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Carta temp = slot.getCarta();
-                        if (temp != null) {
-                            // Zoom Card
-                            zoomCard(card_image, temp.getId_max(), jogo, slot, false);
-
-                            // Retrieve and cache the system's default "short" animation time.
-                            shortAnimationDuration = getResources().getInteger(
-                                    android.R.integer.config_shortAnimTime);
-                        }
-                    }
-                });
-            }
-
-            // Cartas Jog 2 Fila Portugal
-            for (final CardSlot slot : portugaljog2) {
-                final ImageButton card_image = slot.getSlot();
-                slot.getSlot().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Carta temp = slot.getCarta();
-                        if (temp != null) {
-                            // Zoom Card
-                            zoomCard(card_image, temp.getId_max(), jogo, slot, false);
-
-                            // Retrieve and cache the system's default "short" animation time.
-                            shortAnimationDuration = getResources().getInteger(
-                                    android.R.integer.config_shortAnimTime);
-                        }
-                    }
-                });
-            }
-
-            // Cartas Jog 2 Fila Mundo
-            for (final CardSlot slot : mundojog2) {
-                final ImageButton card_image = slot.getSlot();
-                slot.getSlot().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Carta temp = slot.getCarta();
-                        if (temp != null) {
-                            // Zoom Card
-                            zoomCard(card_image, temp.getId_max(), jogo, slot, false);
-
-                            // Retrieve and cache the system's default "short" animation time.
-                            shortAnimationDuration = getResources().getInteger(
-                                    android.R.integer.config_shortAnimTime);
-                        }
-                    }
-                });
-            }
+            for (final CardSlot[] slot_list : campojog2)
+                for(final CardSlot slot: slot_list){
+                    set_button(jogo,slot);
+                }
 
             // Cartas na mao
-            CardSlot[] playerhandDisplayed = jogo.getHandSlots();
             for (final CardSlot slot : playerhandDisplayed) {
                 final ImageButton card_image = slot.getSlot();
                 slot.getSlot().setOnClickListener(new View.OnClickListener() {
@@ -164,39 +99,6 @@ public class GameBoardFragment extends Fragment {
                         }
                     }
                 });
-                /**
-                 slot.getSlot().setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                Carta temp = slot.getCarta();
-                if (temp != null){
-                int freeSlot = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[temp.getFila()]);
-                if (freeSlot >= 0){
-                slot.setCarta(null); //remove carta do handSlot
-                jogo.getJogadorAtual().jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores());
-                jogo.acabaJogada();
-                }
-                else{
-                //Será aqui o sitio ideal para detetar habilidade de Madonna e Ronaldo?
-                if (temp.getHabilidade() != null){
-                if (temp.getHabilidade().getNome().equals("MultiFila")){
-                int outrafila = Utils.getOutraFila(temp.getFila());
-                int slotOutraFila = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[outrafila]);
-                if (slotOutraFila >= 0){
-                slot.setCarta(null); //remove carta do handSlot
-                jogo.getJogadorAtual().removeCartadaMao(temp);
-                System.out.println(temp.getNome());
-                jogo.getJogadorAtual().getCampo()[outrafila][slotOutraFila].setCarta(temp);
-                jogo.getJogadorAtual().tiraCartaDoBaralho();
-                jogo.acabaJogada();
-                }
-                }
-                }
-
-                }
-                }
-                }
-                });
-                 **/
             }
 
             Button button = view.findViewById(R.id.skip_butt);
@@ -205,32 +107,23 @@ public class GameBoardFragment extends Fragment {
                 public void onClick(View v) {
                     jogo.getJogadorAtual().setSkipped(true);
                     jogo.skipRound();
+                    if(jogo.getWinner() != ""){
+                        mListener.onGameWonInteraction(jogo.getWinner());
+                    }
                 }
             });
         }else{
-            // Cartas Jog 1 Fila Portugal
-            for (final CardSlot slot : portugaljog1) {
-                slot.getSlot().setOnClickListener(null);
-            }
+            for (final CardSlot[] slot_list : campojog1)
+                for(final CardSlot slot: slot_list){
+                    slot.getSlot().setOnClickListener(null);
+                }
 
-
-            // Cartas Jog 1 Fila Mundo
-            for (final CardSlot slot : mundojog1) {
-                slot.getSlot().setOnClickListener(null);
-            }
-
-            // Cartas Jog 2 Fila Portugal
-            for (final CardSlot slot : portugaljog2) {
-                slot.getSlot().setOnClickListener(null);
-            }
-
-            // Cartas Jog 2 Fila Mundo
-            for (final CardSlot slot : mundojog2) {
-                slot.getSlot().setOnClickListener(null);
-            }
+            for (final CardSlot[] slot_list : campojog2)
+                for(final CardSlot slot: slot_list){
+                    slot.getSlot().setOnClickListener(null);
+                }
 
             // Cartas na mao
-            CardSlot[] playerhandDisplayed = jogo.getHandSlots();
             for (final CardSlot slot : playerhandDisplayed) {
                 slot.getSlot().setOnClickListener(null);
             }
@@ -238,6 +131,24 @@ public class GameBoardFragment extends Fragment {
             Button button = view.findViewById(R.id.skip_butt);
             button.setOnClickListener(null);
         }
+    }
+
+    private void set_button(final Jogo jogo, final CardSlot slot){
+        final ImageButton card_image = slot.getSlot();
+        slot.getSlot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Carta temp = slot.getCarta();
+                if (temp != null) {
+                    // Zoom Card
+                    zoomCard(card_image, temp.getId_max(), jogo, slot, false);
+
+                    // Retrieve and cache the system's default "short" animation time.
+                    shortAnimationDuration = getResources().getInteger(
+                            android.R.integer.config_shortAnimTime);
+                }
+            }
+        });
     }
 
     @Override
@@ -276,6 +187,9 @@ public class GameBoardFragment extends Fragment {
                     }
                 }
 
+            }
+            if(jogo.getWinner() != ""){
+                mListener.onGameWonInteraction(jogo.getWinner());
             }
         }
     }
@@ -453,5 +367,20 @@ public class GameBoardFragment extends Fragment {
         });
         set.start();
         currentAnimator = set;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof GameBoardFragment.OnGameBoardFragmentInteractionListener) {
+            mListener = (GameBoardFragment.OnGameBoardFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    public interface OnGameBoardFragmentInteractionListener {
+        void onGameWonInteraction(String winner);
     }
 }

@@ -14,6 +14,7 @@ public class Jogo {
     private Jogador [] jogadores;
     private CardSlot[] handSlots;
     private TextView playerLabel;
+    private String winner;
     private int turno; //0 - vez do jogador 1, 1- vez do jogador 2. Ou seja, posição dos jogadores no array "jogadores"
 
     public Jogo(Context context, View view){
@@ -34,6 +35,8 @@ public class Jogo {
         bd.getCardsSkills(allCards);
 
         setupGame(allCards);
+
+        winner = "";
     }
 
     private void BuildHandSlots(){
@@ -145,6 +148,7 @@ public class Jogo {
             if (checkForWinner(jogadores[0])){
                 //ganhou o jogo
                 System.out.println("Jogador 1 venceu o jogo");
+                winner = "JOGADOR 1";
             }
             else{
                 System.out.println("Jogador 1 venceu a ronda. Começando proxima ronda...");
@@ -157,6 +161,7 @@ public class Jogo {
             if(checkForWinner(jogadores[1])){
                 //ganhou o jogo
                 System.out.println("Jogador 2 venceu o jogo");
+                winner = "JOGADOR 2";
             }
             else{
                 System.out.println("Jogador 2 venceu a ronda. Começando proxima ronda...");
@@ -191,6 +196,10 @@ public class Jogo {
         //jogadores[turno].MostraMao(handSlots);
     }
 
+    public String getWinner(){
+        return winner;
+    }
+
     public Jogador [] getJogadores(){
         return jogadores;
     }
@@ -210,7 +219,5 @@ public class Jogo {
     // -- cartas.addModificador.
     // - UpdatePoder()
     // - update turno
-
-
 
 }
