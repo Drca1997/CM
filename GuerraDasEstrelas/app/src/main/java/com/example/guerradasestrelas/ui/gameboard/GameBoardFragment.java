@@ -66,21 +66,15 @@ public class GameBoardFragment extends Fragment {
         Jogador jog1 = jogo.getJogadores()[0];
         Jogador jog2 = jogo.getJogadores()[1];
 
-        CardSlot [][] campojog1 = jog1.getCampo();
-        CardSlot [][] campojog2 = jog2.getCampo();
         CardSlot[] playerhandDisplayed = jogo.getHandSlots();
 
         if(value) {
-
-            for (final CardSlot[] slot_list : campojog1)
-                for(final CardSlot slot: slot_list){
-                    set_button(jogo,slot);
-                }
-
-            for (final CardSlot[] slot_list : campojog2)
-                for(final CardSlot slot: slot_list){
-                    set_button(jogo,slot);
-                }
+            // Cartas no campo
+            for (Jogador jog : jogo.getJogadores())
+                for (final CardSlot[] slot_list : jog.getCampo())
+                    for(final CardSlot slot: slot_list){
+                        set_button(jogo,slot);
+                    }
 
             // Cartas na mao
             for (final CardSlot slot : playerhandDisplayed) {
@@ -99,15 +93,12 @@ public class GameBoardFragment extends Fragment {
                 }
             });
         }else{
-            for (final CardSlot[] slot_list : campojog1)
-                for(final CardSlot slot: slot_list){
-                    slot.getSlot().setOnClickListener(null);
-                }
-
-            for (final CardSlot[] slot_list : campojog2)
-                for(final CardSlot slot: slot_list){
-                    slot.getSlot().setOnClickListener(null);
-                }
+            // Cartas no Campo
+            for (Jogador jog : jogo.getJogadores())
+                for (final CardSlot[] slot_list : jog.getCampo())
+                    for(final CardSlot slot: slot_list){
+                        slot.getSlot().setOnClickListener(null);
+                    }
 
             // Cartas na mao
             for (final CardSlot slot : playerhandDisplayed) {
