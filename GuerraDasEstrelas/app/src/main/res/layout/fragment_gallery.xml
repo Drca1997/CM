@@ -5,34 +5,47 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.GalleryFragment">
+    tools:context=".fragments.GalleryFragment"
+    android:background="@color/background">
 
     <Button
         android:id="@+id/back_gal_butt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_width="350dp"
+        android:layout_height="95dp"
         android:layout_marginBottom="16dp"
-        android:text="Back"
+        android:background="@drawable/butt_voltar_atras"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <HorizontalScrollView
         android:id="@+id/hor_scroll_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:scrollbars="horizontal"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.188">
 
         <LinearLayout
             android:id="@+id/galleryLayout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
     </HorizontalScrollView>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="339dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/setas"
+        app:layout_constraintBottom_toTopOf="@+id/back_gal_butt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/expanded_image"

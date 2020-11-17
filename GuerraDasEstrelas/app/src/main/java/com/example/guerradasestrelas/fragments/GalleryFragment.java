@@ -72,6 +72,7 @@ public class GalleryFragment extends Fragment {
             card_image.setImageResource(cartas[i].getId_mini());
             final int ind = i;
 
+
             card_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
