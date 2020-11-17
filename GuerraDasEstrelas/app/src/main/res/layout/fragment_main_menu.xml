@@ -5,25 +5,45 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MainMenuFragment">
+    tools:context=".fragments.MainMenuFragment"
+    android:background="@color/background">
 
-    <Button
-        android:id="@+id/play_butt"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-    <Button
-        android:id="@+id/gallery_butt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gallery"
-        app:layout_constraintBottom_toBottomOf="parent"
+        <Button
+            android:id="@+id/play_butt"
+            android:layout_width="329dp"
+            android:layout_height="108dp"
+            android:background="@drawable/butt_novo_jogo" />
+
+        <Button
+            android:id="@+id/gallery_butt"
+            android:layout_width="329dp"
+            android:layout_height="108dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/butt_galeria" />
+
+        <Button
+            android:id="@+id/sair_butt"
+            android:layout_width="329dp"
+            android:layout_height="108dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/butt_sair" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="383dp"
+        android:layout_height="269dp"
+        android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
