@@ -5,14 +5,15 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PlayFragment">
+    tools:context=".fragments.PlayFragment"
+    android:background="@color/background">
 
 
     <Button
         android:id="@+id/vsPC_butt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="vs PC"
+        android:layout_width="331dp"
+        android:layout_height="104dp"
+        android:background="@drawable/butt_vs_computador"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +22,9 @@
 
     <Button
         android:id="@+id/localMP_butt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Local MP"
+        android:layout_width="331dp"
+        android:layout_height="104dp"
+        android:background="@drawable/butt_multiplayer_local"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,9 +32,9 @@
 
     <Button
         android:id="@+id/back_butt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
+        android:layout_width="331dp"
+        android:layout_height="104dp"
+        android:background="@drawable/butt_voltar_atras"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
