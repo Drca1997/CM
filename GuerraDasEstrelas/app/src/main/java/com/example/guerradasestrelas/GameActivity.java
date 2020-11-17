@@ -18,7 +18,11 @@ public class GameActivity extends AppCompatActivity implements WinnerFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
-        GameBoardFragment gameBoardFragment = GameBoardFragment.newInstance();
+        // Chamar primeiro o sorteio
+        // Quando sorteio acaba, chama o gameboardfragment com as cartas
+        int [] cards = {}; //enqt n ha sorteio
+
+        GameBoardFragment gameBoardFragment = GameBoardFragment.newInstance(cards);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, gameBoardFragment)

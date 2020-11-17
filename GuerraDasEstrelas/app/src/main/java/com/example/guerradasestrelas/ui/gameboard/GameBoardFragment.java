@@ -37,6 +37,10 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class GameBoardFragment extends Fragment {
+    private static final String CARDS_LIST = "CARDS_LIST";
+
+    private int [] cartas;
+
     // Hold a reference to the current animator,
     // so that it can be canceled mid-way.
     private Animator currentAnimator;
@@ -52,8 +56,30 @@ public class GameBoardFragment extends Fragment {
 
     private String old_hand;
 
-    public static GameBoardFragment newInstance() {
-        return new GameBoardFragment();
+    public GameBoardFragment() {
+        // Required empty public constructor
+    }
+
+    public static GameBoardFragment newInstance(int [] cartas) {
+        GameBoardFragment fragment = new GameBoardFragment();
+        Bundle args = new Bundle();
+        args.putIntArray(CARDS_LIST,cartas);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            cartas = getArguments().getIntArray(CARDS_LIST);
+        }
+    }
+
+    public void initArguments(){
+        if (getArguments() != null) {
+            cartas = getArguments().getIntArray(CARDS_LIST);
+        }
     }
 
     @Nullable
@@ -62,7 +88,10 @@ public class GameBoardFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.game_board_fragment, container, false);
 
-        final Jogo jogo = new Jogo(getActivity(), view);
+        initArguments();
+
+        final Jogo jogo = new Jogo(getActivity(), view, cartas);
+
 
         old_hand = "";
 

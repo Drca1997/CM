@@ -15,10 +15,11 @@ public class Jogo {
     private CardSlot[] handSlots;
     private TextView playerLabel;
     private String winner;
+    private int [] cardsNum;
     private int turno; //0 - vez do jogador 1, 1- vez do jogador 2. Ou seja, posição dos jogadores no array "jogadores"
 
-    public Jogo(Context context, View view){
-
+    public Jogo(Context context, View view, int [] cardsInd){
+        // CardsInd vai ter nos 15 ou 20 idk primeiros indices os indices no array allCards das cartas do jogador 0 e nos ultimos os do jogador 1
         Singleton.getInstance();
         Singleton.context = context;
         Singleton.view = view;
@@ -29,6 +30,7 @@ public class Jogo {
 
         BaseDados bd = new BaseDados(context);
         Carta [] allCards= bd.GetAllCards();
+        cardsNum = cardsInd;
 
         criaJogadores();
 
@@ -79,11 +81,31 @@ public class Jogo {
     }
 
     private void buildBaralhosJogadores(Carta [] allCards){
+        Carta[] baralho1;
+        Carta[] baralho2;
+
         //Atribui baralhos aos jogadores
-        Utils.baralhaBaralho(allCards);
-        Utils.PrintBaralho(allCards, "Cartas Recolhidas da Base de Dados");
-        Carta[] baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS/ 2);
-        Carta[] baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS/2, allCards.length);
+        if(cardsNum.length > 0){
+            // ordenar de acordo com os indices do CardsNum
+            baralho1 = new Carta[Singleton.NUM_CARTAS/2];
+            baralho2 = new Carta[Singleton.NUM_CARTAS/2];
+
+            for (int i = 0; i<Singleton.NUM_CARTAS; i++){
+                if(i < Singleton.NUM_CARTAS/2){
+                    // jogador 1
+                    baralho1[i] = allCards[cardsNum[i]];
+                }else{
+                    // jogador 2
+                    baralho2[i] = allCards[cardsNum[i]];
+                }
+            }
+        }else{
+            Utils.baralhaBaralho(allCards);
+            Utils.PrintBaralho(allCards, "Cartas Recolhidas da Base de Dados");
+            baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS/ 2);
+            baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS/2, allCards.length);
+        }
+
         jogadores[0].setBaralho(baralho1);
         jogadores[1].setBaralho(baralho2);
     }
