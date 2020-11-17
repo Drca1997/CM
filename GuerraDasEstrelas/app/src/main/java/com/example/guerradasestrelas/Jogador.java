@@ -97,6 +97,7 @@ public class Jogador {
     public void jogaCarta(Carta carta, int freeSlot, int turno, Jogador [] jogadores){
         removeCartadaMao(carta);
         campo[carta.getFila()][freeSlot].setCarta(carta); //coloca carta no campo
+        System.out.println("JOGANDO " + carta.getNome().toUpperCase());
         if (carta.getHabilidade() != null){
             carta.getHabilidade().Execute(turno, jogadores);
         }

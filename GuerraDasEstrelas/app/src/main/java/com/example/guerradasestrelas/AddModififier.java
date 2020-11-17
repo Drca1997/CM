@@ -65,7 +65,6 @@ public class AddModififier extends Habilidade {
                         if (!Utils.isImune(filasAfetadas[i][j].getCarta())){ //Arnold Imune a modificadores
                             filasAfetadas[i][j].getCarta().AddModifier(modificador);
                         }
-
                     }
                 }
             }

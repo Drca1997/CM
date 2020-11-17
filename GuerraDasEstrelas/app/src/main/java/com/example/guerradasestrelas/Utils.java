@@ -9,7 +9,10 @@ import java.util.Random;
 public class Utils {
 
     public static boolean isImune(Carta carta){
-        return carta.getHabilidade() == null || carta.getHabilidade().getNome().equals("Imune");
+        if (carta.getHabilidade() != null){
+            return carta.getHabilidade().getNome().equals("Imune");
+        }
+        return false;
     }
 
     public static void baralhaBaralho(Carta [] baralho) {
