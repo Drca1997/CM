@@ -105,11 +105,16 @@ public class Jogo {
                 baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
             }
             else{ //DEBUG (hardcoded para testar cartas especfíficas)
-                int [] IdsCartasASeremTestadas = new int [] {2, 3, 4, 6, 7, 13, 14, 18, 24, 28, 33, 34} ;
-                for (int i=0; i < IdsCartasASeremTestadas.length;  i++){
-                    baralho1[i] = Debug.getCartaFromArray(allCards, IdsCartasASeremTestadas[i]);
-                }
+                //int [] IdsCartasASeremTestadas = new int [] {, 2, 3, 4, 6, 7, 13, 14, 18, 24, 28, 33, 34} ;
+                //for (int i=0; i < IdsCartasASeremTestadas.length;  i++){
+                //    baralho1[i] = Debug.getCartaFromArray(allCards, IdsCartasASeremTestadas[i]);
+                //}
+                Carta maya = Debug.getCartaFromArray(allCards, 16);
+                Carta cfg = Debug.getCartaFromArray(allCards, 22);
                 Utils.baralhaBaralho(allCards);
+                baralho1[0] = maya;
+                baralho1[1] = cfg;
+                baralho1 = Arrays.copyOfRange(allCards, 2, Singleton.NUM_CARTAS_JOGO/ 2);
                 baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
             }
         }
