@@ -205,7 +205,7 @@ public class GameBoardFragment extends Fragment {
                 }
 
             }
-            if(jogo.getWinner() != ""){
+            if(!jogo.getWinner().equals("")){
                 mListener.onGameWonInteraction(jogo.getWinner());
             }
         }
@@ -389,8 +389,8 @@ public class GameBoardFragment extends Fragment {
     private void playerTransition(){
         // Detetar aqui se houve ou nao mudança de mao. Se sim, mostrar ecra de transiçao.
         String jog_at = ((TextView) view.findViewById(R.id.mao_jog_text)).getText().toString();
-        System.out.println(jog_at);
-        System.out.println(old_hand);
+        //System.out.println(jog_at);
+        //System.out.println(old_hand);
         if(!jog_at.equals(old_hand)){
             // fazer ecra aparecer
             final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);

@@ -71,25 +71,22 @@ public class Jogo {
         Utils.baralhaBaralho(jogadores[0].getBaralho());
         Utils.baralhaBaralho(jogadores[1].getBaralho());
         //debug print dos baralhos
-        Utils.PrintBaralho(jogadores[0].getBaralho(), "Baralho do Jogador 1");
-        Utils.PrintBaralho(jogadores[1].getBaralho(), "Baralho do Jogador 2");
+        //Utils.PrintBaralho(jogadores[0].getBaralho(), "Baralho do Jogador 1");
+        //Utils.PrintBaralho(jogadores[1].getBaralho(), "Baralho do Jogador 2");
         //Atribui mao inicial aos jogadores
         jogadores[0].InicializaMao();
+        Utils.PrintBaralho(jogadores[0].getMao(), "MÃO DO JOGADOR 1");
         jogadores[1].InicializaMao();
         //mostra mao do jogador 1, pronto para comecar o jogo
         jogadores[0].MostraMao(handSlots);
     }
 
     private void buildBaralhosJogadores(Carta [] allCards){
-        Carta[] baralho1;
-        Carta[] baralho2;
-
+        Carta[] baralho1 = new Carta[Singleton.NUM_CARTAS_JOGO/2];
+        Carta[] baralho2 = new Carta[Singleton.NUM_CARTAS_JOGO/2];
         //Atribui baralhos aos jogadores
-        if(cardsNum.length > 0){
+        if(cardsNum.length > 0){ //se sorteio acontecer
             // ordenar de acordo com os indices do CardsNum
-            baralho1 = new Carta[Singleton.NUM_CARTAS_JOGO/2];
-            baralho2 = new Carta[Singleton.NUM_CARTAS_JOGO/2];
-
             for (int i = 0; i<Singleton.NUM_CARTAS_JOGO; i++){
                 if(i < Singleton.NUM_CARTAS_JOGO/2){
                     // jogador 1
@@ -99,11 +96,29 @@ public class Jogo {
                     baralho2[i-Singleton.NUM_CARTAS_JOGO/2] = allCards[cardsNum[i]];
                 }
             }
-        }else{
-            Utils.baralhaBaralho(allCards);
-            Utils.PrintBaralho(allCards, "Cartas Recolhidas da Base de Dados");
-            baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS_JOGO/ 2);
-            baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
+        }else{ //sem sorteio
+            boolean debug = true;
+            if (!debug){
+                Utils.baralhaBaralho(allCards);
+                Utils.PrintBaralho(allCards, "Cartas Recolhidas da Base de Dados");
+                baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS_JOGO/ 2);
+                baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
+            }
+            else{ //DEBUG (hardcoded para testar cartas especfíficas)
+                //int [] IdsCartasASeremTestadas = new int [] {, 2, 3, 4, 6, 7, 13, 14, 18, 24, 28, 33, 34} ;
+                //for (int i=0; i < IdsCartasASeremTestadas.length;  i++){
+                //    baralho1[i] = Debug.getCartaFromArray(allCards, IdsCartasASeremTestadas[i]);
+                //}
+                Carta soprano = Debug.getCartaFromArray(allCards, 37);
+                Carta jesus = Debug.getCartaFromArray(allCards, 7);
+                Carta carreira = Debug.getCartaFromArray(allCards, 20);
+                baralho1[0] = soprano;
+                baralho1[0] = carreira;
+                baralho1[0] = jesus;
+                Utils.baralhaBaralho(allCards);
+                baralho1 = Arrays.copyOfRange(allCards, 3, Singleton.NUM_CARTAS_JOGO/ 2);
+                baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
+            }
         }
 
         jogadores[0].setBaralho(baralho1);
@@ -111,11 +126,11 @@ public class Jogo {
     }
 
     public void updatePlayerLabel(){
-        System.out.println("Updating");
         playerLabel.setText("Mão do Jogador " + (turno + 1));
 }
 
     public void updatePoder(){
+        int i=1;
         for (Jogador jogador : jogadores){
             for (int fila = 0; fila < Singleton.NUM_FILAS; fila++){
                 int soma = 0;
@@ -127,8 +142,11 @@ public class Jogo {
                 }
                 jogador.getPoder()[fila] = soma;
             }
+
             jogador.getPoder()[2] = jogador.getPoder()[0] + jogador.getPoder()[1]; //soma Poder das Filas
-            System.out.println("Poder Jogador : " + jogador.getPoder()[2]);
+            System.out.println("Poder Jogador " + i + ": " + jogador.getPoder()[2] +
+                    " = PT: " + jogador.getPoder()[0] + " + M: " + jogador.getPoder()[1]);
+            i++;
         }
     }
 
