@@ -43,6 +43,9 @@ public class AddCardToHand extends Habilidade {
             Random rand = new Random();
             do{
                 cartaIndex = rand.nextInt(origem.length);
+                while (origem[cartaIndex] == null){
+                    cartaIndex = rand.nextInt(origem.length);
+                }
             }while(Utils.isImune(origem[cartaIndex]));
         }
         else{
