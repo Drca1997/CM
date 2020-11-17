@@ -22,6 +22,16 @@ public class Utils {
         }
     }
 
+    public static void baralhaIndices(int [] arr) {
+        Random rand = new Random();
+        for (int i = 0; i < arr.length; i++) {
+            int randomIndexToSwap = rand.nextInt(arr.length);
+            int temp = arr[randomIndexToSwap];
+            arr[randomIndexToSwap] = arr[i];
+            arr[i] = temp;
+        }
+    }
+
     public static void PrintBaralho(Carta [] baralho, String mensagem){
         if (mensagem != null){System.out.println(mensagem);}
         for(Carta carta: baralho){

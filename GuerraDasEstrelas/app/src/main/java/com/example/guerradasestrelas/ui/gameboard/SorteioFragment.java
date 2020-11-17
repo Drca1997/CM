@@ -1,8 +1,5 @@
 package com.example.guerradasestrelas.ui.gameboard;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -10,10 +7,10 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.media.Image;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -26,20 +23,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.guerradasestrelas.BaseDados;
 import com.example.guerradasestrelas.CardSlot;
 import com.example.guerradasestrelas.Carta;
-import com.example.guerradasestrelas.Jogador;
 import com.example.guerradasestrelas.Jogo;
 import com.example.guerradasestrelas.R;
+import com.example.guerradasestrelas.Singleton;
 import com.example.guerradasestrelas.Utils;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class GameBoardFragment extends Fragment {
-    private static final String CARDS_LIST = "CARDS_LIST";
+public class SorteioFragment extends Fragment {
+    View view;
 
-    private int [] cartas;
+    private SorteioFragment.OnSorteioFragmentInteractionListener mListener;
+
+    private Carta[] allCartas;
+    private int[] shakedInds;
+    private int[] cardInd;
 
     // Hold a reference to the current animator,
     // so that it can be canceled mid-way.
@@ -50,175 +51,139 @@ public class GameBoardFragment extends Fragment {
     // very frequently.
     private int shortAnimationDuration;
 
-    private View view;
+    int ind,turn;
 
-    private GameBoardFragment.OnGameBoardFragmentInteractionListener mListener;
-
-    private String old_hand;
-
-    public GameBoardFragment() {
+    public SorteioFragment() {
         // Required empty public constructor
     }
 
-    public static GameBoardFragment newInstance(int [] cartas) {
-        GameBoardFragment fragment = new GameBoardFragment();
-        Bundle args = new Bundle();
-        args.putIntArray(CARDS_LIST,cartas);
-        fragment.setArguments(args);
-        return fragment;
+    public static SorteioFragment newInstance() {
+        return new SorteioFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            cartas = getArguments().getIntArray(CARDS_LIST);
-        }
     }
 
-    public void initArguments(){
-        if (getArguments() != null) {
-            cartas = getArguments().getIntArray(CARDS_LIST);
-        }
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.game_board_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_sorteio, container, false);
 
-        initArguments();
+        // Obter cartas e baralhar
+        BaseDados bd = new BaseDados(getActivity());
+        allCartas = bd.GetAllCards();
+        shakedInds = new int[Singleton.NUM_CARTAS_JOGO];
+        cardInd = new int[Singleton.NUM_CARTAS_JOGO];
+        for (int i=0;i<Singleton.NUM_CARTAS_JOGO;i++){
+            shakedInds[i] = i;
+        }
+        Utils.baralhaIndices(shakedInds);
+        turn = 0;
 
-        final Jogo jogo = new Jogo(getActivity(), view, cartas);
-
-        old_hand = "";
-
-        // Para efeitos de teste
-        //final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);
-        //next_round.setVisibility(View.GONE);
-
-        toggle_click(true,jogo);
+        turnManager();
 
         return view;
     }
 
-    private void toggle_click(boolean value, final Jogo jogo){
-        CardSlot[] playerhandDisplayed = jogo.getHandSlots();
+    private void turnManager(){
+        // tapar ecra e detetar clique
+        final ConstraintLayout tapa = view.findViewById(R.id.tapa_escolha);
+        final TextView turn_t = view.findViewById(R.id.turn_text);
+        turn_t.setText("VEZ DO JOGADOR " + (turn%2 + 1) + "!!!!");
+        tapa.setVisibility(View.VISIBLE);
+        tapa.bringToFront();
 
-        if(value) {
-            // Cartas no campo
-            for (Jogador jog : jogo.getJogadores())
-                for (final CardSlot[] slot_list : jog.getCampo())
-                    for(final CardSlot slot: slot_list){
-                        set_button(jogo,slot,false);
-                    }
+        // preparar image buttons
+        final ImageButton im_butt_1 = view.findViewById(R.id.im_choice_1);
+        final ImageButton im_butt_2 = view.findViewById(R.id.im_choice_2);
 
-            // Cartas na mao
-            for (final CardSlot slot : playerhandDisplayed) {
-                set_button(jogo,slot,true);
-            }
-            playerTransition();
+        im_butt_1.setOnClickListener(null);
+        im_butt_2.setOnClickListener(null);
 
-            Button button = view.findViewById(R.id.skip_butt);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    jogo.getJogadorAtual().setSkipped(true);
-                    jogo.skipRound();
-                    if(jogo.getWinner() != ""){
-                        mListener.onGameWonInteraction(jogo.getWinner());
-                    }
-                    playerTransition();
-                }
-            });
-        }else{
-            // Cartas no Campo
-            for (Jogador jog : jogo.getJogadores())
-                for (final CardSlot[] slot_list : jog.getCampo())
-                    for(final CardSlot slot: slot_list){
-                        slot.getSlot().setOnClickListener(null);
-                    }
-
-            // Cartas na mao
-            for (final CardSlot slot : playerhandDisplayed) {
-                slot.getSlot().setOnClickListener(null);
-            }
-
-            Button button = view.findViewById(R.id.skip_butt);
-            button.setOnClickListener(null);
-        }
-    }
-
-    private void set_button(final Jogo jogo, final CardSlot slot, final boolean playable){
-        final ImageButton card_image = slot.getSlot();
-        slot.getSlot().setOnClickListener(new View.OnClickListener() {
+        Button ready_butt = view.findViewById(R.id.ready_choose_butt);
+        ready_butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Carta temp = slot.getCarta();
-                if (temp != null) {
-                    // Zoom Card
-                    zoomCard(card_image, temp.getId_max(), jogo, slot, playable);
+                // destapar ecra
+                tapa.setVisibility(View.INVISIBLE);
 
-                    // Retrieve and cache the system's default "short" animation time.
-                    shortAnimationDuration = getResources().getInteger(
-                            android.R.integer.config_shortAnimTime);
-                }
+                // preparar info de turno
+                TextView turn_sort = view.findViewById(R.id.turn_n_text);
+                turn_sort.setText("Sorteio turno (" + (turn + 1) + "/" + Singleton.NUM_CARTAS_JOGO/2 + ")");
+
+                // preparar info de jogador
+                TextView turn_player = view.findViewById(R.id.player_turn_text);
+                turn_player.setText("Vez do jogador " + (turn%2 + 1) + ".");
+
+                updateImages(im_butt_1,allCartas[shakedInds[ind]].getId_max(),true);
+                updateImages(im_butt_2,allCartas[shakedInds[ind+1]].getId_max(),false);
+
+                // preparar botao de skip
+                toggle_skip(true);
             }
         });
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //mViewModel = ViewModelProviders.of(this).get(GameBoardViewModel.class);
-    }
-
-    public View getView(){
-        return view;
-    }
-
-    private void playCard(final Jogo jogo,final CardSlot slot){
-        Carta temp = slot.getCarta();
-        if (temp != null){
-            int freeSlot = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[temp.getFila()]);
-            if (freeSlot >= 0){
-                slot.setCarta(null); //remove carta do handSlot
-                jogo.getJogadorAtual().jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores());
-                jogo.acabaJogada();
-            }
-            else{
-                //Será aqui o sitio ideal para detetar habilidade de Madonna e Ronaldo?
-                if (temp.getHabilidade() != null){
-                    if (temp.getHabilidade().getNome().equals("MultiFila")){
-                        int outrafila = Utils.getOutraFila(temp.getFila());
-                        int slotOutraFila = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[outrafila]);
-                        if (slotOutraFila >= 0){
-                            slot.setCarta(null); //remove carta do handSlot
-                            jogo.getJogadorAtual().removeCartadaMao(temp);
-                            System.out.println(temp.getNome());
-                            jogo.getJogadorAtual().getCampo()[outrafila][slotOutraFila].setCarta(temp);
-                            jogo.getJogadorAtual().tiraCartaDoBaralho();
-                            jogo.acabaJogada();
-                        }
-                    }
+    private void toggle_skip(boolean onoff){
+        // preparar botao de skip
+        Button skip_sort = view.findViewById(R.id.skit_sort_butt);
+        if(onoff){
+            skip_sort.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int [] empt = {};
+                    mListener.onSorteioDoneInteraction(empt);
                 }
-
-            }
-            if(jogo.getWinner() != ""){
-                mListener.onGameWonInteraction(jogo.getWinner());
-            }
+            });
+        }else{
+            skip_sort.setOnClickListener(null);
         }
     }
 
-    private void zoomCard(final View thumbView, int imageResId, final Jogo jogo, final CardSlot slot, boolean playable) {
+    private void updateImages(final ImageButton im_butt, final int im_id, final boolean first){
+        im_butt.setImageResource(im_id);
+        im_butt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // ZoomCard
+                zoomCard(im_butt,im_id,first);
+
+                // Retrieve and cache the system's default "short" animation time.
+                shortAnimationDuration = getResources().getInteger(
+                        android.R.integer.config_shortAnimTime);
+
+                toggle_skip(false);
+            }
+        });
+    }
+
+    private void chooseCard(boolean first){
+        // jogador escolheu esta
+        cardInd[turn] = shakedInds[(first ? ind:ind+1)];
+        cardInd[turn + Singleton.NUM_CARTAS_JOGO/2] = shakedInds[(first ? ind+1:ind)];
+
+        // proximo turno de escolha
+        turn = turn + 1;
+        ind = ind + 2;
+
+        if(ind == Singleton.NUM_CARTAS_JOGO){
+            // terminou sorteio
+            mListener.onSorteioDoneInteraction(cardInd);
+        }else {
+            // tapa ecra - nova ronda
+            turnManager();
+        }
+    }
+
+    private void zoomCard(final View thumbView, int imageResId, final boolean first) {
         // If there's an animation in progress, cancel it
         // immediately and proceed with this one.
         if (currentAnimator != null) {
             currentAnimator.cancel();
         }
-
-        toggle_click(false, jogo);
 
         final LinearLayout expandedImageView = (LinearLayout) view.findViewById(R.id.expanded_image);
         expandedImageView.bringToFront();
@@ -239,7 +204,7 @@ public class GameBoardFragment extends Fragment {
         // bounds, since that's the origin for the positioning animation
         // properties (X, Y).
         thumbView.getGlobalVisibleRect(startBounds);
-        view.findViewById(R.id.game_board)
+        view.findViewById(R.id.sorteio_layout)
                 .getGlobalVisibleRect(finalBounds, globalOffset);
         startBounds.offset(-globalOffset.x, -globalOffset.y);
         finalBounds.offset(-globalOffset.x, -globalOffset.y);
@@ -314,26 +279,20 @@ public class GameBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 unZoomCard(expandedImageView,startBounds,startScaleFinal,thumbView);
-                toggle_click(true, jogo);
+                //toggle_click(true, jogo);
             }
         });
 
         // Botao de Jogar, se for carta ja jogada, nao pode ser jogada, metemos invisivel
         Button play_card = (Button) view.findViewById(R.id.play_card_butt);
-        if(playable) {
-            play_card.setVisibility(View.VISIBLE);
-            play_card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // CODIGO PARA JOGAR CARTA
-                    playCard(jogo,slot);
-                    unZoomCard(expandedImageView,startBounds,startScaleFinal,thumbView);
-                    toggle_click(true, jogo);
-                }
-            });
-        }else{
-            play_card.setVisibility(View.GONE);
-        }
+        play_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // CODIGO PARA ESCOLHER CARTA
+                chooseCard(first);
+                unZoomCard(expandedImageView,startBounds,startScaleFinal,thumbView);
+            }
+        });
 
         // Botao de voltar para o ecra de jogo
         Button back_b = (Button) view.findViewById(R.id.back_hand_butt);
@@ -341,7 +300,6 @@ public class GameBoardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 unZoomCard(expandedImageView,startBounds,startScaleFinal,thumbView);
-                toggle_click(true, jogo);
             }
         });
     }
@@ -384,43 +342,21 @@ public class GameBoardFragment extends Fragment {
         });
         set.start();
         currentAnimator = set;
-    }
-
-    private void playerTransition(){
-        // Detetar aqui se houve ou nao mudança de mao. Se sim, mostrar ecra de transiçao.
-        String jog_at = ((TextView) view.findViewById(R.id.mao_jog_text)).getText().toString();
-        System.out.println(jog_at);
-        System.out.println(old_hand);
-        if(!jog_at.equals(old_hand)){
-            // fazer ecra aparecer
-            final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);
-            Button ready = (Button) view.findViewById(R.id.ready_butt);
-            next_round.setVisibility(View.VISIBLE);
-            next_round.bringToFront();
-            ready.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    next_round.setVisibility(View.INVISIBLE);
-                }
-            });
-
-            // atualizar jogador
-            old_hand = jog_at;
-        }
+        toggle_skip(true);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof GameBoardFragment.OnGameBoardFragmentInteractionListener) {
-            mListener = (GameBoardFragment.OnGameBoardFragmentInteractionListener) context;
+        if (context instanceof SorteioFragment.OnSorteioFragmentInteractionListener) {
+            mListener = (SorteioFragment.OnSorteioFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
-    public interface OnGameBoardFragmentInteractionListener {
-        void onGameWonInteraction(String winner);
+    public interface OnSorteioFragmentInteractionListener {
+        void onSorteioDoneInteraction(int[] cards);
     }
 }

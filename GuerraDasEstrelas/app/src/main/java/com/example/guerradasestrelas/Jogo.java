@@ -87,23 +87,23 @@ public class Jogo {
         //Atribui baralhos aos jogadores
         if(cardsNum.length > 0){
             // ordenar de acordo com os indices do CardsNum
-            baralho1 = new Carta[Singleton.NUM_CARTAS/2];
-            baralho2 = new Carta[Singleton.NUM_CARTAS/2];
+            baralho1 = new Carta[Singleton.NUM_CARTAS_JOGO/2];
+            baralho2 = new Carta[Singleton.NUM_CARTAS_JOGO/2];
 
-            for (int i = 0; i<Singleton.NUM_CARTAS; i++){
-                if(i < Singleton.NUM_CARTAS/2){
+            for (int i = 0; i<Singleton.NUM_CARTAS_JOGO; i++){
+                if(i < Singleton.NUM_CARTAS_JOGO/2){
                     // jogador 1
                     baralho1[i] = allCards[cardsNum[i]];
                 }else{
                     // jogador 2
-                    baralho2[i] = allCards[cardsNum[i]];
+                    baralho2[i-Singleton.NUM_CARTAS_JOGO/2] = allCards[cardsNum[i]];
                 }
             }
         }else{
             Utils.baralhaBaralho(allCards);
             Utils.PrintBaralho(allCards, "Cartas Recolhidas da Base de Dados");
-            baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS/ 2);
-            baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS/2, allCards.length);
+            baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS_JOGO/ 2);
+            baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
         }
 
         jogadores[0].setBaralho(baralho1);
