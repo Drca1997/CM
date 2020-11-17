@@ -109,12 +109,10 @@ public class Jogo {
                 //for (int i=0; i < IdsCartasASeremTestadas.length;  i++){
                 //    baralho1[i] = Debug.getCartaFromArray(allCards, IdsCartasASeremTestadas[i]);
                 //}
-                Carta maya = Debug.getCartaFromArray(allCards, 16);
-                Carta cfg = Debug.getCartaFromArray(allCards, 22);
+                Carta tony = Debug.getCartaFromArray(allCards, 37);
+                baralho1[0] = tony;
                 Utils.baralhaBaralho(allCards);
-                baralho1[0] = maya;
-                baralho1[1] = cfg;
-                baralho1 = Arrays.copyOfRange(allCards, 2, Singleton.NUM_CARTAS_JOGO/ 2);
+                baralho1 = Arrays.copyOfRange(allCards, 1, Singleton.NUM_CARTAS_JOGO/ 2);
                 baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
             }
         }
