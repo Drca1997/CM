@@ -15,6 +15,13 @@ public class Utils {
         return false;
     }
 
+    public static boolean isJesus(Carta carta){
+        if (carta.getHabilidade() != null){
+            return carta.getNome().equals("Diogo Morgado");
+        }
+        return false;
+    }
+
     public static void baralhaBaralho(Carta [] baralho) {
         Random rand = new Random();
         for (int i = 0; i < baralho.length; i++) {

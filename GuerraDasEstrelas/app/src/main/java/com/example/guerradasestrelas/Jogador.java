@@ -125,7 +125,8 @@ public class Jogador {
                         if (cartaAtual.getHabilidade().getNome().equals("AddCardToHand")){
                            AddCardToHand skill = (AddCardToHand)cartaAtual.getHabilidade();
                            if (skill.getOrigem().equals("self")){  //Diogo Morgado
-                               Carta [] arrayOrigem = {cartaAtual};
+                               Carta copia = skill.criaCopia(cartaAtual);
+                               Carta [] arrayOrigem = {copia};
                                System.out.println("JESUS RESSUSCITA");
                                skill.addCartaToHand(arrayOrigem, mao, false);
                            }
@@ -134,7 +135,10 @@ public class Jogador {
                            }
                         }
                     }
-                    descartes.add(campo[fila][slot].getCarta());
+                    if (!Utils.isJesus(campo[fila][slot].getCarta())){
+                        descartes.add(campo[fila][slot].getCarta());
+                    }
+
                 }
                 campo[fila][slot].setCarta(null);
             }

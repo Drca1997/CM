@@ -17,7 +17,6 @@ public class Jogo {
     private String winner;
     private int [] cardsNum;
     private int turno; //0 - vez do jogador 1, 1- vez do jogador 2. Ou seja, posição dos jogadores no array "jogadores"
-    private boolean debug = true;
 
     public Jogo(Context context, View view, int [] cardsInd){
         // CardsInd vai ter nos 15 ou 20 idk primeiros indices os indices no array allCards das cartas do jogador 0 e nos ultimos os do jogador 1
@@ -88,8 +87,6 @@ public class Jogo {
         //Atribui baralhos aos jogadores
         if(cardsNum.length > 0){ //se sorteio acontecer
             // ordenar de acordo com os indices do CardsNum
-
-
             for (int i = 0; i<Singleton.NUM_CARTAS_JOGO; i++){
                 if(i < Singleton.NUM_CARTAS_JOGO/2){
                     // jogador 1
@@ -100,6 +97,7 @@ public class Jogo {
                 }
             }
         }else{ //sem sorteio
+            boolean debug = true;
             if (!debug){
                 Utils.baralhaBaralho(allCards);
                 Utils.PrintBaralho(allCards, "Cartas Recolhidas da Base de Dados");

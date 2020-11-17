@@ -11,6 +11,7 @@ public class Carta {
     private int id_max;
     private int fila; //fila 0 - Portugal; fila 1 - Mundo - mais tarde meter estas variaveis como constantes num singleton
     private Habilidade habilidade;
+    private int poderDefault;
 
     public Carta(int id, String nome, int poder, int mini, int max, int fila){
         this.id = id;
@@ -20,6 +21,7 @@ public class Carta {
         this.id_max = max;
         this.fila = fila;
         this.habilidade = null;
+        this.poderDefault = this.poder;
     }
 
     public void assignSkill(Habilidade habilidade){
@@ -33,6 +35,10 @@ public class Carta {
         System.out.println("Adicionando modificador de " + modificador + " a " + nome);
     }
 
+    public void resetModifiers(){
+        setPoder(poderDefault);
+    }
+
     public String getNome() {
         return nome;
     }
@@ -43,6 +49,10 @@ public class Carta {
 
     public void setPoder(int poder) {
         this.poder = poder;
+    }
+
+    public int getPoderDefault(){
+        return poderDefault;
     }
 
     public int getFila() {
