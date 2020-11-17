@@ -125,13 +125,13 @@ public class Jogador {
                         if (cartaAtual.getHabilidade().getNome().equals("AddCardToHand")){
                            AddCardToHand skill = (AddCardToHand)cartaAtual.getHabilidade();
                            if (skill.getOrigem().equals("self")){  //Diogo Morgado
-                               Carta copia = skill.criaCopia(cartaAtual);
-                               Carta [] arrayOrigem = {copia};
+                               //Carta copia = skill.criaCopia(cartaAtual);
+                               Carta [] arrayOrigem = {cartaAtual};
                                System.out.println("JESUS RESSUSCITA");
-                               skill.addCartaToHand(arrayOrigem, mao, false);
+                               skill.addCartaToHand(arrayOrigem, mao, false, true);
                            }
                            else if (skill.getOrigem().equals("descartes")){ //Sean Bean
-                               skill.addCartaToHand((Carta[]) descartes.toArray(), mao, true);
+                               skill.addCartaToHand((Carta[]) descartes.toArray(), mao, true, true);
                            }
                         }
                     }
