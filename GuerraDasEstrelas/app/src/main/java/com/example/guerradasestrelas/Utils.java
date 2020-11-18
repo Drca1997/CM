@@ -112,6 +112,14 @@ public class Utils {
         return resultado;
     }
 
+    public static Carta [] arrayListToArray(List<Carta> arrayList){
+        Carta [] array = new Carta[arrayList.size()];
+        for (int i=0; i < array.length; i++){
+            array[i] = arrayList.get(i);
+        }
+        return array;
+    }
+
     /*
     public static Comparator<Carta> comparator = new Comparator<Carta>() {
         @Override

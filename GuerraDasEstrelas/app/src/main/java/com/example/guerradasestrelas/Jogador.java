@@ -117,6 +117,7 @@ public class Jogador {
 
 
     public void LimpaCampo(){
+        AddCardToHand seanbeanHabRef = null;
         for(int fila=0; fila < Singleton.NUM_FILAS; fila++){
             for (int slot =0; slot < campo[fila].length; slot++){
                 Carta cartaAtual = campo[fila][slot].getCarta();
@@ -131,7 +132,9 @@ public class Jogador {
                                skill.addCartaToHand(arrayOrigem, mao, false, true);
                            }
                            else if (skill.getOrigem().equals("descartes")){ //Sean Bean
-                               skill.addCartaToHand((Carta[]) descartes.toArray(), mao, true, true);
+                               seanbeanHabRef = skill;  //nao podia executar habilidade aqui, senao so
+                               // ia buscar uma das cartas que ja foram removidas de campo.
+
                            }
                         }
                     }
@@ -143,6 +146,10 @@ public class Jogador {
                 campo[fila][slot].setCarta(null);
             }
         }
+        if (seanbeanHabRef != null){
+            seanbeanHabRef.addCartaToHand(Utils.arrayListToArray(descartes), mao, true, true);
+        }
+
     }
 
     public int getRondasGanhas() {

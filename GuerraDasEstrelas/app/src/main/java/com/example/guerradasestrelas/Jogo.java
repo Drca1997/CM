@@ -109,14 +109,10 @@ public class Jogo {
                 //for (int i=0; i < IdsCartasASeremTestadas.length;  i++){
                 //    baralho1[i] = Debug.getCartaFromArray(allCards, IdsCartasASeremTestadas[i]);
                 //}
-                Carta soprano = Debug.getCartaFromArray(allCards, 37);
-                Carta jesus = Debug.getCartaFromArray(allCards, 7);
-                Carta carreira = Debug.getCartaFromArray(allCards, 20);
-                baralho1[0] = soprano;
-                baralho1[0] = carreira;
-                baralho1[0] = jesus;
+                Carta seanbean = Debug.getCartaFromArray(allCards, 36);
+                baralho1[0] = seanbean;
                 Utils.baralhaBaralho(allCards);
-                baralho1 = Arrays.copyOfRange(allCards, 3, Singleton.NUM_CARTAS_JOGO/ 2);
+                baralho1 = Arrays.copyOfRange(allCards, 1, Singleton.NUM_CARTAS_JOGO/ 2);
                 baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
             }
         }
