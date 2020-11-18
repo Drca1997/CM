@@ -190,6 +190,9 @@ public class GameBoardFragment extends Fragment {
                         jogo.getJogadorAtual().jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores());
                         jogo.acabaJogada();
                     }
+                    else{
+                        Utils.showToast(getContext(), "Carta não pode ser jogada.\n\tKamikaze presente na fila");
+                    }
                 }
                 else{
                     //Será aqui o sitio ideal para detetar habilidade de Madonna e Ronaldo?
@@ -208,10 +211,13 @@ public class GameBoardFragment extends Fragment {
                                 }
 
                             }
+                            else{
+                                Utils.showToast(getContext(), "Carta não pode ser jogada.\n\tAmbas as filas cheias");
+                            }
                         }
                     }
                     else{
-                        Utils.showToast(getContext(), "Carta não pode ser jogada.\nFileira cheia");
+                        Utils.showToast(getContext(), "Carta não pode ser jogada.\n\tFileira cheia");
                     }
 
                 }
@@ -221,8 +227,12 @@ public class GameBoardFragment extends Fragment {
                 int freeSlot = Utils.getNextFreeSlot(adversario.getCampo()[temp.getFila()]);
                 if (freeSlot >= 0){
                     slot.setCarta(null); //remove carta do handSlot
+                    jogo.getJogadorAtual().removeCartadaMao(temp);
                     adversario.jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores());
                     jogo.acabaJogada();
+                }
+                else{
+                    Utils.showToast(getContext(), "Carta não pode ser jogada.\n\tFileira cheia");
                 }
             }
 
