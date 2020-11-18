@@ -130,13 +130,29 @@ public class Utils {
 
     public static Carta [] getCartasMaisPoderosas(Carta [] origem){
         int maxPoder = getMaxValueOfObjectAttributeInArray(origem);
+        Carta [] array;
         List<Carta> res = new ArrayList<>();
         for (Carta carta : origem){
             if (carta.getPoder() == maxPoder){
                 res.add(carta);
             }
         }
-        Carta [] array = res.toArray(new Carta[res.size()]);
+        if (res.size() == 1){
+            if (res.get(0).getHabilidade() != null){
+                if (isImune(res.get(0))){ //se é so Arnold a mais poderosa, vai-se obter as 2ªs mais poderosas
+                    array = getCartasMaisPoderosas(copiaArraySemCarta(origem, res.get(0)));
+                }
+                else{
+                   array = res.toArray(new Carta[res.size()]);
+                }
+            }
+            else{
+                array = res.toArray(new Carta[res.size()]);
+            }
+        }
+        else{
+            array = res.toArray(new Carta[res.size()]);
+        }
         return array;
     }
 
@@ -148,5 +164,17 @@ public class Utils {
             }
         }
         return maxValue;
+    }
+
+    public static Carta [] copiaArraySemCarta(Carta [] origem, Carta carta){
+        Carta [] novoArray = new Carta[origem.length - 1];
+        int ind = 0;
+        for (int i=0; i < origem.length; i++){
+            if(origem[i].getId() != carta.getId()){
+                novoArray[ind] = origem[i];
+                ind++;
+            }
+        }
+        return novoArray;
     }
 }

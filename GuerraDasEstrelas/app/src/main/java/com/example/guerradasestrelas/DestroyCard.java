@@ -21,21 +21,21 @@ public class DestroyCard extends Habilidade {
         Carta [] array3 = Utils.getCardsArray(jogadores[Utils.getOutraFila(turno)].getCampo()[0]);
         Carta [] array4 = Utils.getCardsArray(jogadores[Utils.getOutraFila(turno)].getCampo()[1]);
         if (modoDestruir.equals("tyrion")){
-            destruirCarta(Utils.mergeArrays(array1, array2), false, jogadores[turno].getDescartes()); //destroi carta mais alta do proprio jogador
-            destruirCarta(Utils.mergeArrays(array3, array4), true, jogadores[Utils.getOutraFila(turno)].getDescartes()); //destroi carta aleatoria do adversario
+            destruirCarta(turno, jogadores, Utils.mergeArrays(array1, array2), false, jogadores[turno].getDescartes()); //destroi carta mais alta do proprio jogador
+            destruirCarta(turno, jogadores, Utils.mergeArrays(array3, array4), true, jogadores[Utils.getOutraFila(turno)].getDescartes()); //destroi carta aleatoria do adversario
             Carta [] array5 = Utils.getCardsArray(jogadores[Utils.getOutraFila(turno)].getCampo()[0]); //processo repete-se pq destruirCarta nao pode receber array com cartas a null
             Carta [] array6 = Utils.getCardsArray(jogadores[Utils.getOutraFila(turno)].getCampo()[1]);
-            destruirCarta(Utils.mergeArrays(array5, array6), true, jogadores[Utils.getOutraFila(turno)].getDescartes()); //destroi carta aleatoria do adversario
+            destruirCarta(turno, jogadores, Utils.mergeArrays(array5, array6), true, jogadores[Utils.getOutraFila(turno)].getDescartes()); //destroi carta aleatoria do adversario
         }
         else if(modoDestruir.equals("gandhi")){
             Carta [] totalCartasJogador = Utils.mergeArrays(array1, array2);
             Carta [] totalCartasOponente = Utils.mergeArrays(array3, array4);
-            destruirCarta(Utils.mergeArrays(totalCartasJogador, totalCartasOponente), false, null); //isto faz com que Gandhi remova carta permanentemente de jogo, nao indo para a pilha de descartes
+            destruirCarta(turno, jogadores, Utils.mergeArrays(totalCartasJogador, totalCartasOponente), false, null); //isto faz com que Gandhi remova carta permanentemente de jogo, nao indo para a pilha de descartes
         }
 
     }
 
-    public void destruirCarta(Carta [] origem , boolean aleatorio, List<Carta> descartes){
+    public void destruirCarta(int turno, Jogador[] jogadores, Carta [] origem , boolean aleatorio, List<Carta> descartes){
         if (aleatorio){
             Random rand = new Random();
             int cartaIndex;
@@ -48,14 +48,18 @@ public class DestroyCard extends Habilidade {
         else{
             Carta [] res = Utils.getCartasMaisPoderosas(origem);
             Utils.PrintBaralho(res, "CARTAS MAIS PODEROSAS, PARA SEREM ELIMINADAS");
-            for (Carta cartaOriginal : origem){
-                if (!Utils.isImune(cartaOriginal)){
+            for (int i=0; i < origem.length; i++){
+                if (!Utils.isImune(origem[i])){
                     for (Carta cartaRes : res){
-                        if (cartaOriginal.getId() == cartaRes.getId()){
-                            if (descartes != null){
-                                descartes.add(cartaOriginal);
-                                cartaOriginal = null;
+                        if (origem[i].getId() == cartaRes.getId()){
+                            if (descartes != null) {
+                                descartes.add(origem[i]);
                             }
+                            boolean removeu = jogadores[Utils.getOutraFila(turno)].removeCartaDeCampo(origem[i]);
+                            if (!removeu){
+                                jogadores[turno].removeCartaDeCampo(origem[i]);
+                            }
+                            break;
                         }
                     }
                 }

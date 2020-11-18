@@ -115,6 +115,19 @@ public class Jogador {
         }
     }
 
+    public boolean removeCartaDeCampo(Carta carta){
+        for (CardSlot [] fila : campo){
+            for(CardSlot slot : fila){
+                if (slot.getCarta() != null){
+                    if (slot.getCarta().getId() == carta.getId()){
+                        slot.setCarta(null);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     public void LimpaCampo(){
         AddCardToHand seanbeanHabRef = null;
