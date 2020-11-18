@@ -5,6 +5,7 @@
     android:id="@+id/game_board"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/board_backgorund"
     tools:context=".ui.gameboard.GameBoardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,6 +65,25 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="0dp"
+        android:layout_height="450dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/board_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/background_extra"
+        android:layout_width="400dp"
+        android:layout_height="450dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/board_background_extra"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/expanded_image"
         android:layout_width="match_parent"
@@ -100,307 +120,714 @@
                 android:layout_gravity="right"
                 android:layout_weight="1"
                 android:background="@drawable/butt_jogar" />
+
         </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MaoJogador"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Tabuleiro" >
+        app:layout_constraintStart_toStartOf="parent">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/name_skip"
+        <TextView
+            android:id="@+id/mao_jog_text"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:text="Mao do Jogador1"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/comic_sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/mao_jog_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mao do Jogador"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/skip_butt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Passar a vez"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mao_jog_text" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/skip_butt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/butt_skip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hor_scroll_hand"
+            app:layout_constraintVertical_bias="0.382" />
 
         <HorizontalScrollView
             android:id="@+id/hor_scroll_hand"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="120dp"
+            android:background="@color/darkorange"
+            android:scrollbars=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mao_jog_text">
 
             <LinearLayout
                 android:id="@+id/lin_lay_hand"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal" >
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/hand_card0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
-
-                    android:src="@drawable/blank" />
+                    android:background="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/mini_afonso_henriques" />
 
                 <ImageButton
                     android:id="@+id/hand_card1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitXY"
                     android:src="@drawable/blank" />
 
                 <ImageButton
                     android:id="@+id/hand_card2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitXY"
                     android:src="@drawable/blank" />
 
                 <ImageButton
                     android:id="@+id/hand_card3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitXY"
                     android:src="@drawable/blank" />
 
                 <ImageButton
                     android:id="@+id/hand_card4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitXY"
                     android:src="@drawable/blank" />
 
                 <ImageButton
                     android:id="@+id/hand_card5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitXY"
                     android:src="@drawable/blank" />
 
                 <ImageButton
                     android:id="@+id/hand_card6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitXY"
                     android:src="@drawable/blank" />
 
                 <ImageButton
                     android:id="@+id/hand_card7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitXY"
                     android:src="@drawable/blank" />
 
                 <ImageButton
                     android:id="@+id/hand_card8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitXY"
                     android:src="@drawable/blank" />
 
                 <ImageButton
                     android:id="@+id/hand_card9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="65dp"
+                    android:layout_height="101dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitXY"
                     android:src="@drawable/blank" />
             </LinearLayout>
         </HorizontalScrollView>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/Tabuleiro"
+        android:id="@+id/p1_Portugal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="55dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/p1_Portugal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/p1_PortugalSlot1"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
 
-            <ImageButton
-                android:id="@+id/p1_PortugalSlot1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
+        <ImageButton
+            android:id="@+id/p1_PortugalSlot2"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
 
-            <ImageButton
-                android:id="@+id/p1_PortugalSlot2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
+        <ImageButton
+            android:id="@+id/p1_PortugalSlot3"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
 
-            <ImageButton
-                android:id="@+id/p1_PortugalSlot3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
+        <ImageButton
+            android:id="@+id/p1_PortugalSlot4"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
 
-            <ImageButton
-                android:id="@+id/p1_PortugalSlot4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p1_PortugalSlot5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/p1_Mundo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/p1_MundoSlot1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p1_MundoSlot2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p1_MundoSlot3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p1_MundoSlot4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p1_MundoSlot5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/p2_Portugal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/p2_PortugalSlot1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p2_PortugalSlot2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p2_PortugalSlot3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p2_PortugalSlot4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p2_PortugalSlot5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/p2_Mundo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/p2_MundoSlot1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p2_MundoSlot2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p2_MundoSlot3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p2_MundoSlot4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-
-            <ImageButton
-                android:id="@+id/p2_MundoSlot5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/blank" />
-        </LinearLayout>
-
+        <ImageButton
+            android:id="@+id/p1_PortugalSlot5"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/p2_Portugal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="73dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p1_Mundo">
+
+        <ImageButton
+            android:id="@+id/p2_PortugalSlot1"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p2_PortugalSlot2"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p2_PortugalSlot3"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p2_PortugalSlot4"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p2_PortugalSlot5"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/p1_Mundo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p1_Portugal">
+
+        <ImageButton
+            android:id="@+id/p1_MundoSlot1"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p1_MundoSlot2"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p1_MundoSlot3"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p1_MundoSlot4"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p1_MundoSlot5"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/p2_Mundo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p2_Portugal"
+        tools:layout_editor_absoluteY="483dp">
+
+        <ImageButton
+            android:id="@+id/p2_MundoSlot1"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p2_MundoSlot2"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p2_MundoSlot3"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p2_MundoSlot4"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+
+        <ImageButton
+            android:id="@+id/p2_MundoSlot5"
+            android:layout_width="46dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/blank" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/p1_portugal_poder_text"
+        android:layout_width="58dp"
+        android:layout_height="46dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="290dp"
+        android:layout_marginTop="75dp"
+        android:fontFamily="@font/comic_sans"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="291dp"
+        tools:layout_editor_absoluteY="380dp" />
+    <TextView
+        android:id="@+id/p1_mundo_poder_text"
+        android:layout_width="58dp"
+        android:layout_height="46dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/p1_portugal_poder_text"
+        android:layout_marginLeft="290dp"
+        android:layout_marginTop="75dp"
+        android:fontFamily="@font/comic_sans"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="291dp"
+        tools:layout_editor_absoluteY="380dp" />
+    <TextView
+        android:id="@+id/p2_portugal_poder_text"
+        android:layout_width="58dp"
+        android:layout_height="46dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/p1_mundo_poder_text"
+        android:layout_marginLeft="290dp"
+        android:layout_marginTop="150dp"
+        android:fontFamily="@font/comic_sans"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="291dp"
+        tools:layout_editor_absoluteY="380dp" />
+    <TextView
+        android:id="@+id/p2_mundo_poder_text"
+        android:layout_width="58dp"
+        android:layout_height="46dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/p2_portugal_poder_text"
+        android:layout_marginLeft="290dp"
+        android:layout_marginTop="75dp"
+        android:fontFamily="@font/comic_sans"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="291dp"
+        tools:layout_editor_absoluteY="380dp" />
+    <TextView
+        android:id="@+id/p1_global_poder_text"
+        android:layout_width="58dp"
+        android:layout_height="46dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="345dp"
+        android:layout_marginTop="105dp"
+        android:fontFamily="@font/comic_sans"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="291dp"
+        tools:layout_editor_absoluteY="380dp" />
+    <TextView
+        android:id="@+id/p2_global_poder_text"
+        android:layout_width="58dp"
+        android:layout_height="46dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/p1_global_poder_text"
+        android:layout_marginLeft="342dp"
+        android:layout_marginTop="225dp"
+        android:fontFamily="@font/comic_sans"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="291dp"
+        tools:layout_editor_absoluteY="380dp" />
+
+    <TextView
+        android:id="@+id/p1_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/comic_sans"
+        android:gravity="center"
+        android:text="Jogador 1"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/p2_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="225dp"
+        android:fontFamily="@font/comic_sans"
+        android:gravity="center"
+        android:text="Jogador 2"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/p1_nome" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/p1_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/p1_wins"
+            android:layout_width="22dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/comic_sans"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/p1_wins_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_ronda_player1"
+            app:layout_constraintEnd_toStartOf="@+id/p1_wins"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/p1_baralho"
+            android:layout_width="22dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/comic_sans"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/p1_wins_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/p1_baralho_icon"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_baralho_player1"
+            app:layout_constraintEnd_toStartOf="@+id/p1_baralho"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/p1_mao"
+            android:layout_width="22dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/comic_sans"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/p1_baralho_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/p1_mao_icon"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_mao_player1"
+            app:layout_constraintEnd_toStartOf="@+id/p1_mao"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/p2_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="178dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p1_stats">
+
+        <TextView
+            android:id="@+id/p2_wins"
+            android:layout_width="22dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/comic_sans"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/p2_wins_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_ronda_player2"
+            app:layout_constraintEnd_toStartOf="@+id/p2_wins"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/p2_baralho"
+            android:layout_width="22dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/comic_sans"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/p2_wins_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/p2_baralho_icon"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_baralho_player2"
+            app:layout_constraintEnd_toStartOf="@+id/p2_baralho"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/p2_mao"
+            android:layout_width="22dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/comic_sans"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/p2_baralho_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/p2_mao_icon"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_mao_player2"
+            app:layout_constraintEnd_toStartOf="@+id/p2_mao"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,4 +14,5 @@
     <color name="player1sorteio3">#770da8</color>
     <color name="player2sorteio3">#2280a8</color>
     <color name="nomes_backgorund">#46b2c7</color>
+    <color name="board_backgorund">#f5cc2a</color>
 </resources>
