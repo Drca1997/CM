@@ -45,6 +45,8 @@ public class Jogador {
             mao[i] = baralho[i];
             baralho[i] = null;
         }
+        Utils.updateCartasNaMaoLabel(this);
+        Utils.updateCartasNoBaralhoLabel(this);
     }
 
     public void MostraMao(CardSlot [] handSlots){
@@ -64,6 +66,8 @@ public class Jogador {
                 break;
             }
         }
+        Utils.updateCartasNoBaralhoLabel(this);
+        Utils.updateCartasNaMaoLabel(this);
     }
 
     private void BuildPlayerCardSlots(){
@@ -122,6 +126,7 @@ public class Jogador {
             poder[i] = soma;
         }
         poder[2] = poder[0] + poder[1];
+        Utils.updatePoderLabel(this);
     }
 
     public void removeCartadaMao(Carta carta){
@@ -163,6 +168,7 @@ public class Jogador {
                                Carta [] arrayOrigem = {cartaAtual};
                                System.out.println("JESUS RESSUSCITA");
                                skill.addCartaToHand(arrayOrigem, mao, false, true);
+                               Utils.updateCartasNaMaoLabel(this);
                            }
                            else if (skill.getOrigem().equals("descartes")){ //Sean Bean
                                seanbeanHabRef = skill;  //nao podia executar habilidade aqui, senao so
@@ -182,6 +188,7 @@ public class Jogador {
         if (seanbeanHabRef != null){
             Carta[] array = descartes.toArray(new Carta[descartes.size()]);
             seanbeanHabRef.addCartaToHand(array, mao, true, true);
+            Utils.updateCartasNaMaoLabel(this);
         }
 
     }
@@ -192,6 +199,7 @@ public class Jogador {
 
     public void rondaGanha(){
         this.rondasGanhas++;
+        Utils.updateRondasGanhasLabel(this);
     }
 
     public List<Carta> getDescartes() {
@@ -240,5 +248,9 @@ public class Jogador {
 
     public void setGotKamikazed(boolean gotKamikazed) {
         this.gotKamikazed = gotKamikazed;
+    }
+
+    public int getId(){
+        return id;
     }
 }

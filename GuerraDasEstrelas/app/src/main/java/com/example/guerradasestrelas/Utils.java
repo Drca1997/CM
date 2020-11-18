@@ -1,6 +1,8 @@
 package com.example.guerradasestrelas;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -10,6 +12,62 @@ import java.util.List;
 import java.util.Random;
 
 public class Utils {
+
+    @SuppressLint("SetTextI18n")
+    public static void updateRondasGanhasLabel(Jogador jogador){
+        TextView text;
+        if (jogador.getId() == Singleton.PLAYER1_ID){
+           text = Singleton.view.findViewById(R.id.p1_wins);
+
+        }
+        else{
+            text = Singleton.view.findViewById(R.id.p2_wins);
+        }
+        text.setText(jogador.getRondasGanhas() +  "");
+    }
+
+    @SuppressLint("SetTextI18n")
+    public static void updateCartasNaMaoLabel(Jogador jogador){
+        TextView text;
+        if (jogador.getId() == Singleton.PLAYER1_ID){
+            text = Singleton.view.findViewById(R.id.p1_mao);
+        }
+        else{
+            text = Singleton.view.findViewById(R.id.p2_mao);
+        }
+        text.setText(Utils.contaCartasArray(jogador.getMao()) + "");
+    }
+
+    @SuppressLint("SetTextI18n")
+    public static void updateCartasNoBaralhoLabel(Jogador jogador){
+        TextView text;
+        if (jogador.getId() == Singleton.PLAYER1_ID){
+            text = Singleton.view.findViewById(R.id.p1_baralho);
+        }
+        else{
+            text = Singleton.view.findViewById(R.id.p2_baralho);
+        }
+        text.setText(Utils.contaCartasArray(jogador.getBaralho()) +  "");
+    }
+
+    @SuppressLint("SetTextI18n")
+    public static void updatePoderLabel(Jogador jogador){
+        int [] poder = jogador.getPoder();
+        TextView poderPT, poderMundo, poderTotal;
+        if (jogador.getId() == Singleton.PLAYER1_ID){
+            poderPT = Singleton.view.findViewById(R.id.p1_portugal_poder_text);
+            poderMundo = Singleton.view.findViewById(R.id.p1_mundo_poder_text);
+            poderTotal = Singleton.view.findViewById(R.id.p1_global_poder_text);
+        }
+        else{
+            poderPT = Singleton.view.findViewById(R.id.p2_portugal_poder_text);
+            poderMundo = Singleton.view.findViewById(R.id.p2_mundo_poder_text);
+            poderTotal = Singleton.view.findViewById(R.id.p2_global_poder_text);
+        }
+        poderPT.setText(poder[0] + "");
+        poderMundo.setText(poder[1] + "");
+        poderTotal.setText(poder[2] + "");
+    }
 
     public static void showToast(Context context, CharSequence text){
         int duration = Toast.LENGTH_SHORT;
@@ -110,6 +168,16 @@ public class Utils {
             return 1;
         }
         return -1;
+    }
+
+    public static int contaCartasArray(Carta [] array){
+        int res = 0;
+        for (Carta carta : array){
+            if (carta != null){
+                res++;
+            }
+        }
+        return res;
     }
 
     public static Carta [] getCardsArray(CardSlot [] array){

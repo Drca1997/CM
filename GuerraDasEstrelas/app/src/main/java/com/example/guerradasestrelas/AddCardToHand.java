@@ -20,6 +20,8 @@ public class AddCardToHand extends Habilidade {
             switch(origem){
                 case "maoAdversario":
                     addCartaToHand(jogadores[Utils.getOutraFila(turno)].getMao(), jogadores[turno].getMao(), true, false);
+                    Utils.updateCartasNaMaoLabel(jogadores[turno]);
+                    Utils.updateCartasNaMaoLabel(jogadores[Utils.getOutraFila(turno)]);
                     break;
                 case "baralho":
                     jogadores[turno].tiraCartaDoBaralho();
@@ -29,6 +31,7 @@ public class AddCardToHand extends Habilidade {
                     Carta [] array1 = Utils.getCardsArray(jogadores[turno].getCampo()[0]);
                     Carta [] array2 = Utils.getCardsArray(jogadores[turno].getCampo()[1]);
                     addCartaToHand(Utils.mergeArrays(array1, array2), jogadores[turno].getMao(), false, true);
+                    Utils.updateCartasNaMaoLabel(jogadores[turno]);
                     break;
                 default:
                     System.out.println("ERRO: Habilidade nao reconhecida");
