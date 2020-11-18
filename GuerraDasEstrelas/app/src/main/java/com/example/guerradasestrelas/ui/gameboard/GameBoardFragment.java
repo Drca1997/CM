@@ -184,7 +184,8 @@ public class GameBoardFragment extends Fragment {
             if (!Utils.isKamikaze(temp)){
                 int freeSlot = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[temp.getFila()]);
                 if (freeSlot >= 0){
-                    if (!(temp.getFila() == 1 && jogo.getJogadorAtual().isGotKamikazed())){ //se nao tem kamikaze na fila
+                    if ((!(temp.getFila() == 1 && jogo.getJogadorAtual().isGotKamikazed()))
+                            || (Utils.isImune(temp))){ //se nao tem kamikaze na fila
                         slot.setCarta(null); //remove carta do handSlot
                         jogo.getJogadorAtual().jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores());
                         jogo.acabaJogada();
