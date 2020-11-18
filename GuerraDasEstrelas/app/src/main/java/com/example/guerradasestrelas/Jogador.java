@@ -104,6 +104,19 @@ public class Jogador {
         tiraCartaDoBaralho();
     }
 
+    public void somaPoder(){
+        for (int i=0; i < campo.length; i++){
+            int soma = 0;
+            for(CardSlot slot : campo[i]){
+                if (slot.getCarta() != null){
+                    soma += slot.getCarta().getPoder();
+                }
+            }
+            poder[i] = soma;
+        }
+        poder[2] = poder[0] + poder[1];
+    }
+
     public void removeCartadaMao(Carta carta){
         for (int i=0; i < mao.length; i++){
             if (mao[i] != null){

@@ -39,11 +39,15 @@ public class DestroyCard extends Habilidade {
         if (aleatorio){
             Random rand = new Random();
             int cartaIndex;
-            do{
-                cartaIndex = rand.nextInt(origem.length);
-            }while(Utils.isImune(origem[cartaIndex]));
-            descartes.add(origem[cartaIndex]);
-            origem[cartaIndex] = null;
+            if (origem.length > 0){
+                if (!(origem.length == 1 && Utils.isImune(origem[0]))){ //se NÃO ha só o arnold na fila
+                    do{
+                        cartaIndex = rand.nextInt(origem.length);
+                    }while(Utils.isImune(origem[cartaIndex]));
+                    descartes.add(origem[cartaIndex]);
+                    jogadores[Utils.getOutraFila(turno)].removeCartaDeCampo(origem[cartaIndex]);
+                }
+            }
         }
         else{
             Carta [] res = Utils.getCartasMaisPoderosas(origem);

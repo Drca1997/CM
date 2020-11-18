@@ -125,18 +125,7 @@ public class Jogo {
     public void updatePoder(){
         int i=1;
         for (Jogador jogador : jogadores){
-            for (int fila = 0; fila < Singleton.NUM_FILAS; fila++){
-                int soma = 0;
-                int slot = 0;
-                CardSlot [] filaSlots = jogador.getCampo()[fila];
-                while (slot < filaSlots.length && filaSlots[slot].getCarta() != null){
-                    soma += jogador.getCampo()[fila][slot].getCarta().getPoder();
-                    slot++;
-                }
-                jogador.getPoder()[fila] = soma;
-            }
-
-            jogador.getPoder()[2] = jogador.getPoder()[0] + jogador.getPoder()[1]; //soma Poder das Filas
+            jogador.somaPoder();
             System.out.println("Poder Jogador " + i + ": " + jogador.getPoder()[2] +
                     " = PT: " + jogador.getPoder()[0] + " + M: " + jogador.getPoder()[1]);
             i++;
