@@ -17,6 +17,7 @@ public class Jogador {
     private int rondasGanhas;
     private int [] poder;
     private boolean skipped;
+    private boolean gotKamikazed;
 
     public Jogador(int id){
         this.id = id;
@@ -28,6 +29,7 @@ public class Jogador {
         BuildPlayerCardSlots();
         this.poder = new int[] {0, 0,0};
         this.skipped = false;
+        this.gotKamikazed = false;
     }
 
     public CardSlot [] getFilaPortugal(){
@@ -101,7 +103,12 @@ public class Jogador {
         if (carta.getHabilidade() != null){
             carta.getHabilidade().Execute(turno, jogadores);
         }
-        tiraCartaDoBaralho();
+        if (!Utils.isKamikaze(carta)){
+            tiraCartaDoBaralho();
+        }
+        else{
+            jogadores[Utils.getOutraFila(turno)].tiraCartaDoBaralho();
+        }
     }
 
     public void somaPoder(){
@@ -225,5 +232,13 @@ public class Jogador {
 
     public void setSkipped(boolean skipped) {
         this.skipped = skipped;
+    }
+
+    public boolean isGotKamikazed() {
+        return gotKamikazed;
+    }
+
+    public void setGotKamikazed(boolean gotKamikazed) {
+        this.gotKamikazed = gotKamikazed;
     }
 }

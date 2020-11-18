@@ -181,30 +181,47 @@ public class GameBoardFragment extends Fragment {
     private void playCard(final Jogo jogo,final CardSlot slot){
         Carta temp = slot.getCarta();
         if (temp != null){
-            int freeSlot = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[temp.getFila()]);
-            if (freeSlot >= 0){
-                slot.setCarta(null); //remove carta do handSlot
-                jogo.getJogadorAtual().jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores());
-                jogo.acabaJogada();
-            }
-            else{
-                //Será aqui o sitio ideal para detetar habilidade de Madonna e Ronaldo?
-                if (temp.getHabilidade() != null){
-                    if (temp.getHabilidade().getNome().equals("MultiFila")){
-                        int outrafila = Utils.getOutraFila(temp.getFila());
-                        int slotOutraFila = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[outrafila]);
-                        if (slotOutraFila >= 0){
-                            slot.setCarta(null); //remove carta do handSlot
-                            jogo.getJogadorAtual().removeCartadaMao(temp);
-                            System.out.println(temp.getNome());
-                            jogo.getJogadorAtual().getCampo()[outrafila][slotOutraFila].setCarta(temp);
-                            jogo.getJogadorAtual().tiraCartaDoBaralho();
-                            jogo.acabaJogada();
-                        }
+            if (!Utils.isKamikaze(temp)){
+                int freeSlot = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[temp.getFila()]);
+                if (freeSlot >= 0){
+                    if (!(temp.getFila() == 1 && jogo.getJogadorAtual().isGotKamikazed())){ //se nao tem kamikaze na fila
+                        slot.setCarta(null); //remove carta do handSlot
+                        jogo.getJogadorAtual().jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores());
+                        jogo.acabaJogada();
                     }
                 }
+                else{
+                    //Será aqui o sitio ideal para detetar habilidade de Madonna e Ronaldo?
+                    if (temp.getHabilidade() != null){
+                        if (temp.getHabilidade().getNome().equals("MultiFila")){
+                            int outrafila = Utils.getOutraFila(temp.getFila());
+                            int slotOutraFila = Utils.getNextFreeSlot(jogo.getJogadorAtual().getCampo()[outrafila]);
+                            if (slotOutraFila >= 0){
+                                if (!(outrafila == 1 && jogo.getJogadorAtual().isGotKamikazed())){ //se nao tem kamikaze na fila, ronaldo pode ser posto na fila do mundo
+                                    slot.setCarta(null); //remove carta do handSlot
+                                    jogo.getJogadorAtual().removeCartadaMao(temp);
+                                    System.out.println(temp.getNome());
+                                    jogo.getJogadorAtual().getCampo()[outrafila][slotOutraFila].setCarta(temp);
+                                    jogo.getJogadorAtual().tiraCartaDoBaralho();
+                                    jogo.acabaJogada();
+                                }
 
+                            }
+                        }
+                    }
+
+                }
             }
+            else{ // se for Kamikaze
+                Jogador adversario = jogo.getJogadores()[Utils.getOutraFila(jogo.getTurno())];
+                int freeSlot = Utils.getNextFreeSlot(adversario.getCampo()[temp.getFila()]);
+                if (freeSlot >= 0){
+                    slot.setCarta(null); //remove carta do handSlot
+                    adversario.jogaCarta(temp, freeSlot, jogo.getTurno(), jogo.getJogadores());
+                    jogo.acabaJogada();
+                }
+            }
+
             if(!jogo.getWinner().equals("")){
                 mListener.onGameWonInteraction(jogo.getWinner());
             }

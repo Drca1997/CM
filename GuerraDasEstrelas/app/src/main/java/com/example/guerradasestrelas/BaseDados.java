@@ -153,7 +153,7 @@ public class BaseDados extends SQLiteOpenHelper {
         insereSkillNaBD(bd, 39, "DestroyCard", null, null, null, null, null, null, "tyrion"); //Tyrion
         insereSkillNaBD(bd, 26, "DestroyCard", null, null, null, null, null, null, "gandhi"); //Gandhi
         insereSkillNaBD(bd, 21, "Imune", null, null, null, null, null, null, null); //Arnold
-        //insereSkillNaBD(bd, 32, "Kamikaze", null, null, null, null, null, null, null); //Kamikaze
+        insereSkillNaBD(bd, 32, "Kamikaze", null, null, null, null, null, null, null); //Kamikaze
     }
 
     public boolean insereSkillNaBD(SQLiteDatabase bd, int id, String habilidade,

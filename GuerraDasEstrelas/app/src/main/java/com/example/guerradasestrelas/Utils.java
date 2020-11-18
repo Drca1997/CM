@@ -22,6 +22,24 @@ public class Utils {
         return false;
     }
 
+    public static boolean isKamikaze(Carta carta){
+        if (carta.getHabilidade() != null){
+            return carta.getHabilidade().getNome().equals("Kamikaze");
+        }
+        return false;
+    }
+
+    public static boolean isKamikazeInLine(CardSlot []fila){
+        for (CardSlot slot : fila){
+            if (slot.getCarta() != null){
+                if (Utils.isKamikaze(slot.getCarta())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static void baralhaBaralho(Carta [] baralho) {
         Random rand = new Random();
         for (int i = 0; i < baralho.length; i++) {

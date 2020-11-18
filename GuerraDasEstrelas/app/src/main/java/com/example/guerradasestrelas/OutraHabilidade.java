@@ -15,6 +15,9 @@ public class OutraHabilidade extends Habilidade {
         if (nome.equals("Ligacao")){
             ligacaoSkill(jogadores[turno].getCampo()[0]);
         }
+        else if (nome.equals("Kamikaze")){
+            jogadores[Utils.getOutraFila(turno)].setGotKamikazed(true);
+        }
     }
 
     public void ligacaoSkill(CardSlot[] fila){
