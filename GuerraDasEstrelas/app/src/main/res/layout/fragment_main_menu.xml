@@ -31,18 +31,13 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/butt_galeria" />
 
-        <Button
-            android:id="@+id/sair_butt"
-            android:layout_width="329dp"
-            android:layout_height="108dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/butt_sair" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="383dp"
-        android:layout_height="269dp"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:scaleType="fitXY"
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
