@@ -97,26 +97,27 @@ public class Jogo {
                 }
             }
         }else{ //sem sorteio
-            boolean debug = true;
+            boolean debug = false;
             if (!debug){
                 Utils.baralhaBaralho(allCards);
                 Utils.PrintBaralho(allCards, "Cartas Recolhidas da Base de Dados");
                 baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS_JOGO/ 2);
-                baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
+                baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length - (Singleton.NUM_CARTAS - Singleton.NUM_CARTAS_JOGO));
             }
             else{ //DEBUG (hardcoded para testar cartas especfíficas)
                 //int [] IdsCartasASeremTestadas = new int [] {, 2, 3, 4, 6, 7, 13, 14, 18, 24, 28, 33, 34} ;
                 //for (int i=0; i < IdsCartasASeremTestadas.length;  i++){
                 //    baralho1[i] = Debug.getCartaFromArray(allCards, IdsCartasASeremTestadas[i]);
                 //}
-                Carta seanbean = Debug.getCartaFromArray(allCards, 36);
-                baralho1[0] = seanbean;
                 Utils.baralhaBaralho(allCards);
-                baralho1 = Arrays.copyOfRange(allCards, 1, Singleton.NUM_CARTAS_JOGO/ 2);
-                baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length);
+                baralho1 = Arrays.copyOfRange(allCards, 0, Singleton.NUM_CARTAS_JOGO/ 2);
+                baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length - (Singleton.NUM_CARTAS - Singleton.NUM_CARTAS_JOGO));
             }
         }
-
+        Carta seanbean = Debug.getCartaFromArray(allCards, 36);
+        Debug.addCartaToArray(jogadores[0].getMao(), seanbean);
+        Utils.PrintBaralho(baralho1, "BARALHO 1");
+        Utils.PrintBaralho(baralho2, "BARALHO 2");
         jogadores[0].setBaralho(baralho1);
         jogadores[1].setBaralho(baralho2);
     }

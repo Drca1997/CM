@@ -147,7 +147,8 @@ public class Jogador {
             }
         }
         if (seanbeanHabRef != null){
-            seanbeanHabRef.addCartaToHand(Utils.arrayListToArray(descartes), mao, true, true);
+            Carta[] array = descartes.toArray(new Carta[descartes.size()]);
+            seanbeanHabRef.addCartaToHand(array, mao, true, true);
         }
 
     }

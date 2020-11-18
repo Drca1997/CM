@@ -111,7 +111,7 @@ public class Utils {
         System.arraycopy(array2, 0, resultado, array1.length, array2.length);
         return resultado;
     }
-
+    /*
     public static Carta [] arrayListToArray(List<Carta> arrayList){
         Carta [] array = new Carta[arrayList.size()];
         for (int i=0; i < array.length; i++){
@@ -119,7 +119,7 @@ public class Utils {
         }
         return array;
     }
-
+    */
     /*
     public static Comparator<Carta> comparator = new Comparator<Carta>() {
         @Override
