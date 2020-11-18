@@ -210,6 +210,9 @@ public class GameBoardFragment extends Fragment {
                             }
                         }
                     }
+                    else{
+                        Utils.showToast(getContext(), "Carta não pode ser jogada.\nFileira cheia");
+                    }
 
                 }
             }

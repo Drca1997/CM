@@ -1,5 +1,8 @@
 package com.example.guerradasestrelas;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -7,6 +10,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Utils {
+
+    public static void showToast(Context context, CharSequence text){
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
 
     public static boolean isImune(Carta carta){
         if (carta.getHabilidade() != null){
