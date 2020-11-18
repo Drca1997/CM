@@ -151,7 +151,7 @@ public class BaseDados extends SQLiteOpenHelper {
         insereSkillNaBD(bd, 37, "AddCardToHand", null, null, null, "maoAdversario", 1, 1, null); //tony soprano
         insereSkillNaBD(bd, 20, "AddCardToHand", null, null, null, "campo", 1, 1, null);  //tony carreira
         //insereSkillNaBD(bd, 39, "DestroyCard", null, null, null, null, null, null, "tyrion"); //Tyrion
-        //insereSkillNaBD(bd, 26, "DestroyCard", null, null, null, null, null, null, "gandhi"); //Gandhi
+        insereSkillNaBD(bd, 26, "DestroyCard", null, null, null, null, null, null, "gandhi"); //Gandhi
         insereSkillNaBD(bd, 21, "Imune", null, null, null, null, null, null, null); //Arnold
         //insereSkillNaBD(bd, 32, "Kamikaze", null, null, null, null, null, null, null); //Kamikaze
     }

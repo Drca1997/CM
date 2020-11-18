@@ -136,7 +136,8 @@ public class Utils {
                 res.add(carta);
             }
         }
-        return (Carta[]) res.toArray();
+        Carta [] array = res.toArray(new Carta[res.size()]);
+        return array;
     }
 
     public static int getMaxValueOfObjectAttributeInArray(Carta [] origem){

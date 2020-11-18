@@ -71,8 +71,8 @@ public class Jogo {
         Utils.baralhaBaralho(jogadores[0].getBaralho());
         Utils.baralhaBaralho(jogadores[1].getBaralho());
         //debug print dos baralhos
-        //Utils.PrintBaralho(jogadores[0].getBaralho(), "Baralho do Jogador 1");
-        //Utils.PrintBaralho(jogadores[1].getBaralho(), "Baralho do Jogador 2");
+        Utils.PrintBaralho(jogadores[0].getBaralho(), "BARALHO DO JOGADOR 1");
+        Utils.PrintBaralho(jogadores[1].getBaralho(), "BARALHO DO JOGADOR 2");
         //Atribui mao inicial aos jogadores
         jogadores[0].InicializaMao();
         Utils.PrintBaralho(jogadores[0].getMao(), "MÃO DO JOGADOR 1");
@@ -114,10 +114,6 @@ public class Jogo {
                 baralho2 = Arrays.copyOfRange(allCards, Singleton.NUM_CARTAS_JOGO/2, allCards.length - (Singleton.NUM_CARTAS - Singleton.NUM_CARTAS_JOGO));
             }
         }
-        Carta seanbean = Debug.getCartaFromArray(allCards, 36);
-        Debug.addCartaToArray(jogadores[0].getMao(), seanbean);
-        Utils.PrintBaralho(baralho1, "BARALHO 1");
-        Utils.PrintBaralho(baralho2, "BARALHO 2");
         jogadores[0].setBaralho(baralho1);
         jogadores[1].setBaralho(baralho2);
     }

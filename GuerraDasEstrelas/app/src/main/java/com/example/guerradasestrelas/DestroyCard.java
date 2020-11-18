@@ -47,6 +47,7 @@ public class DestroyCard extends Habilidade {
         }
         else{
             Carta [] res = Utils.getCartasMaisPoderosas(origem);
+            Utils.PrintBaralho(res, "CARTAS MAIS PODEROSAS, PARA SEREM ELIMINADAS");
             for (Carta cartaOriginal : origem){
                 if (!Utils.isImune(cartaOriginal)){
                     for (Carta cartaRes : res){
