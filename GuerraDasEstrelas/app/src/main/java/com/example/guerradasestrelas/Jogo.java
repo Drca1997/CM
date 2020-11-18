@@ -86,6 +86,7 @@ public class Jogo {
         Carta[] baralho2 = new Carta[Singleton.NUM_CARTAS_JOGO/2];
         //Atribui baralhos aos jogadores
         if(cardsNum.length > 0){ //se sorteio acontecer
+            System.out.println("SORTEIO ACABOU. DISTRIBUINDO CARTAS...");
             // ordenar de acordo com os indices do CardsNum
             for (int i = 0; i<Singleton.NUM_CARTAS_JOGO; i++){
                 if(i < Singleton.NUM_CARTAS_JOGO/2){
