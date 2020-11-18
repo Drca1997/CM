@@ -1,6 +1,7 @@
 package com.example.guerradasestrelas;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
@@ -19,7 +20,6 @@ public class Jogo {
     private int turno; //0 - vez do jogador 1, 1- vez do jogador 2. Ou seja, posição dos jogadores no array "jogadores"
 
     public Jogo(Context context, View view, int [] cardsInd){
-        // CardsInd vai ter nos 15 ou 20 idk primeiros indices os indices no array allCards das cartas do jogador 0 e nos ultimos os do jogador 1
         Singleton.getInstance();
         Singleton.context = context;
         Singleton.view = view;
@@ -30,6 +30,7 @@ public class Jogo {
 
         BaseDados bd = new BaseDados(context);
         Carta [] allCards= bd.GetAllCards();
+        // CardsInd vai ter nos 15 primeiros indices os indices no array allCards das cartas do jogador 0 e nos ultimos os do jogador 1
         cardsNum = cardsInd;
 
         criaJogadores();
@@ -56,8 +57,8 @@ public class Jogo {
 
     private void criaJogadores(){
         jogadores = new Jogador [Singleton.NUM_JOGADORES];
-        Jogador jogador1 = new Jogador(1);
-        Jogador jogador2 = new Jogador(2);
+        Jogador jogador1 = new Jogador(Singleton.PLAYER1_ID);
+        Jogador jogador2 = new Jogador(Singleton.PLAYER2_ID);
         jogadores[0] = jogador1;
         jogadores[1] = jogador2;
     }
@@ -75,7 +76,6 @@ public class Jogo {
         Utils.PrintBaralho(jogadores[1].getBaralho(), "BARALHO DO JOGADOR 2");
         //Atribui mao inicial aos jogadores
         jogadores[0].InicializaMao();
-        Utils.PrintBaralho(jogadores[0].getMao(), "MÃO DO JOGADOR 1");
         jogadores[1].InicializaMao();
         //mostra mao do jogador 1, pronto para comecar o jogo
         jogadores[0].MostraMao(handSlots);
@@ -119,6 +119,7 @@ public class Jogo {
         jogadores[1].setBaralho(baralho2);
     }
 
+    @SuppressLint("SetTextI18n")
     public void updatePlayerLabel(){
         playerLabel.setText("Mão do Jogador " + (turno + 1));
 }

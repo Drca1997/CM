@@ -160,9 +160,6 @@ public class SorteioFragment extends Fragment {
         cardInd[turn] = ((turn % 2 == 0) ? shakedInds[(first ? ind:ind+1)]:shakedInds[(first ? ind+1:ind)]);
         cardInd[turn + Singleton.NUM_CARTAS_JOGO/2] = ((turn % 2 == 0) ? shakedInds[(first ? ind+1:ind)]:shakedInds[(first ? ind:ind+1)]);
 
-        //cardInd[turn] = shakedInds[(first ? ind:ind+1)];
-        //cardInd[turn + Singleton.NUM_CARTAS_JOGO/2] = shakedInds[(first ? ind+1:ind)];
-
         // proximo turno de escolha
         turn = turn + 1;
         ind = ind + 2;
