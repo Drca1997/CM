@@ -59,7 +59,7 @@ public class WinnerFragment extends Fragment {
 
         // IR BUSCAR TEXTO E METER VENCEDOR
         TextView winner_t = (TextView) view.findViewById(R.id.winner_text);
-        winner_t.setText(mParam1 + " É O VENCEDOR!!!");
+        winner_t.setText(mParam1);
 
         // IR BUSCAR BOTAO E DETETAR CLIQUE PARA VOLTAR PO MENU
         Button back_menu = (Button) view.findViewById(R.id.back_menu_butt);
