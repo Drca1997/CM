@@ -7,7 +7,6 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -24,14 +23,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.guerradasestrelas.BaseDados;
-import com.example.guerradasestrelas.CardSlot;
 import com.example.guerradasestrelas.Carta;
-import com.example.guerradasestrelas.Jogo;
 import com.example.guerradasestrelas.R;
 import com.example.guerradasestrelas.Singleton;
 import com.example.guerradasestrelas.Utils;
-
-import java.util.Arrays;
 
 public class SorteioFragment extends Fragment {
     View view;
@@ -91,7 +86,7 @@ public class SorteioFragment extends Fragment {
     private void turnManager(){
         // tapar ecra e detetar clique
         final ConstraintLayout tapa = view.findViewById(R.id.tapa_escolha);
-        final TextView turn_t = view.findViewById(R.id.turn_text);
+        final TextView turn_t = view.findViewById(R.id.player_num_text);
         turn_t.setText("VEZ DO JOGADOR " + (turn%2 + 1) + "!!!!");
         tapa.setVisibility(View.VISIBLE);
         tapa.bringToFront();
@@ -103,7 +98,7 @@ public class SorteioFragment extends Fragment {
         im_butt_1.setOnClickListener(null);
         im_butt_2.setOnClickListener(null);
 
-        Button ready_butt = view.findViewById(R.id.ready_choose_butt);
+        Button ready_butt = view.findViewById(R.id.ready_butt);
         ready_butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

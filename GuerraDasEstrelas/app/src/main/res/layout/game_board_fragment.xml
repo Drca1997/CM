@@ -8,10 +8,11 @@
     tools:context=".ui.gameboard.GameBoardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="invisible"
         android:id="@+id/obscure_hand_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
+        android:background="@color/player1sorteio1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,31 +20,43 @@
 
         <TextView
             android:id="@+id/round_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Round x"
+            android:background="@color/player1sorteio3"
+            android:gravity="center"
+            android:text="RONDA 1"
+            android:textColor="#FFFFFF"
+            android:textSize="60sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.19999999" />
+            app:layout_constraintVertical_bias="0.1" />
 
         <TextView
             android:id="@+id/player_num_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
+            android:layout_width="410dp"
+            android:layout_height="118dp"
+            android:background="@color/player1sorteio2"
+            android:gravity="center"
+            android:text="VEZ DO\nJOGADOR 1!!!!"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.333333" />
+            app:layout_constraintVertical_bias="0.3" />
 
         <Button
             android:id="@+id/ready_butt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ready to Play!"
+            android:layout_width="348dp"
+            android:layout_height="123dp"
+            android:layout_marginTop="300dp"
+            android:background="@drawable/butt_pronto_jogar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,24 +82,24 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="146dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <Button
                 android:id="@+id/back_hand_butt"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
                 android:layout_gravity="left"
-                android:text="Back" />
+                android:background="@drawable/butt_back" />
 
             <Button
                 android:id="@+id/play_card_butt"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
                 android:layout_gravity="right"
                 android:layout_weight="1"
-                android:text="Play" />
+                android:background="@drawable/butt_jogar" />
         </LinearLayout>
     </LinearLayout>
 
@@ -141,6 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+
                     android:src="@drawable/blank" />
 
                 <ImageButton

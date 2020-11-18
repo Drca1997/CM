@@ -42,7 +42,7 @@
         android:textColor="#FFFFFF"
         android:textSize="60sp"
         android:textStyle="bold"
-        android:typeface="normal"
+        android:fontFamily="@font/comic_sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
         android:textColor="#000000"
         android:textSize="60sp"
         android:textStyle="bold"
-        android:typeface="normal"
+        android:fontFamily="@font/comic_sans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/winner_image" />

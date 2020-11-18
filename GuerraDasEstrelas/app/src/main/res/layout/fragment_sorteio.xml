@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.gameboard.SorteioFragment"
-    android:background="@color/background">
+    android:background="@color/background"
+    >
 
     <LinearLayout
         android:id="@+id/expanded_image"
@@ -49,24 +50,26 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="invisible"
         android:id="@+id/tapa_escolha"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
-        android:visibility="invisible"
+        android:background="@color/player1sorteio1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/sort_text"
+            android:id="@+id/round_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:background="@color/player1sorteio3"
+            android:gravity="center"
             android:text="SORTEIO!!!"
             android:textColor="#FFFFFF"
-            android:textSize="36sp"
+            android:textSize="60sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -75,13 +78,15 @@
             app:layout_constraintVertical_bias="0.1" />
 
         <TextView
-            android:id="@+id/turn_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="VEZ DO JOGADOR 1!!!!"
+            android:id="@+id/player_num_text"
+            android:layout_width="410dp"
+            android:layout_height="118dp"
+            android:background="@color/player1sorteio2"
+            android:gravity="center"
+            android:text="VEZ DO\nJOGADOR 1!!!!"
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
+            android:textSize="36sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,10 +94,11 @@
             app:layout_constraintVertical_bias="0.3" />
 
         <Button
-            android:id="@+id/ready_choose_butt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pronto para escolher"
+            android:id="@+id/ready_butt"
+            android:layout_width="348dp"
+            android:layout_height="123dp"
+            android:layout_marginTop="300dp"
+            android:background="@drawable/butt_pronto_escolher"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +135,7 @@
             android:textColor="#000000"
             android:textSize="36sp"
             android:textStyle="bold"
+            android:fontFamily="@font/comic_sans"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -144,6 +151,7 @@
             android:textColor="#FFFFFF"
             android:textSize="36sp"
             android:textStyle="bold"
+            android:fontFamily="@font/comic_sans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

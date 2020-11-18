@@ -7,4 +7,11 @@
     <color name="darkorange">#f4b12b</color>
     <color name="player1">#9c48e4</color>
     <color name="player2">#3bb3cb</color>
+    <color name="player1sorteio1">#9c48e4</color>
+    <color name="player2sorteio1">#51d3ec</color>
+    <color name="player1sorteio2">#852fcb</color>
+    <color name="player2sorteio2">#3bb3cb</color>
+    <color name="player1sorteio3">#770da8</color>
+    <color name="player2sorteio3">#2280a8</color>
+    <color name="nomes_backgorund">#46b2c7</color>
 </resources>
