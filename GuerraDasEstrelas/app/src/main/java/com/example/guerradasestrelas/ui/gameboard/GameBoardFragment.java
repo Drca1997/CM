@@ -118,7 +118,7 @@ public class GameBoardFragment extends Fragment {
             for (final CardSlot slot : playerhandDisplayed) {
                 set_button(jogo,slot,true);
             }
-            playerTransition();
+            playerTransition(jogo);
 
             Button button = view.findViewById(R.id.skip_butt);
             button.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class GameBoardFragment extends Fragment {
                     if(jogo.getWinner() != ""){
                         mListener.onGameWonInteraction(jogo.getWinner());
                     }
-                    playerTransition();
+                    playerTransition(jogo);
                 }
             });
         }else{
@@ -417,7 +417,7 @@ public class GameBoardFragment extends Fragment {
         currentAnimator = set;
     }
 
-    private void playerTransition(){
+    private void playerTransition(final Jogo jogo){
         // Detetar aqui se houve ou nao mudança de mao. Se sim, mostrar ecra de transiçao.
         String jog_at = ((TextView) view.findViewById(R.id.mao_jog_text)).getText().toString();
         //System.out.println(jog_at);
@@ -426,6 +426,8 @@ public class GameBoardFragment extends Fragment {
             // fazer ecra aparecer
             final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);
             Button ready = (Button) view.findViewById(R.id.ready_butt);
+            TextView nome = (TextView) view.findViewById(R.id.player_num_text);
+            TextView ronda = (TextView) view.findViewById(R.id.round_text);
             next_round.setVisibility(View.VISIBLE);
             next_round.bringToFront();
             ready.setOnClickListener(new View.OnClickListener() {
@@ -434,6 +436,22 @@ public class GameBoardFragment extends Fragment {
                     next_round.setVisibility(View.INVISIBLE);
                 }
             });
+            int jogador_atual_id=jogo.getJogadorAtual().getId();
+            nome.setText("VEZ DO\nJOGADOR " + jogador_atual_id + "!!!!");
+            if(jogador_atual_id==1){
+                next_round.setBackgroundColor(getResources().getColor(R.color.player1sorteio1));
+                nome.setBackgroundColor(getResources().getColor(R.color.player1sorteio2));
+                nome.setTextColor(getResources().getColor(R.color.white));
+                ronda.setBackgroundColor(getResources().getColor(R.color.player1sorteio3));
+                ronda.setTextColor(getResources().getColor(R.color.white));
+            }
+            else{
+                next_round.setBackgroundColor(getResources().getColor(R.color.player2sorteio1));
+                nome.setBackgroundColor(getResources().getColor(R.color.player2sorteio2));
+                nome.setTextColor(getResources().getColor(R.color.black));
+                ronda.setBackgroundColor(getResources().getColor(R.color.player2sorteio3));
+                ronda.setTextColor(getResources().getColor(R.color.black));
+            }
 
             // atualizar jogador
             old_hand = jog_at;

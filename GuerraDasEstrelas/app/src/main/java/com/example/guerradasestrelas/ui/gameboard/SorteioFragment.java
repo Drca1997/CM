@@ -86,8 +86,23 @@ public class SorteioFragment extends Fragment {
     private void turnManager(){
         // tapar ecra e detetar clique
         final ConstraintLayout tapa = view.findViewById(R.id.tapa_escolha);
+        final TextView ronda = view.findViewById(R.id.round_text);
         final TextView turn_t = view.findViewById(R.id.player_num_text);
-        turn_t.setText("VEZ DO JOGADOR " + (turn%2 + 1) + "!!!!");
+        turn_t.setText("VEZ DO\nJOGADOR " + (turn%2 + 1) + "!!!!");
+        if(turn%2+1 == 1){
+            tapa.setBackgroundColor(getResources().getColor(R.color.player1sorteio1));
+            turn_t.setBackgroundColor(getResources().getColor(R.color.player1sorteio2));
+            turn_t.setTextColor(getResources().getColor(R.color.white));
+            ronda.setBackgroundColor(getResources().getColor(R.color.player1sorteio3));
+            ronda.setTextColor(getResources().getColor(R.color.white));
+        }
+        else{
+            tapa.setBackgroundColor(getResources().getColor(R.color.player2sorteio1));
+            turn_t.setBackgroundColor(getResources().getColor(R.color.player2sorteio2));
+            turn_t.setTextColor(getResources().getColor(R.color.black));
+            ronda.setBackgroundColor(getResources().getColor(R.color.player2sorteio3));
+            ronda.setTextColor(getResources().getColor(R.color.black));
+        }
         tapa.setVisibility(View.VISIBLE);
         tapa.bringToFront();
 
@@ -111,7 +126,17 @@ public class SorteioFragment extends Fragment {
 
                 // preparar info de jogador
                 TextView turn_player = view.findViewById(R.id.player_turn_text);
-                turn_player.setText("Vez do jogador " + (turn%2 + 1) + ".");
+                turn_player.setText("Vez do jogador " + (turn%2 + 1));
+
+
+                if(turn%2+1 == 1){
+                    turn_player.setBackgroundColor(getResources().getColor(R.color.player1));
+                    turn_player.setTextColor(getResources().getColor(R.color.white));
+                }
+                else{
+                    turn_player.setBackgroundColor(getResources().getColor(R.color.player2));
+                    turn_player.setTextColor(getResources().getColor(R.color.black));
+                }
 
                 updateImages(im_butt_1,allCartas[shakedInds[ind]].getId_max(),true);
                 updateImages(im_butt_2,allCartas[shakedInds[ind+1]].getId_max(),false);

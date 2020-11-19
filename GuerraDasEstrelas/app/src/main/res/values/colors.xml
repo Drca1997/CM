@@ -15,4 +15,7 @@
     <color name="player2sorteio3">#2280a8</color>
     <color name="nomes_backgorund">#46b2c7</color>
     <color name="board_backgorund">#f5cc2a</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
 </resources>

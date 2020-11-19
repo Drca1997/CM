@@ -181,6 +181,8 @@ public class Jogo {
                 System.out.println("Jogador 1 venceu a ronda. Começando proxima ronda...");
                 setTurno(0);
                 cleanup();
+                Utils.updatePoderLabel(jogadores[0]);
+                Utils.updatePoderLabel(jogadores[1]);
             }
         }
         else if (jogadores[0].getPoder()[2] < jogadores[1].getPoder()[2]){
@@ -194,6 +196,8 @@ public class Jogo {
                 System.out.println("Jogador 2 venceu a ronda. Começando proxima ronda...");
                 setTurno(1);
                 cleanup();
+                Utils.updatePoderLabel(jogadores[0]);
+                Utils.updatePoderLabel(jogadores[1]);
             }
         }
         jogadores[turno].MostraMao(handSlots); //para atualizar com novas cartas que vieram para a mão
