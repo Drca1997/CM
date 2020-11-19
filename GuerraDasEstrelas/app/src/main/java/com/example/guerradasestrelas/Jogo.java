@@ -17,9 +17,10 @@ public class Jogo {
     private TextView playerLabel;
     private String winner;
     private int [] cardsNum;
+    private int n_ronda;
     private int turno; //0 - vez do jogador 1, 1- vez do jogador 2. Ou seja, posição dos jogadores no array "jogadores"
 
-    public Jogo(Context context, View view, int [] cardsInd){
+    public Jogo(Context context, View view, String jog1, String jog2, int [] cardsInd){
         Singleton.getInstance();
         Singleton.context = context;
         Singleton.view = view;
@@ -33,7 +34,11 @@ public class Jogo {
         // CardsInd vai ter nos 15 primeiros indices os indices no array allCards das cartas do jogador 0 e nos ultimos os do jogador 1
         cardsNum = cardsInd;
 
-        criaJogadores();
+        criaJogadores(jog1, jog2);
+        TextView player1Label = view.findViewById(R.id.p1_nome);
+        player1Label.setText(jog1);
+        TextView player2Label = view.findViewById(R.id.p2_nome);
+        player2Label.setText(jog2);
 
         bd.getCardsSkills(allCards);
 
@@ -55,10 +60,10 @@ public class Jogo {
         handSlots[9] = new CardSlot((ImageButton) Singleton.view.findViewById(R.id.hand_card9));
     }
 
-    private void criaJogadores(){
+    private void criaJogadores(String jog1, String jog2){
         jogadores = new Jogador [Singleton.NUM_JOGADORES];
-        Jogador jogador1 = new Jogador(Singleton.PLAYER1_ID);
-        Jogador jogador2 = new Jogador(Singleton.PLAYER2_ID);
+        Jogador jogador1 = new Jogador(Singleton.PLAYER1_ID,jog1);
+        Jogador jogador2 = new Jogador(Singleton.PLAYER2_ID,jog2);
         jogadores[0] = jogador1;
         jogadores[1] = jogador2;
     }
@@ -67,6 +72,7 @@ public class Jogo {
         buildBaralhosJogadores(allCards);
         //Inicia indicador de turno: vez do jogador 1
         this.turno = 0;
+        this.n_ronda = 1;
         updatePlayerLabel();
         //baralha baralhos
         Utils.baralhaBaralho(jogadores[0].getBaralho());
@@ -121,7 +127,7 @@ public class Jogo {
 
     @SuppressLint("SetTextI18n")
     public void updatePlayerLabel(){
-        playerLabel.setText("Mão do Jogador " + (turno + 1));
+        playerLabel.setText("Mão do " + getJogadorAtual().getNome());
 }
 
     public void updatePoder(){
@@ -171,11 +177,12 @@ public class Jogo {
 
     public void finishRound(){
         if (jogadores[0].getPoder()[2] > jogadores[1].getPoder()[2]){
+            increaseRonda();
             jogadores[0].rondaGanha();
             if (checkForWinner(jogadores[0])){
                 //ganhou o jogo
                 System.out.println("Jogador 1 venceu o jogo");
-                winner = "JOGADOR 1";
+                winner = jogadores[0].getNome();
             }
             else{
                 System.out.println("Jogador 1 venceu a ronda. Começando proxima ronda...");
@@ -186,11 +193,12 @@ public class Jogo {
             }
         }
         else if (jogadores[0].getPoder()[2] < jogadores[1].getPoder()[2]){
+            increaseRonda();
             jogadores[1].rondaGanha();
             if(checkForWinner(jogadores[1])){
                 //ganhou o jogo
                 System.out.println("Jogador 2 venceu o jogo");
-                winner = "JOGADOR 2";
+                winner = jogadores[1].getNome();
             }
             else{
                 System.out.println("Jogador 2 venceu a ronda. Começando proxima ronda...");
@@ -225,6 +233,14 @@ public class Jogo {
         }
         updatePlayerLabel();
         //jogadores[turno].MostraMao(handSlots);
+    }
+
+    private void increaseRonda(){
+        this.n_ronda = this.n_ronda + 1;
+    }
+
+    public int getRonda(){
+        return this.n_ronda;
     }
 
     public String getWinner(){

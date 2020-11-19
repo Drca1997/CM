@@ -28,7 +28,14 @@ import com.example.guerradasestrelas.R;
 import com.example.guerradasestrelas.Singleton;
 import com.example.guerradasestrelas.Utils;
 
+import java.util.Arrays;
+
 public class SorteioFragment extends Fragment {
+    private static final String PLAYER1_NAME = "PLAYER1_N";
+    private static final String PLAYER2_NAME = "PLAYER2_N";
+
+    private String[] player_names;
+
     View view;
 
     private SorteioFragment.OnSorteioFragmentInteractionListener mListener;
@@ -52,13 +59,31 @@ public class SorteioFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static SorteioFragment newInstance() {
-        return new SorteioFragment();
+    public static SorteioFragment newInstance(String jog1, String jog2) {
+        SorteioFragment fragment = new SorteioFragment();
+        Bundle args = new Bundle();
+        args.putString(PLAYER1_NAME,jog1);
+        args.putString(PLAYER2_NAME,jog2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            player_names = new String[2];
+            player_names[0] = getArguments().getString(PLAYER1_NAME);
+            player_names[1] = getArguments().getString(PLAYER2_NAME);
+        }
+    }
+
+    public void initArguments(){
+        if (getArguments() != null) {
+            player_names = new String[2];
+            player_names[0] = getArguments().getString(PLAYER1_NAME);
+            player_names[1] = getArguments().getString(PLAYER2_NAME);
+        }
     }
 
     @Override
@@ -67,17 +92,26 @@ public class SorteioFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_sorteio, container, false);
 
+        initArguments();
+
         // Obter cartas e baralhar
         BaseDados bd = new BaseDados(getActivity());
         allCartas = bd.GetAllCards();
-        shakedInds = new int[Singleton.NUM_CARTAS_JOGO];
-        cardInd = new int[Singleton.NUM_CARTAS_JOGO];
-        for (int i=0;i<Singleton.NUM_CARTAS_JOGO;i++){
-            shakedInds[i] = i;
-        }
-        Utils.baralhaIndices(shakedInds);
-        turn = 0;
 
+        // Gerar array com indices baralhados
+        int [] preShakedInds = new int[Singleton.NUM_CARTAS];
+        cardInd = new int[Singleton.NUM_CARTAS_JOGO];
+        for (int i=0;i<Singleton.NUM_CARTAS;i++){
+            preShakedInds[i] = i;
+        }
+
+        Utils.baralhaIndices(preShakedInds);
+
+        // Ficar apenas com as primeiras 30 do baralho baralhado
+        shakedInds = Arrays.copyOfRange(preShakedInds, 0, Singleton.NUM_CARTAS_JOGO);
+
+        // Iniciar sorteio
+        turn = 0;
         turnManager();
 
         return view;
@@ -88,7 +122,7 @@ public class SorteioFragment extends Fragment {
         final ConstraintLayout tapa = view.findViewById(R.id.tapa_escolha);
         final TextView ronda = view.findViewById(R.id.round_text);
         final TextView turn_t = view.findViewById(R.id.player_num_text);
-        turn_t.setText("VEZ DO\nJOGADOR " + (turn%2 + 1) + "!!!!");
+        turn_t.setText("VEZ DE\n" + player_names[turn%2] + "!!!!");
         if(turn%2+1 == 1){
             tapa.setBackgroundColor(getResources().getColor(R.color.player1sorteio1));
             turn_t.setBackgroundColor(getResources().getColor(R.color.player1sorteio2));
@@ -126,7 +160,7 @@ public class SorteioFragment extends Fragment {
 
                 // preparar info de jogador
                 TextView turn_player = view.findViewById(R.id.player_turn_text);
-                turn_player.setText("Vez do jogador " + (turn%2 + 1));
+                turn_player.setText("Vez de " + player_names[turn%2]);
 
 
                 if(turn%2+1 == 1){
@@ -155,7 +189,7 @@ public class SorteioFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int [] empt = {};
-                    mListener.onSorteioDoneInteraction(empt);
+                    mListener.onSorteioDoneInteraction(empt,player_names[0],player_names[1]);
                 }
             });
         }else{
@@ -191,7 +225,7 @@ public class SorteioFragment extends Fragment {
 
         if(ind == Singleton.NUM_CARTAS_JOGO){
             // terminou sorteio
-            mListener.onSorteioDoneInteraction(cardInd);
+            mListener.onSorteioDoneInteraction(cardInd,player_names[0],player_names[1]);
         }else {
             // tapa ecra - nova ronda
             turnManager();
@@ -377,6 +411,6 @@ public class SorteioFragment extends Fragment {
     }
 
     public interface OnSorteioFragmentInteractionListener {
-        void onSorteioDoneInteraction(int[] cards);
+        void onSorteioDoneInteraction(int[] cards, String jog1, String jog2);
     }
 }

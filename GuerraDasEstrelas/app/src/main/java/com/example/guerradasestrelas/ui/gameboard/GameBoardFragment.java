@@ -38,8 +38,12 @@ import java.util.Arrays;
 
 public class GameBoardFragment extends Fragment {
     private static final String CARDS_LIST = "CARDS_LIST";
+    private static final String PLAYER1_NAME = "PLAYER1_N";
+    private static final String PLAYER2_NAME = "PLAYER2_N";
 
     private int [] cartas;
+    private String p1_n;
+    private String p2_n;
 
     // Hold a reference to the current animator,
     // so that it can be canceled mid-way.
@@ -55,15 +59,18 @@ public class GameBoardFragment extends Fragment {
     private GameBoardFragment.OnGameBoardFragmentInteractionListener mListener;
 
     private String old_hand;
+    private int old_ronda;
 
     public GameBoardFragment() {
         // Required empty public constructor
     }
 
-    public static GameBoardFragment newInstance(int [] cartas) {
+    public static GameBoardFragment newInstance(int [] cartas, String player1_name, String player2_name) {
         GameBoardFragment fragment = new GameBoardFragment();
         Bundle args = new Bundle();
         args.putIntArray(CARDS_LIST,cartas);
+        args.putString(PLAYER1_NAME,player1_name);
+        args.putString(PLAYER2_NAME,player2_name);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,12 +80,16 @@ public class GameBoardFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             cartas = getArguments().getIntArray(CARDS_LIST);
+            p1_n = getArguments().getString(PLAYER1_NAME);
+            p2_n = getArguments().getString(PLAYER2_NAME);
         }
     }
 
     public void initArguments(){
         if (getArguments() != null) {
             cartas = getArguments().getIntArray(CARDS_LIST);
+            p1_n = getArguments().getString(PLAYER1_NAME);
+            p2_n = getArguments().getString(PLAYER2_NAME);
         }
     }
 
@@ -90,9 +101,10 @@ public class GameBoardFragment extends Fragment {
 
         initArguments();
 
-        final Jogo jogo = new Jogo(getActivity(), view, cartas);
+        final Jogo jogo = new Jogo(getActivity(), view, p1_n, p2_n, cartas);
 
         old_hand = "";
+        old_ronda = jogo.getRonda();
 
         // Para efeitos de teste
         //final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);
@@ -419,15 +431,17 @@ public class GameBoardFragment extends Fragment {
 
     private void playerTransition(final Jogo jogo){
         // Detetar aqui se houve ou nao mudança de mao. Se sim, mostrar ecra de transiçao.
-        String jog_at = ((TextView) view.findViewById(R.id.mao_jog_text)).getText().toString();
-        //System.out.println(jog_at);
+        String nome_jog_at = jogo.getJogadorAtual().getNome();
+        int new_ronda = jogo.getRonda();
+        //System.out.println(nome_jog_at);
         //System.out.println(old_hand);
-        if(!jog_at.equals(old_hand)){
+        if(!nome_jog_at.equals(old_hand) || new_ronda != old_ronda){
             // fazer ecra aparecer
             final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);
             Button ready = (Button) view.findViewById(R.id.ready_butt);
             TextView nome = (TextView) view.findViewById(R.id.player_num_text);
             TextView ronda = (TextView) view.findViewById(R.id.round_text);
+            ronda.setText("RONDA " + old_ronda);
             next_round.setVisibility(View.VISIBLE);
             next_round.bringToFront();
             ready.setOnClickListener(new View.OnClickListener() {
@@ -437,24 +451,30 @@ public class GameBoardFragment extends Fragment {
                 }
             });
             int jogador_atual_id=jogo.getJogadorAtual().getId();
-            nome.setText("VEZ DO\nJOGADOR " + jogador_atual_id + "!!!!");
+            if(new_ronda != old_ronda){
+                nome.setText("GANHA POR " + nome_jog_at + "!!!! Começa ele a próxima!");
+            }else{
+                nome.setText("VEZ DO\nJOGADOR " + nome_jog_at + "!!!!");
+            }
+
             if(jogador_atual_id==1){
-                next_round.setBackgroundColor(getResources().getColor(R.color.player1sorteio1));
-                nome.setBackgroundColor(getResources().getColor(R.color.player1sorteio2));
-                nome.setTextColor(getResources().getColor(R.color.white));
-                ronda.setBackgroundColor(getResources().getColor(R.color.player1sorteio3));
-                ronda.setTextColor(getResources().getColor(R.color.white));
+                next_round.setBackgroundColor(view.getContext().getResources().getColor(R.color.player1sorteio1));
+                nome.setBackgroundColor(view.getContext().getResources().getColor(R.color.player1sorteio2));
+                nome.setTextColor(view.getContext().getResources().getColor(R.color.white));
+                ronda.setBackgroundColor(view.getContext().getResources().getColor(R.color.player1sorteio3));
+                ronda.setTextColor(view.getContext().getResources().getColor(R.color.white));
             }
             else{
-                next_round.setBackgroundColor(getResources().getColor(R.color.player2sorteio1));
-                nome.setBackgroundColor(getResources().getColor(R.color.player2sorteio2));
-                nome.setTextColor(getResources().getColor(R.color.black));
-                ronda.setBackgroundColor(getResources().getColor(R.color.player2sorteio3));
-                ronda.setTextColor(getResources().getColor(R.color.black));
+                next_round.setBackgroundColor(view.getContext().getResources().getColor(R.color.player2sorteio1));
+                nome.setBackgroundColor(view.getContext().getResources().getColor(R.color.player2sorteio2));
+                nome.setTextColor(view.getContext().getResources().getColor(R.color.black));
+                ronda.setBackgroundColor(view.getContext().getResources().getColor(R.color.player2sorteio3));
+                ronda.setTextColor(view.getContext().getResources().getColor(R.color.black));
             }
 
             // atualizar jogador
-            old_hand = jog_at;
+            old_hand = nome_jog_at;
+            old_ronda = new_ronda;
         }
     }
 

@@ -18,9 +18,11 @@ public class Jogador {
     private int [] poder;
     private boolean skipped;
     private boolean gotKamikazed;
+    private String nome;
 
-    public Jogador(int id){
+    public Jogador(int id, String nome){
         this.id = id;
+        this.nome = nome;
         this.baralho = null;
         this.descartes = new ArrayList<Carta>();
         this.mao = new Carta [Singleton.LIM_MAO];
@@ -252,5 +254,9 @@ public class Jogador {
 
     public int getId(){
         return id;
+    }
+
+    public String getNome(){
+        return nome;
     }
 }
