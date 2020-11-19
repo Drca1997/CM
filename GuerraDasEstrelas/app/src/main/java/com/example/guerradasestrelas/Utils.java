@@ -248,6 +248,7 @@ public class Utils {
         else{
             array = res.toArray(new Carta[res.size()]);
         }
+        assert array[0] != null;
         return array;
     }
 

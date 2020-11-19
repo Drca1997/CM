@@ -208,6 +208,12 @@ public class Jogo {
                 Utils.updatePoderLabel(jogadores[1]);
             }
         }
+        else{ //empate
+            System.out.println("Ronda Empatada! Começando nova ronda...");
+            cleanup();
+            Utils.updatePoderLabel(jogadores[0]);
+            Utils.updatePoderLabel(jogadores[1]);
+        }
         jogadores[turno].MostraMao(handSlots); //para atualizar com novas cartas que vieram para a mão
     }
 
@@ -219,6 +225,7 @@ public class Jogo {
         for (Jogador jogador : jogadores){
             jogador.resetPoder();
             jogador.LimpaCampo();
+            jogador.setGotKamikazed(false);
             jogador.setSkipped(false);
         }
     }
