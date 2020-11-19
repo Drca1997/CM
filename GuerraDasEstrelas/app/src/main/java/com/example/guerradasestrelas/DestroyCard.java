@@ -37,12 +37,16 @@ public class DestroyCard extends Habilidade {
 
     public void destruirCarta(int turno, Jogador[] jogadores, Carta [] origem , boolean aleatorio, List<Carta> descartes){
         if (aleatorio){
+            Utils.PrintBaralho(origem, "CARTAS POSSIVEIS DE ELIMINAR: ");
             Random rand = new Random();
             int cartaIndex;
             if (origem.length > 0){
                 if (!(origem.length == 1 && Utils.isImune(origem[0]))){ //se NÃO ha só o arnold na fila
                     do{
                         cartaIndex = rand.nextInt(origem.length);
+                        while (origem[cartaIndex] == null){
+                            cartaIndex = rand.nextInt(origem.length);
+                        }
                     }while(Utils.isImune(origem[cartaIndex]));
                     descartes.add(origem[cartaIndex]);
                     jogadores[Utils.getOutraFila(turno)].removeCartaDeCampo(origem[cartaIndex]);
