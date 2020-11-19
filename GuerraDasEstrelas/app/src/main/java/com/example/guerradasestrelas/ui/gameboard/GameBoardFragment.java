@@ -138,8 +138,8 @@ public class GameBoardFragment extends Fragment {
                 public void onClick(View v) {
                     jogo.getJogadorAtual().setSkipped(true);
                     jogo.skipRound();
-                    if(jogo.getWinner() != ""){
-                        mListener.onGameWonInteraction(jogo.getWinner());
+                    if(jogo.getWinner() != -1){
+                        mListener.onGameWonInteraction(jogo.getJogadores()[jogo.getWinner()].getNome(), jogo.getJogadores()[jogo.getWinner()].getId());
                     }
                     playerTransition(jogo);
                 }
@@ -229,7 +229,7 @@ public class GameBoardFragment extends Fragment {
                         }
                     }
                     else{
-                        Utils.showToast(getContext(), "Carta não pode ser jogada.\n\tFileira cheia");
+                        Utils.showToast(getContext(), "Carta não pode ser jogada.\n\tFila cheia");
                     }
 
                 }
@@ -248,8 +248,8 @@ public class GameBoardFragment extends Fragment {
                 }
             }
 
-            if(!jogo.getWinner().equals("")){
-                mListener.onGameWonInteraction(jogo.getWinner());
+            if(jogo.getWinner() != -1){
+                mListener.onGameWonInteraction(jogo.getJogadores()[jogo.getWinner()].getNome(), jogo.getJogadores()[jogo.getWinner()].getId());
             }
         }
     }
@@ -490,6 +490,6 @@ public class GameBoardFragment extends Fragment {
     }
 
     public interface OnGameBoardFragmentInteractionListener {
-        void onGameWonInteraction(String winner);
+        void onGameWonInteraction(String winner, int winner_id);
     }
 }

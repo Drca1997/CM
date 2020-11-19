@@ -15,7 +15,7 @@ public class Jogo {
     private Jogador [] jogadores;
     private CardSlot[] handSlots;
     private TextView playerLabel;
-    private String winner;
+    private int winner;
     private int [] cardsNum;
     private int n_ronda;
     private int turno; //0 - vez do jogador 1, 1- vez do jogador 2. Ou seja, posição dos jogadores no array "jogadores"
@@ -44,7 +44,7 @@ public class Jogo {
 
         setupGame(allCards);
 
-        winner = "";
+        winner = -1;
     }
 
     private void BuildHandSlots(){
@@ -182,7 +182,7 @@ public class Jogo {
             if (checkForWinner(jogadores[0])){
                 //ganhou o jogo
                 System.out.println("Jogador 1 venceu o jogo");
-                winner = jogadores[0].getNome();
+                winner = 0;
             }
             else{
                 System.out.println("Jogador 1 venceu a ronda. Começando proxima ronda...");
@@ -198,7 +198,7 @@ public class Jogo {
             if(checkForWinner(jogadores[1])){
                 //ganhou o jogo
                 System.out.println("Jogador 2 venceu o jogo");
-                winner = jogadores[1].getNome();
+                winner = 1;
             }
             else{
                 System.out.println("Jogador 2 venceu a ronda. Começando proxima ronda...");
@@ -243,7 +243,7 @@ public class Jogo {
         return this.n_ronda;
     }
 
-    public String getWinner(){
+    public int getWinner(){
         return winner;
     }
 

@@ -40,19 +40,19 @@
         <TextView
             android:id="@+id/player_num_text"
             android:layout_width="410dp"
-            android:layout_height="118dp"
+            android:layout_height="wrap_content"
             android:background="@color/player1sorteio2"
+            android:fontFamily="@font/comic_sans"
             android:gravity="center"
             android:text="VEZ DO\nJOGADOR 1!!!!"
             android:textColor="#FFFFFF"
             android:textSize="36sp"
             android:textStyle="bold"
-            android:fontFamily="@font/comic_sans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintTop_toBottomOf="@+id/round_text"
+            app:layout_constraintVertical_bias="0.1" />
 
         <Button
             android:id="@+id/ready_butt"
