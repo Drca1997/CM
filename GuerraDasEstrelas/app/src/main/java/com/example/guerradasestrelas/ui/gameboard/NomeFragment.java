@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.guerradasestrelas.R;
+import com.example.guerradasestrelas.Utils;
 import com.example.guerradasestrelas.fragments.MainMenuFragment;
 
 public class NomeFragment extends Fragment {
@@ -45,7 +46,10 @@ public class NomeFragment extends Fragment {
         beg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onChosenInteraction(jog1.getText().toString(),jog2.getText().toString());
+                if(!jog1.getText().toString().equals(jog2.getText().toString()))
+                    mListener.onChosenInteraction(jog1.getText().toString(),jog2.getText().toString());
+                else
+                    Utils.showToast(getContext(),"Têm de ter nomes diferentes!");
             }
         });
 

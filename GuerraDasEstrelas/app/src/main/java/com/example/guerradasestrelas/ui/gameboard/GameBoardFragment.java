@@ -130,7 +130,6 @@ public class GameBoardFragment extends Fragment {
             for (final CardSlot slot : playerhandDisplayed) {
                 set_button(jogo,slot,true);
             }
-            playerTransition(jogo);
 
             Button button = view.findViewById(R.id.skip_butt);
             button.setOnClickListener(new View.OnClickListener() {
@@ -139,11 +138,16 @@ public class GameBoardFragment extends Fragment {
                     jogo.getJogadorAtual().setSkipped(true);
                     jogo.skipRound();
                     if(jogo.getWinner() != -1){
-                        mListener.onGameWonInteraction(jogo.getJogadores()[jogo.getWinner()].getNome(), jogo.getJogadores()[jogo.getWinner()].getId());
+                        //String winner_n = jogo.getJogadores()[jogo.getWinner()].getNome();
+                        //String loser_n = "";
+                        //(jogo.getWinner() == 0) ? (loser_n = jogo.getJogadores()[1].getNome()):(loser_n = jogo.getJogadores()[0].getNome())
+                        mListener.onGameWonInteraction(jogo.getJogadores()[0].getNome(), jogo.getJogadores()[1].getNome(), jogo.getJogadores()[jogo.getWinner()].getId());
                     }
                     playerTransition(jogo);
                 }
             });
+
+            playerTransition(jogo);
         }else{
             // Cartas no Campo
             for (Jogador jog : jogo.getJogadores())
@@ -249,7 +253,7 @@ public class GameBoardFragment extends Fragment {
             }
 
             if(jogo.getWinner() != -1){
-                mListener.onGameWonInteraction(jogo.getJogadores()[jogo.getWinner()].getNome(), jogo.getJogadores()[jogo.getWinner()].getId());
+                mListener.onGameWonInteraction(jogo.getJogadores()[0].getNome(),jogo.getJogadores()[1].getNome(), jogo.getJogadores()[jogo.getWinner()].getId());
             }
         }
     }
@@ -436,6 +440,7 @@ public class GameBoardFragment extends Fragment {
         //System.out.println(nome_jog_at);
         //System.out.println(old_hand);
         if(!nome_jog_at.equals(old_hand) || new_ronda != old_ronda){
+            toggle_click(false,jogo);
             // fazer ecra aparecer
             final ConstraintLayout next_round = (ConstraintLayout) view.findViewById(R.id.obscure_hand_layout);
             Button ready = (Button) view.findViewById(R.id.ready_butt);
@@ -448,6 +453,7 @@ public class GameBoardFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     next_round.setVisibility(View.INVISIBLE);
+                    toggle_click(true,jogo);
                 }
             });
             int jogador_atual_id=jogo.getJogadorAtual().getId();
@@ -490,6 +496,6 @@ public class GameBoardFragment extends Fragment {
     }
 
     public interface OnGameBoardFragmentInteractionListener {
-        void onGameWonInteraction(String winner, int winner_id);
+        void onGameWonInteraction(String j1, String j2, int winner_id);
     }
 }

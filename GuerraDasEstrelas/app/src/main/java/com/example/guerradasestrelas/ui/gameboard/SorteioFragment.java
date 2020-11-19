@@ -146,6 +146,9 @@ public class SorteioFragment extends Fragment {
 
         im_butt_1.setOnClickListener(null);
         im_butt_2.setOnClickListener(null);
+        Button skip_sort = view.findViewById(R.id.skit_sort_butt);
+        skip_sort.setOnClickListener(null);
+        tapa.setOnClickListener(null);
 
         Button ready_butt = view.findViewById(R.id.ready_butt);
         ready_butt.setOnClickListener(new View.OnClickListener() {

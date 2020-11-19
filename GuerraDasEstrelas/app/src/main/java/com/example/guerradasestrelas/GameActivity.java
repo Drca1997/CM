@@ -39,8 +39,8 @@ public class GameActivity extends AppCompatActivity implements WinnerFragment.On
                 .commitNow();
     }
 
-    public void onGameWonInteraction(String winner, int winner_id){
-        WinnerFragment fragmentWin = WinnerFragment.newInstance(winner, winner_id);
+    public void onGameWonInteraction(String j1, String j2, int winner_id){
+        WinnerFragment fragmentWin = WinnerFragment.newInstance(j1,j2, winner_id);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container,fragmentWin)

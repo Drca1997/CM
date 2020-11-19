@@ -16,13 +16,15 @@ import com.example.guerradasestrelas.R;
 import com.example.guerradasestrelas.fragments.GalleryFragment;
 
 public class WinnerFragment extends Fragment {
-    private static final String WINNER_NAME = "param1";
+    private static final String J1_NAME = "param1";
+    private static final String J2_NAME = "param2";
 
-    private static final String WINNER = "param2";
+    private static final String WINNER = "param3";
 
     private String mParam1;
+    private String mParam2;
 
-    private int mParam2;
+    private int mParam3;
 
     private View view;
 
@@ -32,11 +34,12 @@ public class WinnerFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static WinnerFragment newInstance(String param1, int param2) {
+    public static WinnerFragment newInstance(String param1, String param2, int param3) {
         WinnerFragment fragment = new WinnerFragment();
         Bundle args = new Bundle();
-        args.putString(WINNER_NAME, param1);
-        args.putInt(WINNER, param2);
+        args.putString(J1_NAME, param1);
+        args.putString(J2_NAME, param2);
+        args.putInt(WINNER, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,15 +48,17 @@ public class WinnerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(WINNER_NAME);
-            mParam2 = getArguments().getInt(WINNER);
+            mParam1 = getArguments().getString(J1_NAME);
+            mParam2 = getArguments().getString(J2_NAME);
+            mParam3 = getArguments().getInt(WINNER);
         }
     }
 
     public void initArguments(){
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(WINNER_NAME);
-            mParam2 = getArguments().getInt(WINNER);
+            mParam1 = getArguments().getString(J1_NAME);
+            mParam2 = getArguments().getString(J2_NAME);
+            mParam3 = getArguments().getInt(WINNER);
         }
     }
 
@@ -67,11 +72,17 @@ public class WinnerFragment extends Fragment {
 
         // IR BUSCAR TEXTO E METER VENCEDOR
         TextView winner_t = (TextView) view.findViewById(R.id.winner_text);
-        winner_t.setText(mParam1);
+        String win;
+        if ((mParam3 == 1)) {
+            win = mParam1;
+        } else {
+            win = mParam2;
+        }
+        winner_t.setText(win);
 
         // MUDAR A IMAGEM DE FUNDO DE ACORDO COM O VENCEDOR
         ImageView image_winner = (ImageView) view.findViewById(R.id.winner_image);
-        if(mParam2==1){
+        if(mParam3==1){
             image_winner.setImageResource(R.drawable.player1_win_bolt);
             winner_t.setTextColor(view.getContext().getResources().getColor(R.color.white));
         }
@@ -85,6 +96,14 @@ public class WinnerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mListener.onBackToMenuInteraction();
+            }
+        });
+
+        Button desforra = (Button) view.findViewById(R.id.desforra_butt);
+        desforra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onChosenInteraction(mParam1, mParam2);
             }
         });
 
@@ -104,5 +123,6 @@ public class WinnerFragment extends Fragment {
 
     public interface OnWinnerFragmentInteractionListener {
         void onBackToMenuInteraction();
+        void onChosenInteraction(String jog1, String jog2);
     }
 }
