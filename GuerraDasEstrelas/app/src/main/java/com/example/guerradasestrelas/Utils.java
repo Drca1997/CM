@@ -13,6 +13,34 @@ import java.util.Random;
 
 public class Utils {
 
+    public static void updateSkillsInPlay(Carta carta, Jogador [] jogadores, int turno){
+        switch(carta.getHabilidade().getNome()){
+            case "Kamikaze":
+                for (Jogador jogador : jogadores){
+                    if (updateKamikazeStatus(jogador)){
+                        break;
+                    }
+                }
+                break;
+            case "AddModifier":
+                break;
+            case "Ligacao":
+                break;
+        }
+    }
+
+    public static boolean updateKamikazeStatus(Jogador jogador){
+        for (CardSlot slot : jogador.getCampo()[1]){
+            if (slot.getCarta() != null){
+                if (isKamikaze(slot.getCarta())){
+                    jogador.setGotKamikazed(false);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @SuppressLint("SetTextI18n")
     public static void updateRondasGanhasLabel(Jogador jogador){
         TextView text;

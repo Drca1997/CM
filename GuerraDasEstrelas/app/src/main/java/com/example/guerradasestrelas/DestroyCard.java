@@ -48,6 +48,9 @@ public class DestroyCard extends Habilidade {
                             cartaIndex = rand.nextInt(origem.length);
                         }
                     }while(Utils.isImune(origem[cartaIndex]));
+                    if (origem[cartaIndex].getHabilidade() != null){
+                        Utils.updateSkillsInPlay(origem[cartaIndex], jogadores, turno);
+                    }
                     descartes.add(origem[cartaIndex]);
                     jogadores[Utils.getOutraFila(turno)].removeCartaDeCampo(origem[cartaIndex]);
                 }
@@ -63,6 +66,7 @@ public class DestroyCard extends Habilidade {
                             if (descartes != null) {
                                 descartes.add(origem[i]);
                             }
+                            Utils.updateSkillsInPlay(origem[i], jogadores, turno);
                             boolean removeu = jogadores[Utils.getOutraFila(turno)].removeCartaDeCampo(origem[i]);
                             if (!removeu){
                                 jogadores[turno].removeCartaDeCampo(origem[i]);
