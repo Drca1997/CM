@@ -25,7 +25,7 @@ public class OutraHabilidade extends Habilidade {
         for (Carta powerRanger : powerRangers){
             int mod = 0;
             if (powerRangers.size() > 1){
-                mod = (int) Math.pow(powerRanger.getPoderDefault(), powerRangers.size() - 1);
+                mod = (int) Math.pow(powerRanger.getPoderDefault(), (powerRangers.size() - 1));
             }
             powerRanger.AddModifier(mod);
         }
