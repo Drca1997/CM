@@ -22,14 +22,11 @@ public class OutraHabilidade extends Habilidade {
 
     public void ligacaoSkill(CardSlot[] fila){
         List<Carta> powerRangers = getPowerRangers(fila);
-        int mod = 0;
-        if (powerRangers.size() == 2){
-            mod = 2;
-        }
-        else if(powerRangers.size() == 3){
-            mod = 6;
-        }
         for (Carta powerRanger : powerRangers){
+            int mod = 0;
+            if (powerRangers.size() > 1){
+                mod = (int) Math.pow(powerRanger.getPoderDefault(), powerRangers.size() - 1);
+            }
             powerRanger.AddModifier(mod);
         }
     }
