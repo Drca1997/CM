@@ -18,9 +18,10 @@ public class Singleton  {
     public static final int PLAYER1_ID = 1;
     public static final int PLAYER2_ID = 2;
 
-    private static Singleton INSTANCE = null;
     public static Context context;
     public static View view;
+
+    private static Singleton INSTANCE = null;
 
     private Singleton() {};
 
