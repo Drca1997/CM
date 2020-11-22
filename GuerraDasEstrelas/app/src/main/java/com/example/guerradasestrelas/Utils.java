@@ -12,19 +12,21 @@ import java.util.Random;
 public class Utils {
 
     public static void updateSkillsInPlay(Carta carta, Jogador [] jogadores, int turno){
-        switch(carta.getHabilidade().getNome()){
-            case "Kamikaze":
-                for (Jogador jogador : jogadores){
-                    if (updateKamikazeStatus(jogador)){
-                        break;
-                    }
-                }
-                break;
-            case "AddModifier":
-                break;
-            case "Ligacao":
-                break;
-        }
+       if (carta.getHabilidade() != null){
+           switch(carta.getHabilidade().getNome()){
+               case "Kamikaze":
+                   for (Jogador jogador : jogadores){
+                       if (updateKamikazeStatus(jogador)){
+                           break;
+                       }
+                   }
+                   break;
+               case "AddModifier":
+                   break;
+               case "Ligacao":
+                   break;
+           }
+       }
     }
 
     public static boolean updateKamikazeStatus(Jogador jogador){
