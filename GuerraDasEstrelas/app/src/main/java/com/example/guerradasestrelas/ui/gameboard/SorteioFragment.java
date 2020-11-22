@@ -5,10 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -29,6 +31,7 @@ import com.example.guerradasestrelas.Singleton;
 import com.example.guerradasestrelas.Utils;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class SorteioFragment extends Fragment {
     private static final String PLAYER1_NAME = "PLAYER1_N";
@@ -191,8 +194,19 @@ public class SorteioFragment extends Fragment {
             skip_sort.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int [] empt = {};
-                    mListener.onSorteioDoneInteraction(empt,player_names[0],player_names[1]);
+                    // Dialog box to be sure
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+                    builder.setMessage("Tens a certeza de que queres passar o sorteio à frente?")
+                            .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    int [] empt = {};
+                                    mListener.onSorteioDoneInteraction(empt,player_names[0],player_names[1]);
+                                }})
+                            .setNegativeButton("Não",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Nada
+                                }});
+                    builder.create().show();
                 }
             });
         }else{

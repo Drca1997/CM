@@ -1,5 +1,6 @@
 package com.example.guerradasestrelas.ui.gameboard;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -8,6 +9,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -35,6 +37,7 @@ import com.example.guerradasestrelas.Utils;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class GameBoardFragment extends Fragment {
     private static final String CARDS_LIST = "CARDS_LIST";
@@ -135,15 +138,27 @@ public class GameBoardFragment extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jogo.getJogadorAtual().setSkipped(true);
-                    jogo.skipRound();
-                    if(jogo.getWinner() != -1){
-                        //String winner_n = jogo.getJogadores()[jogo.getWinner()].getNome();
-                        //String loser_n = "";
-                        //(jogo.getWinner() == 0) ? (loser_n = jogo.getJogadores()[1].getNome()):(loser_n = jogo.getJogadores()[0].getNome())
-                        mListener.onGameWonInteraction(jogo.getJogadores()[0].getNome(), jogo.getJogadores()[1].getNome(), jogo.getJogadores()[jogo.getWinner()].getId());
-                    }
-                    playerTransition(jogo);
+                    // Dialog box to be sure
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+                    builder.setMessage("Tens a certeza de que queres terminar a ronda? Não voltarás a jogar até à proxima.")
+                            .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    jogo.getJogadorAtual().setSkipped(true);
+                                    jogo.skipRound();
+                                    if(jogo.getWinner() != -1){
+                                        //String winner_n = jogo.getJogadores()[jogo.getWinner()].getNome();
+                                        //String loser_n = "";
+                                        //(jogo.getWinner() == 0) ? (loser_n = jogo.getJogadores()[1].getNome()):(loser_n = jogo.getJogadores()[0].getNome())
+                                        mListener.onGameWonInteraction(jogo.getJogadores()[0].getNome(), jogo.getJogadores()[1].getNome(), jogo.getJogadores()[jogo.getWinner()].getId());
+                                    }
+                                    playerTransition(jogo);
+                                }})
+                            .setNegativeButton("Não",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // nada
+                                }});
+                    builder.create().show();
+
                 }
             });
 
