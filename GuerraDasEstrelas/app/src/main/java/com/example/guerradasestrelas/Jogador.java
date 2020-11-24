@@ -109,11 +109,12 @@ public class Jogador {
         if (carta.getHabilidade() != null){
             carta.getHabilidade().Execute(turno, jogadores);
         }
-        if (!Utils.isKamikaze(carta)){
+        if (!Utils.isKamikaze(carta)){ //se nao é kamikaze, tira carta normalmente do baralho
             tiraCartaDoBaralho();
         }
-        else{
-            jogadores[Utils.getOutraFila(turno)].tiraCartaDoBaralho();
+        else{ //se for kamikaze, é o jogador atual que tira carta(no frgamento do jogo, é executado
+            // adversário.jogaCarta(), daí nao se poder fazer simplesmente "tiraCartaDoBaralho())
+            jogadores[turno].tiraCartaDoBaralho();
         }
     }
 
