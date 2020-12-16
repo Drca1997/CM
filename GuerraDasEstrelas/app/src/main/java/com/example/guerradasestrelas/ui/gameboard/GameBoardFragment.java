@@ -226,7 +226,7 @@ public class GameBoardFragment extends Fragment {
                     }
                 }
                 else{
-                    //Será aqui o sitio ideal para detetar habilidade de Madonna e Ronaldo?
+                    //Detetar habilidade de Madonna e Ronaldo
                     if (temp.getHabilidade() != null){
                         if (temp.getHabilidade().getNome().equals("MultiFila")){
                             int outrafila = Utils.getOutraFila(temp.getFila());

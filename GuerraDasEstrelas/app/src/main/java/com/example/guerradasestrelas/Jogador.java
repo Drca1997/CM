@@ -107,7 +107,7 @@ public class Jogador {
         campo[carta.getFila()][freeSlot].setCarta(carta); //coloca carta no campo
         System.out.println("JOGANDO " + carta.getNome().toUpperCase());
         if (carta.getHabilidade() != null){
-            carta.getHabilidade().Execute(turno, jogadores);
+            carta.getHabilidade().Execute(turno, jogadores, carta);
         }
         if (!Utils.isKamikaze(carta)){ //se nao é kamikaze, tira carta normalmente do baralho
             tiraCartaDoBaralho();

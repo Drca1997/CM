@@ -12,5 +12,5 @@ public abstract class Habilidade {
         return nome;
     }
 
-    public abstract void Execute(int turno, Jogador [] jogadores);
+    public abstract void Execute(int turno, Jogador [] jogadores, Carta carta);
 }

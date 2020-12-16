@@ -16,14 +16,13 @@ public class Utils {
            switch(carta.getHabilidade().getNome()){
                case "Kamikaze":
                    for (Jogador jogador : jogadores){
-                       if (updateKamikazeStatus(jogador)){
-                           break;
-                       }
+                       updateKamikazeStatus(jogador);
                    }
                    break;
-               case "AddModifier":
-                   break;
                case "Ligacao":
+                   for (Jogador jogador: jogadores){
+                        updatePowerRangersPower(jogador.getFilaPortugal(), carta);
+                   }
                    break;
            }
        }
@@ -39,6 +38,31 @@ public class Utils {
             }
         }
         return false;
+    }
+
+    private static void updatePowerRangersPower(CardSlot [] filaPT, Carta carta){
+        ArrayList<Carta> powerRangers = getPowerRangersInLine(filaPT);
+        int mod = (int) Math.pow(carta.getPoderDefault(), (powerRangers.size() - 1));
+        for (Carta pr : powerRangers){
+            if (pr != carta){
+                pr.AddModifier(-mod);
+                System.out.println("Aplicado -" + mod + " a " + pr.getNome());
+            }
+        }
+    }
+
+    private static ArrayList<Carta> getPowerRangersInLine(CardSlot [] fila){
+        ArrayList<Carta> res = new ArrayList<>();
+        for (CardSlot slot : fila){
+            if (slot.getCarta() != null){
+                if (slot.getCarta().getHabilidade() != null){
+                    if (slot.getCarta().getHabilidade().getNome().equals("Ligacao")) {
+                        res.add(slot.getCarta());
+                    }
+                }
+            }
+        }
+        return res;
     }
 
     @SuppressLint("SetTextI18n")

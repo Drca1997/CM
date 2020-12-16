@@ -55,14 +55,14 @@ public class AddModififier extends Habilidade {
         return filas;
     }
 
-    @Override //EXTREMAMENTE IMPORTANTE: NAO É SUPOSTO SER ASSIM. MODIFICADOR TEM DE FICAR EM VIGOR ATE AO FIM DA RONDA
-    public void Execute(int turno, Jogador [] jogadores) {
+    @Override
+    public void Execute(int turno, Jogador [] jogadores, Carta carta) {
         CardSlot [][] filasAfetadas = getfilasAfetadas(turno, jogadores[0].getCampo(), jogadores[1].getCampo());
         for(int i=0; i < filasAfetadas.length; i++){
             for (int j=0; j < Singleton.TAMANHO_FILAS; j++){
                 if (filasAfetadas[i] != null){
                     if (filasAfetadas[i][j].getCarta() != null){
-                        if (!Utils.isImune(filasAfetadas[i][j].getCarta())){ //Arnold Imune a modificadores
+                        if (!Utils.isImune(filasAfetadas[i][j].getCarta()) && filasAfetadas[i][j].getCarta() != carta){ //Arnold Imune a modificadores
                             filasAfetadas[i][j].getCarta().AddModifier(modificador);
                         }
                     }

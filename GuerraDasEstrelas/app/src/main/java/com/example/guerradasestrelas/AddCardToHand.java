@@ -15,7 +15,7 @@ public class AddCardToHand extends Habilidade {
     }
 
     @Override
-    public void Execute(int turno, Jogador [] jogadores) {
+    public void Execute(int turno, Jogador [] jogadores, Carta carta) {
         if (onPlay){
             switch(origem){
                 case "maoAdversario":

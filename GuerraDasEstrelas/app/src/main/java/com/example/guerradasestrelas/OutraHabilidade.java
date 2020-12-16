@@ -11,23 +11,33 @@ public class OutraHabilidade extends Habilidade {
     }
 
     @Override
-    public void Execute(int turno, Jogador [] jogadores) {
+    public void Execute(int turno, Jogador [] jogadores, Carta carta) {
         if (nome.equals("Ligacao")){
-            ligacaoSkill(jogadores[turno].getCampo()[0]);
+            ligacaoSkill(jogadores[turno].getCampo()[0], carta);
         }
         else if (nome.equals("Kamikaze")){
             jogadores[Utils.getOutraFila(turno)].setGotKamikazed(true);
         }
     }
 
-    public void ligacaoSkill(CardSlot[] fila){
+    public void ligacaoSkill(CardSlot[] fila, Carta carta){
         List<Carta> powerRangers = getPowerRangers(fila);
         for (Carta powerRanger : powerRangers){
             int mod = 0;
+            int mod2 = 0;
             if (powerRangers.size() > 1){
                 mod = (int) Math.pow(powerRanger.getPoderDefault(), (powerRangers.size() - 1));
+                mod2 = (int) Math.pow(powerRanger.getPoderDefault(), (powerRangers.size()));
+                if (powerRanger != carta){
+                    powerRanger.AddModifier(mod);
+                }
+                else{
+                    powerRanger.AddModifier(mod2 - powerRanger.getPoderDefault());
+                }
             }
-            powerRanger.AddModifier(mod);
+
+
+
         }
     }
 

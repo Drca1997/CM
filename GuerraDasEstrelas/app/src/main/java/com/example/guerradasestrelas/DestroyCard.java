@@ -15,7 +15,7 @@ public class DestroyCard extends Habilidade {
 
 
     @Override
-    public void Execute(int turno, Jogador[] jogadores) {
+    public void Execute(int turno, Jogador[] jogadores, Carta carta) {
         Carta [] array1 = Utils.getCardsArray(jogadores[turno].getCampo()[0]);
         Carta [] array2 = Utils.getCardsArray(jogadores[turno].getCampo()[1]);
         Carta [] array3 = Utils.getCardsArray(jogadores[Utils.getOutraFila(turno)].getCampo()[0]);
