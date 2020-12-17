@@ -72,7 +72,7 @@ public class AddCardToHand extends Habilidade {
 
     public Carta criaCopia(Carta original){
         Carta copia = new Carta(original.getId(), original.getNome(), original.getPoderDefault(),
-                original.getId_mini(), original.getId_max(), original.getFila());
+                original.getId_mini(), original.getId_max(),original.getId_som(), original.getFila());
         copia.assignSkill(original.getHabilidade());
         return copia;
     }

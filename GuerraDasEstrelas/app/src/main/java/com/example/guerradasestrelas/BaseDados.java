@@ -24,13 +24,15 @@ public class BaseDados extends SQLiteOpenHelper {
     private static final String FILA_CONSTRAINTS = " NOT NULL CHECK(" + FILA_COLUMN + " >=0 AND " + FILA_COLUMN + " < " + Singleton.NUM_FILAS + "), ";
     public static final String IMG_MINI_COLUMN = "Imagem_Miniatura";
     public static final String IMG_MAX_COLUMN = "Imagem_Original";
+    public static final String SOUND_COLUMN = "Som";
     private static final String CARD_TABLE_CREATE = "CREATE TABLE " + CARD_TABLE_NAME + " (" +
                                                     ID_COLUMN + INTEGER + ID_CONSTRAINTS + ", " +
                                                     NAME_COLUMN +  TEXT_DEFINITION + NOT_NULL_CONSTRAINT + ", " +
                                                     PODER_COLUMN + INTEGER + NOT_NULL_CONSTRAINT +  ", " +
                                                     FILA_COLUMN + INTEGER + FILA_CONSTRAINTS  +
                                                     IMG_MAX_COLUMN + INTEGER + NOT_NULL_CONSTRAINT + ", " +
-                                                    IMG_MINI_COLUMN + INTEGER + NOT_NULL_CONSTRAINT +");";
+                                                    IMG_MINI_COLUMN + INTEGER + NOT_NULL_CONSTRAINT + ", " +
+                                                    SOUND_COLUMN + INTEGER + NOT_NULL_CONSTRAINT +");";
     public static final String SKILL_TABLE_NAME = "habilidades";
     private static final String SKILL_ID_CONSTRAINTS = " FOREIGN KEY(" + ID_COLUMN + ") REFERENCES " + CARD_TABLE_NAME + "(" + ID_COLUMN + ")";
     private static final String SKILL_COLUMN = "Habilidade";
@@ -75,51 +77,51 @@ public class BaseDados extends SQLiteOpenHelper {
 
     public void SetupCardsDataBase(SQLiteDatabase bd){
         // Cartas de Portugal
-        insereCartaNaBD(bd, "D.Afonso Henriques", 9, 0, R.drawable.afonso_henriques,  R.drawable.mini_afonso_henriques);
-        insereCartaNaBD(bd, "Bruno Carvalho", 2, 0, R.drawable.bruno_carvalho, R.drawable.mini_bruno_carvalho);
-        insereCartaNaBD(bd, "Camões", 3, 0, R.drawable.camoes, R.drawable.mini_camoes);
-        insereCartaNaBD(bd, "Cristiano Ronaldo", 7, 0, R.drawable.cristiano_ronaldo, R.drawable.mini_cristiano_ronaldo);
-        insereCartaNaBD(bd, "D.Sebastião", 8, 0, R.drawable.d_sebastiao, R.drawable.mini_d_sebastiao);
-        insereCartaNaBD(bd, "Daniel Oliveira", 4, 0, R.drawable.daniel_oliveira, R.drawable.mini_daniel_oliveira);
-        insereCartaNaBD(bd, "Diogo Morgado", 3, 0, R.drawable.diogo_morgado, R.drawable.mini_diogo_morgado);
-        insereCartaNaBD(bd, "Éder", 9, 0, R.drawable.eder, R.drawable.mini_eder);
-        insereCartaNaBD(bd, "Estudantes Académicos", 9, 0, R.drawable.estudantes, R.drawable.mini_estudantes);
-        insereCartaNaBD(bd, "Fernando Mendes", 10, 0, R.drawable.fernando_mendes, R.drawable.mini_fernando_mendes);
-        insereCartaNaBD(bd, "Jorge Jesus", 5, 0, R.drawable.jorge_jesus, R.drawable.mini_jorge_jesus);
-        insereCartaNaBD(bd, "José Castelo Branco", 4, 0, R.drawable.jose_castelo_branco, R.drawable.mini_jose_castelo_branco);
-        insereCartaNaBD(bd, "Luciana Abreu", 2, 0, R.drawable.luciana_abreu, R.drawable.mini_luciana_abreu);
-        insereCartaNaBD(bd, "Luís Filipe VIeira", 2, 0, R.drawable.luis_filipe_vieira, R.drawable.mini_luis_filipe_vieira);
-        insereCartaNaBD(bd, "Marcelo Rebelo de Sousa", 6, 0, R.drawable.marcelo_rebelo_sousa, R.drawable.mini_marcelo_rebelo_sousa);
-        insereCartaNaBD(bd, "Maya", 1, 0, R.drawable.maya, R.drawable.mini_maya);
-        insereCartaNaBD(bd, "O Emplastro", 0, 0, R.drawable.o_emplastro, R.drawable.mini_o_emplastro);
-        insereCartaNaBD(bd, "Pinto da Costa", 2, 0, R.drawable.pinto_da_costa, R.drawable.mini_pinto_da_costa);
-        insereCartaNaBD(bd, "António Oliveira Salazar", 7, 0, R.drawable.salazar, R.drawable.mini_salazar);
-        insereCartaNaBD(bd, "Tony Carreira", 0, 0, R.drawable.tony_carreira, R.drawable.mini_tony_carreira);
+        insereCartaNaBD(bd, "D.Afonso Henriques", 9, 0, R.drawable.afonso_henriques,  R.drawable.mini_afonso_henriques, R.raw.afonso_henriques);
+        insereCartaNaBD(bd, "Bruno Carvalho", 2, 0, R.drawable.bruno_carvalho, R.drawable.mini_bruno_carvalho, R.raw.bruno_carvalho);
+        insereCartaNaBD(bd, "Camões", 3, 0, R.drawable.camoes, R.drawable.mini_camoes, R.raw.camoes);
+        insereCartaNaBD(bd, "Cristiano Ronaldo", 7, 0, R.drawable.cristiano_ronaldo, R.drawable.mini_cristiano_ronaldo, R.raw.cristiano_ronaldo);
+        insereCartaNaBD(bd, "D.Sebastião", 8, 0, R.drawable.d_sebastiao, R.drawable.mini_d_sebastiao, R.raw.d_sebastiao);
+        insereCartaNaBD(bd, "Daniel Oliveira", 4, 0, R.drawable.daniel_oliveira, R.drawable.mini_daniel_oliveira, R.raw.daniel_oliveira);
+        insereCartaNaBD(bd, "Diogo Morgado", 3, 0, R.drawable.diogo_morgado, R.drawable.mini_diogo_morgado, R.raw.diogo_morgado);
+        insereCartaNaBD(bd, "Éder", 9, 0, R.drawable.eder, R.drawable.mini_eder, R.raw.eder);
+        insereCartaNaBD(bd, "Estudantes Académicos", 9, 0, R.drawable.estudantes, R.drawable.mini_estudantes, R.raw.estudantes);
+        insereCartaNaBD(bd, "Fernando Mendes", 10, 0, R.drawable.fernando_mendes, R.drawable.mini_fernando_mendes, R.raw.fernando_mendes);
+        insereCartaNaBD(bd, "Jorge Jesus", 5, 0, R.drawable.jorge_jesus, R.drawable.mini_jorge_jesus, R.raw.jorge_jesus);
+        insereCartaNaBD(bd, "José Castelo Branco", 4, 0, R.drawable.jose_castelo_branco, R.drawable.mini_jose_castelo_branco, R.raw.jose_castelo_branco);
+        insereCartaNaBD(bd, "Luciana Abreu", 2, 0, R.drawable.luciana_abreu, R.drawable.mini_luciana_abreu, R.raw.luciana_abreu);
+        insereCartaNaBD(bd, "Luís Filipe VIeira", 2, 0, R.drawable.luis_filipe_vieira, R.drawable.mini_luis_filipe_vieira, R.raw.luis_filipe_vieira);
+        insereCartaNaBD(bd, "Marcelo Rebelo de Sousa", 6, 0, R.drawable.marcelo_rebelo_sousa, R.drawable.mini_marcelo_rebelo_sousa, R.raw.marcelo_rebelo_sousa);
+        insereCartaNaBD(bd, "Maya", 1, 0, R.drawable.maya, R.drawable.mini_maya, R.raw.maya);
+        insereCartaNaBD(bd, "O Emplastro", 0, 0, R.drawable.o_emplastro, R.drawable.mini_o_emplastro, R.raw.o_emplastro);
+        insereCartaNaBD(bd, "Pinto da Costa", 2, 0, R.drawable.pinto_da_costa, R.drawable.mini_pinto_da_costa, R.raw.pinto_da_costa);
+        insereCartaNaBD(bd, "António Oliveira Salazar", 7, 0, R.drawable.salazar, R.drawable.mini_salazar, R.raw.salazar);
+        insereCartaNaBD(bd, "Tony Carreira", 0, 0, R.drawable.tony_carreira, R.drawable.mini_tony_carreira, R.raw.tony_carreira);
         // Cartas do Mundo
-        insereCartaNaBD(bd, "Arnold Schwarzenegger", 7, 1, R.drawable.arnold, R.drawable.mini_arnold);
-        insereCartaNaBD(bd, "Comunidade Filósofa Grega", 3, 1, R.drawable.cfg, R.drawable.mini_cfg);
-        insereCartaNaBD(bd, "Leonardo da Vinci", 6, 1, R.drawable.da_vinci, R.drawable.mini_da_vinci);
-        insereCartaNaBD(bd, "Donald Trump", 8, 1, R.drawable.donald_trump, R.drawable.mini_donald_trump);
-        insereCartaNaBD(bd, "Albert Einstein", 7, 1, R.drawable.einstein, R.drawable.mini_einstein);
-        insereCartaNaBD(bd, "Mahatma Gandhi", 0, 1, R.drawable.gandhi, R.drawable.mini_gandhi);
-        insereCartaNaBD(bd, "Adolf Hitler", 10, 1, R.drawable.hitler, R.drawable.mini_hitler);
-        insereCartaNaBD(bd, "ISIS", 8, 1, R.drawable.isis, R.drawable.mini_isis);
-        insereCartaNaBD(bd, "Jackie Chan", 8, 1, R.drawable.jackie_chan, R.drawable.mini_jackie_chan);
-        insereCartaNaBD(bd, "John Cena", 2, 1, R.drawable.john_cena, R.drawable.mini_john_cena);
-        insereCartaNaBD(bd, "Johnny Depp", 2, 1, R.drawable.johnny_depp, R.drawable.mini_johnny_depp);
-        insereCartaNaBD(bd, "Kamikaze", 9, 1, R.drawable.kamikaze, R.drawable.mini_kamikaze);
-        insereCartaNaBD(bd, "Madonna", 6, 1, R.drawable.madonna, R.drawable.mini_madonna);
-        insereCartaNaBD(bd, "Martin Luther King", 4, 1, R.drawable.martin_luther_king, R.drawable.mini_martin_luther_king);
-        insereCartaNaBD(bd, "Mr. Bean", 1, 1, R.drawable.mr_bean, R.drawable.mini_mr_bean);
-        insereCartaNaBD(bd, "Sean Bean", 3, 1, R.drawable.sean_bean, R.drawable.mini_sean_bean);
-        insereCartaNaBD(bd, "Tony Soprano", 5, 1, R.drawable.soprano, R.drawable.mini_soprano);
-        insereCartaNaBD(bd, "The Rock", 5, 1, R.drawable.the_rock, R.drawable.mini_the_rock);
-        insereCartaNaBD(bd, "Tyrion Lannister", 3, 1, R.drawable.tyrion, R.drawable.mini_tyrion);
-        insereCartaNaBD(bd, "Mark Zuckerberg", 4, 1, R.drawable.zuckerberg, R.drawable.mini_zuckerberg);
+        insereCartaNaBD(bd, "Arnold Schwarzenegger", 7, 1, R.drawable.arnold, R.drawable.mini_arnold, R.raw.arnold);
+        insereCartaNaBD(bd, "Comunidade Filósofa Grega", 3, 1, R.drawable.cfg, R.drawable.mini_cfg, R.raw.cfg);
+        insereCartaNaBD(bd, "Leonardo da Vinci", 6, 1, R.drawable.da_vinci, R.drawable.mini_da_vinci, R.raw.da_vinci);
+        insereCartaNaBD(bd, "Donald Trump", 8, 1, R.drawable.donald_trump, R.drawable.mini_donald_trump, R.raw.donald_trump);
+        insereCartaNaBD(bd, "Albert Einstein", 7, 1, R.drawable.einstein, R.drawable.mini_einstein, R.raw.einstein);
+        insereCartaNaBD(bd, "Mahatma Gandhi", 0, 1, R.drawable.gandhi, R.drawable.mini_gandhi, R.raw.gandhi);
+        insereCartaNaBD(bd, "Adolf Hitler", 10, 1, R.drawable.hitler, R.drawable.mini_hitler, R.raw.hitler_1);
+        insereCartaNaBD(bd, "ISIS", 8, 1, R.drawable.isis, R.drawable.mini_isis, R.raw.isis);
+        insereCartaNaBD(bd, "Jackie Chan", 8, 1, R.drawable.jackie_chan, R.drawable.mini_jackie_chan, R.raw.jackie_chan_1);
+        insereCartaNaBD(bd, "John Cena", 2, 1, R.drawable.john_cena, R.drawable.mini_john_cena, R.raw.john_cena);
+        insereCartaNaBD(bd, "Johnny Depp", 2, 1, R.drawable.johnny_depp, R.drawable.mini_johnny_depp, R.raw.johnny_depp);
+        insereCartaNaBD(bd, "Kamikaze", 9, 1, R.drawable.kamikaze, R.drawable.mini_kamikaze, R.raw.kamikaze);
+        insereCartaNaBD(bd, "Madonna", 6, 1, R.drawable.madonna, R.drawable.mini_madonna, R.raw.madonna);
+        insereCartaNaBD(bd, "Martin Luther King", 4, 1, R.drawable.martin_luther_king, R.drawable.mini_martin_luther_king, R.raw.martin_luther_king);
+        insereCartaNaBD(bd, "Mr. Bean", 1, 1, R.drawable.mr_bean, R.drawable.mini_mr_bean, R.raw.mr_bean);
+        insereCartaNaBD(bd, "Sean Bean", 3, 1, R.drawable.sean_bean, R.drawable.mini_sean_bean, R.raw.sean_bean);
+        insereCartaNaBD(bd, "Tony Soprano", 5, 1, R.drawable.soprano, R.drawable.mini_soprano, R.raw.soprano);
+        insereCartaNaBD(bd, "The Rock", 5, 1, R.drawable.the_rock, R.drawable.mini_the_rock, R.raw.the_rock);
+        insereCartaNaBD(bd, "Tyrion Lannister", 3, 1, R.drawable.tyrion, R.drawable.mini_tyrion, R.raw.tyrion);
+        insereCartaNaBD(bd, "Mark Zuckerberg", 4, 1, R.drawable.zuckerberg, R.drawable.mini_zuckerberg, R.raw.zuckerberg);
         System.out.println("CARTAS INSERIDAS NA BASE DADOS COM SUCESSO");
     }
 
-    public boolean insereCartaNaBD(SQLiteDatabase bd, String nome, int poder, int fila, int imgMax, int imgMini){
+    public boolean insereCartaNaBD(SQLiteDatabase bd, String nome, int poder, int fila, int imgMax, int imgMini, int som){
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(NAME_COLUMN, nome);
@@ -127,6 +129,7 @@ public class BaseDados extends SQLiteOpenHelper {
         values.put(FILA_COLUMN, fila);
         values.put(IMG_MAX_COLUMN, imgMax);
         values.put(IMG_MINI_COLUMN, imgMini);
+        values.put(SOUND_COLUMN, som);
         // Insert the new row, returning the primary key value of the <new row
         long res = bd.insert(CARD_TABLE_NAME, null, values);
         return res != -1;
@@ -203,7 +206,8 @@ public class BaseDados extends SQLiteOpenHelper {
                 int fila = cursor.getInt(cursor.getColumnIndex(FILA_COLUMN));
                 int imgMini = cursor.getInt(cursor.getColumnIndex(IMG_MINI_COLUMN));
                 int imgMax = cursor.getInt(cursor.getColumnIndex(IMG_MAX_COLUMN));
-                all_cartas[i] = new Carta(id, nome, poder, imgMini, imgMax, fila); //criacao de carta
+                int som = cursor.getInt(cursor.getColumnIndex(SOUND_COLUMN));
+                all_cartas[i] = new Carta(id, nome, poder, imgMini, imgMax, som, fila); //criacao de carta
                 i++;
             }while (cursor.moveToNext());
             cursor.close();

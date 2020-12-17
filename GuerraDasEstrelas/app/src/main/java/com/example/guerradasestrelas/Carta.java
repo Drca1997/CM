@@ -9,16 +9,18 @@ public class Carta {
     private int poder;
     private int id_mini;
     private int id_max;
+    private int id_som;
     private int fila; //fila 0 - Portugal; fila 1 - Mundo - mais tarde meter estas variaveis como constantes num singleton
     private Habilidade habilidade;
     private int poderDefault;
 
-    public Carta(int id, String nome, int poder, int mini, int max, int fila){
+    public Carta(int id, String nome, int poder, int mini, int max, int som, int fila){
         this.id = id;
         this.nome = nome;
         this.poder = poder;
         this.id_mini = mini;
         this.id_max = max;
+        this.id_som = som;
         this.fila = fila;
         this.habilidade = null;
         this.poderDefault = this.poder;
@@ -65,6 +67,10 @@ public class Carta {
 
     public int getId_max() {
         return id_max;
+    }
+
+    public int getId_som() {
+        return id_som;
     }
 
     public int getId() {

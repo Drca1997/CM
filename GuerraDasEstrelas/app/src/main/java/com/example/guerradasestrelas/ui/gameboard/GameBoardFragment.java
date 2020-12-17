@@ -105,7 +105,6 @@ public class GameBoardFragment extends Fragment {
         initArguments();
 
         final Jogo jogo = new Jogo(getActivity(), view, p1_n, p2_n, cartas);
-
         old_hand = "";
         old_ronda = jogo.getRonda();
 

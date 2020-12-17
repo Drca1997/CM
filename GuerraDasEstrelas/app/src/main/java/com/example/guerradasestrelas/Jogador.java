@@ -1,5 +1,6 @@
 package com.example.guerradasestrelas;
 
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -105,6 +106,11 @@ public class Jogador {
     public void jogaCarta(Carta carta, int freeSlot, int turno, Jogador [] jogadores){
         removeCartadaMao(carta);
         campo[carta.getFila()][freeSlot].setCarta(carta); //coloca carta no campo
+
+        //tocar o som associado com a carta
+        MediaPlayer mp = MediaPlayer.create(Singleton.context,carta.getId_som());
+        mp.start();
+
         System.out.println("JOGANDO " + carta.getNome().toUpperCase());
         if (carta.getHabilidade() != null){
             carta.getHabilidade().Execute(turno, jogadores, carta);
