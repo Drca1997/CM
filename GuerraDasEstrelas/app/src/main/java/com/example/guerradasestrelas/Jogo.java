@@ -32,6 +32,7 @@ public class Jogo {
         Carta[] allCards = new Carta[Singleton.NUM_CARTAS];
         try {
             allCards = new loadCardsTask(bd).execute().get();
+            new getCardSkillsTask(bd,allCards).execute();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -50,8 +51,6 @@ public class Jogo {
         player1Label.setText(jog1);
         TextView player2Label = view.findViewById(R.id.p2_nome);
         player2Label.setText(jog2);
-
-        bd.getCardsSkills(allCards);
 
         setupGame(allCards);
 
