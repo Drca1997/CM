@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 public class Jogo {
 
@@ -25,12 +26,22 @@ public class Jogo {
         Singleton.context = context;
         Singleton.view = view;
 
+        BaseDados bd = new BaseDados(context);
+        //Carta [] allCards= bd.GetAllCards();
+
+        Carta[] allCards = new Carta[Singleton.NUM_CARTAS];
+        try {
+            allCards = new loadCardsTask(bd).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         handSlots = new CardSlot[Singleton.LIM_MAO];
         BuildHandSlots();
         playerLabel = view.findViewById(R.id.mao_jog_text);
 
-        BaseDados bd = new BaseDados(context);
-        Carta [] allCards= bd.GetAllCards();
         // CardsInd vai ter nos 15 primeiros indices os indices no array allCards das cartas do jogador 0 e nos ultimos os do jogador 1
         cardsNum = cardsInd;
 

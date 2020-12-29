@@ -29,9 +29,11 @@ import com.example.guerradasestrelas.Carta;
 import com.example.guerradasestrelas.R;
 import com.example.guerradasestrelas.Singleton;
 import com.example.guerradasestrelas.Utils;
+import com.example.guerradasestrelas.loadCardsTask;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class SorteioFragment extends Fragment {
     private static final String PLAYER1_NAME = "PLAYER1_N";
@@ -92,14 +94,24 @@ public class SorteioFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_sorteio, container, false);
-
         initArguments();
 
         // Obter cartas e baralhar
         BaseDados bd = new BaseDados(getActivity());
-        allCartas = bd.GetAllCards();
+
+        allCartas = new Carta[Singleton.NUM_CARTAS];
+        try {
+            allCartas = new loadCardsTask(bd).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        //allCartas = bd.GetAllCards();
+
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_sorteio, container, false);
 
         // Gerar array com indices baralhados
         int [] preShakedInds = new int[Singleton.NUM_CARTAS];

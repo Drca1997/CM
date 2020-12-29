@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,10 @@ import android.widget.LinearLayout;
 import com.example.guerradasestrelas.BaseDados;
 import com.example.guerradasestrelas.Carta;
 import com.example.guerradasestrelas.R;
+import com.example.guerradasestrelas.Singleton;
+import com.example.guerradasestrelas.loadCardsTask;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,13 +63,23 @@ public class GalleryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        BaseDados bd = new BaseDados(getActivity());
+        //final Carta cartas[] = bd.GetAllCards();
+
+        Carta cartas[] = new Carta[Singleton.NUM_CARTAS];
+        try {
+            cartas = new loadCardsTask(bd).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_gallery, container, false);
 
         LinearLayout galLayout = view.findViewById(R.id.galleryLayout);
 
-        BaseDados bd = new BaseDados(getActivity());
-        final Carta cartas[] = bd.GetAllCards();
         for (int i = 0; i<cartas.length; i++){
             View view_card = inflater.inflate(R.layout.card_item,galLayout,false);
 
@@ -73,11 +88,12 @@ public class GalleryFragment extends Fragment {
             final int ind = i;
 
 
+            final Carta[] finalCartas = cartas;
             card_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //click na carta -> ENHANCE
-                    zoomImage(card_image, cartas[ind].getId_max());
+                    zoomImage(card_image, finalCartas[ind].getId_max());
 
                     // Retrieve and cache the system's default "short" animation time.
                     shortAnimationDuration = getResources().getInteger(
